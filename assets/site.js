@@ -418,23 +418,30 @@
   });
 
   // OpenStrut live app: nothing loads from the app's origin until a click on the facade.
+  // Each button's data-demo is the app's demo link (?exemplo=...&embed=1): the app opens
+  // the calculated example on that view, with no steps inside the frame.
   $$('[data-app]').forEach(app => {
-    const src = app.dataset.src, fr = $('.app-frame', app), face = $('.app-face', app), bar = $('.app-bar', app), hint = $('.hint', bar);
+    const base = app.dataset.src, fr = $('.app-frame', app), face = $('.app-face', app), bar = $('.app-bar', app), hint = $('.hint', bar), ext = $('.ext', bar);
     const frame = () => $('iframe', fr);
+    let src = base;
     const launch = b => {
+      src = base + b.dataset.demo;
       hint.textContent = '';
       const g = d.createElement('b');
-      g.textContent = 'Guide // ';
-      hint.append(g, b.dataset.hint);
+      g.textContent = 'Live // ';
+      hint.append(g, b.textContent);
+      // the external tab is the full app, not the embedded mode
+      ext.href = src.replace(/[?&]embed=1$/, '');
       bar.hidden = false;
       if (!frame()) {
         const f = d.createElement('iframe');
-        f.src = src; f.title = 'OpenStrut V2 live app'; f.allow = 'fullscreen; clipboard-write; xr-spatial-tracking'; f.referrerPolicy = 'no-referrer';
+        f.title = 'OpenStrut V2 live app'; f.allow = 'fullscreen; clipboard-write; xr-spatial-tracking'; f.referrerPolicy = 'no-referrer';
         fr.append(f);
       }
+      frame().src = src;
       face.hidden = true;
     };
-    $$('[data-hint]', face).forEach(b => (b.onclick = () => launch(b)));
+    $$('[data-demo]', face).forEach(b => (b.onclick = () => launch(b)));
     $('[data-act=fs]', bar).onclick = () => (app.requestFullscreen ? app.requestFullscreen().catch(() => {}) : frame() && frame().requestFullscreen && frame().requestFullscreen());
     $('[data-act=reload]', bar).onclick = () => frame() && (frame().src = src);
     $('[data-act=close]', bar).onclick = () => { if (d.fullscreenElement) d.exitFullscreen(); frame() && frame().remove(); bar.hidden = true; face.hidden = false; };
