@@ -1,14 +1,20 @@
-// praisetc.com: theme toggle, pickers, palette inspector and <dialog> lightbox. No dependencies.
+// praisetc.com interactions. One deferred file, no dependencies. Each block hydrates the markup it
+// finds and does nothing when that markup is absent, so every page loads the same script.
 (() => {
-  const d = document, R = d.documentElement, $$ = (s, el = d) => [...el.querySelectorAll(s)];
-  const mq = matchMedia('(prefers-color-scheme: dark)');
+  const d = document, R = d.documentElement, raf = requestAnimationFrame;
+  const $ = (s, el = d) => el.querySelector(s), $$ = (s, el = d) => [...el.querySelectorAll(s)];
+  const mq = matchMedia('(prefers-color-scheme: dark)'), RM = matchMedia('(prefers-reduced-motion: reduce)');
   const theme = () => R.dataset.theme || (mq.matches ? 'dark' : 'light');
+  // Calls fn(visible) whenever el enters or leaves the viewport.
+  const onView = (el, fn, opt) => (self.IntersectionObserver ? new IntersectionObserver(es => es.forEach(e => fn(e.isIntersecting)), opt).observe(el) : fn(true));
+  const WB = { studio: ['#111214', '#F3F3F0'], dawnbringer: ['#0B0710', '#F4EFE6'], openstrut: ['#0B121C', '#EEF3F8'] };
 
-  // Theme. The inline head script applied a saved choice before first paint.
+  // Theme toggle and browser chrome colour. The inline head script applied a saved theme before first paint.
   const paint = () => {
-    const t = theme();
+    const t = theme(), w = WB[R.dataset.world] || WB.studio;
     $$('.tog').forEach(b => b.setAttribute('aria-pressed', t == 'dark'));
-    if (R.dataset.theme) $$('meta[name=theme-color]').forEach(m => (m.content = t == 'dark' ? '#111214' : '#F3F3F0'));
+    $$('meta[name=theme-color]').forEach((m, i) => (m.content = R.dataset.theme ? w[t == 'dark' ? 0 : 1] : w[i]));
+    d.dispatchEvent(new Event('ptc:paint'));
   };
   $$('.tog').forEach(b => (b.onclick = () => {
     R.dataset.theme = theme() == 'dark' ? 'light' : 'dark';
@@ -22,26 +28,141 @@
   const showAll = () => $$('.cv').forEach(s => (s.style.contentVisibility = 'visible'));
   addEventListener('load', () => (self.requestIdleCallback ? requestIdleCallback(showAll) : setTimeout(showAll, 200)));
 
-  // Pickers: click or focus on a [data-k] button fills its [data-picker] box (fixed-height outputs).
-  const pick = (box, btn) => {
-    const k = btn.dataset.k, ds = btn.dataset;
-    $$('[data-k]', box).forEach(b => b.setAttribute('aria-pressed', b == btn));
-    box.dataset.active = k;
-    $$('[data-m]', box).forEach(c => c.classList.toggle('on', c.dataset.m == k));
-    if (ds.at) {
-      const [x, y, s] = ds.at.split(',');
-      box.style.cssText = `--x:${x / 5.6};--y:${y / 4};--k:${s || 1}`;
+  // Reading progress on the nav's top edge.
+  const prog = $('.nav .prog');
+  if (prog) {
+    let q = 0;
+    const upd = () => { q = 0; const h = R.scrollHeight - innerHeight; prog.style.setProperty('--p', h > 0 ? Math.min(1, scrollY / h).toFixed(4) : 0); };
+    addEventListener('scroll', () => q || (q = raf(upd)), { passive: true });
+    addEventListener('resize', upd);
+    upd();
+  }
+
+  // Home: sections carry data-world-section; the one under the 45% line sets the world. The pill jumps on.
+  const pill = $('.world-pill'), secs = $$('[data-world-section]');
+  const setWorld = w => {
+    if (R.dataset.world == w) return;
+    R.dataset.world = w;
+    if (pill) {
+      $('span:last-child', pill).textContent = w.toUpperCase();
+      if (pill.tagName == 'BUTTON') pill.setAttribute('aria-label', `Visual world: ${w}. Go to the next section`);
     }
-    for (const o of 'td') { const el = box.querySelector(`[data-o=${o}]`); if (el && ds[o]) el.textContent = ds[o]; }
-    const out = box.querySelector('[data-out]');
-    if (out && ds.b) out.style.cssText = `--b:${ds.b};--f:${ds.f}`;
-    const img = box.querySelector('[data-stage]');
-    if (img && ds.src) Object.assign(img, { src: ds.src, width: ds.w, height: ds.h, alt: ds.alt });
+    paint();
   };
-  $$('[data-picker]').forEach(box => $$('[data-k]', box).forEach(b => {
-    b.addEventListener('click', () => pick(box, b));
-    b.addEventListener('focus', () => pick(box, b));
-  }));
+  if (secs.length && !R.hasAttribute('data-fixed') && self.IntersectionObserver) {
+    const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && setWorld(e.target.dataset.worldSection)), { rootMargin: '-42% 0px -52% 0px' });
+    secs.forEach(s => io.observe(s));
+    if (pill && pill.tagName == 'BUTTON') pill.onclick = () => {
+      const y = innerHeight * .45, i = secs.findIndex(s => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+      secs[(i + 1) % secs.length].scrollIntoView({ behavior: RM.matches ? 'auto' : 'smooth' });
+    };
+  }
+
+  // Count-up for [data-count]. The HTML already holds the final number; Reduce motion keeps it.
+  $$('[data-count]').forEach(el => {
+    const n = +el.dataset.count, sx = el.dataset.suffix || '', fmt = v => Math.round(v).toLocaleString('en-US') + sx;
+    if (RM.matches || !n) return;
+    let done = 0;
+    el.textContent = fmt(0);
+    onView(el, v => {
+      if (!v || done) return;
+      done = 1;
+      const t0 = performance.now(), step = t => { const k = Math.min(1, (t - t0) / 1300); el.textContent = fmt(n * (1 - (1 - k) ** 3)); if (k < 1) raf(step); };
+      raf(step);
+    });
+  });
+
+  // Tabs: role=tablist with role=tab buttons that point at their panel with aria-controls.
+  $$('[role=tablist]').forEach(tl => {
+    const tabs = $$('[role=tab]', tl);
+    const sel = t => tabs.forEach(b => { const on = b == t; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; d.getElementById(b.getAttribute('aria-controls')).hidden = !on; });
+    tabs.forEach((b, i) => {
+      b.onclick = () => sel(b);
+      b.onkeydown = e => { const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (k) { const n = tabs[(i + k + tabs.length) % tabs.length]; sel(n); n.focus(); } };
+    });
+  });
+
+  // Concept art: the glow follows the pointer and the art shifts against it. Transform only.
+  if (!RM.matches && matchMedia('(hover: hover)').matches) $$('[data-lantern]').forEach(el => {
+    let q = 0, x = 0, y = 0;
+    const apply = () => { q = 0; const r = el.getBoundingClientRect(), u = x - r.left, v = y - r.top; el.style.cssText = `--mx:${u | 0}px;--my:${v | 0}px;--px:${(u / r.width - .5).toFixed(3)};--py:${(v / r.height - .5).toFixed(3)}`; };
+    el.addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; q || (q = raf(apply)); });
+    el.addEventListener('pointerleave', () => (el.style.cssText = ''));
+  });
+
+  // Looping videos: play only while a quarter is on screen; Reduce motion keeps the poster until Play.
+  $$('[data-vid]').forEach(box => {
+    const vs = $$('video', box), btn = $('[data-play]', box);
+    let user = RM.matches, vis = false;
+    const run = () => {
+      const go = vis && !user;
+      vs.forEach(v => (go ? v.play().catch(() => {}) : v.pause()));
+      if (btn) { btn.textContent = go ? 'Pause' : 'Play'; btn.setAttribute('aria-label', (go ? 'Pause' : 'Play') + ' the video'); }
+    };
+    onView(box, v => { vis = v; run(); }, { threshold: .25 });
+    if (btn) btn.onclick = () => { user = !user; if (vs[1]) vs[0].currentTime = vs[1].currentTime; run(); };
+  });
+
+  // OFF / HIGH curtain: drag, range or jump buttons set --pos; the OFF layer follows the HIGH clock.
+  $$('[data-cur]').forEach(w => {
+    const st = $('.cur', w), lo = $('video.lo', w), hi = $('video.hi', w), rg = $('input[type=range]', w), out = $('output', w);
+    const set = p => {
+      p = Math.max(0, Math.min(100, Math.round(p)));
+      st.style.setProperty('--pos', p + '%');
+      rg.value = Math.max(5, Math.min(95, p));
+      out.textContent = p + '% HIGH';
+      rg.setAttribute('aria-valuetext', `${p}% of the frame with lighting on high`);
+    };
+    rg.oninput = () => set(+rg.value);
+    $$('[data-pos]', w).forEach(b => (b.onclick = () => set(+b.dataset.pos)));
+    let drag = 0;
+    const at = e => { const r = st.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); };
+    st.addEventListener('pointerdown', e => { drag = 1; st.setPointerCapture(e.pointerId); at(e); });
+    st.addEventListener('pointermove', e => drag && at(e));
+    ['pointerup', 'pointercancel'].forEach(t => st.addEventListener(t, () => (drag = 0)));
+    hi.addEventListener('timeupdate', () => { if (Math.abs(lo.currentTime - hi.currentTime) > .06) lo.currentTime = hi.currentTime; });
+    set(+rg.value);
+  });
+
+  // Animation speed lab. Durations from ANIMATION_DIRECTION.md; 33 ms floor; at 4x the smear frame drops.
+  const lab = $('[data-alab]');
+  if (lab) {
+    const DUR = [110, 160, 40, 90, 100, 120], NM = ['anticipation', 'peak hold', 'smear', 'impact', 'follow-through', 'recover'];
+    const vp = $('.alab-vp', lab), tag = $('b', vp), cells = $$('.alab-tl button', lab), out = $('.alab-out', lab), pb = $('[data-play]', lab), sb = $$('[data-speed]', lab);
+    let sp = 1, f = 0, acc = 0, last = 0, play = !RM.matches, vis = false, id = 0;
+    const ms = i => (sp == 4 && i == 2 ? 0 : Math.max(33, Math.round(DUR[i] / sp)));
+    const next = i => { do i = (i + 1) % 6; while (!ms(i)); return i; };
+    const show = () => {
+      vp.style.setProperty('--f', f);
+      tag.textContent = `F${f + 1} ${NM[f].toUpperCase()}`;
+      cells.forEach((c, i) => c.setAttribute('aria-current', i == f));
+      const tot = DUR.reduce((s, _, i) => s + ms(i), 0);
+      out.innerHTML = `<b>Frame ${f + 1} of 6, ${NM[f]}.</b> ${DUR[f]} ms at 1x, ${ms(f) ? ms(f) + ' ms' : 'dropped'} at ${sp}x.<br>Loop ${tot} ms at ${sp}x${sp == 4 ? ', smear dropped' : ''}.`;
+    };
+    const layout = () => cells.forEach((c, i) => { const m = ms(i); c.style.setProperty('--w', m || 26); c.classList.toggle('drop', !m); $('span', c).textContent = m ? m + ' ms' : 'DROPPED'; });
+    const tick = t => {
+      id = 0;
+      if (!play || !vis) return;
+      acc += Math.min(120, t - (last || t)); last = t;
+      while (acc >= ms(f)) { acc -= ms(f); f = next(f); }
+      show();
+      id = raf(tick);
+    };
+    const go = () => { last = 0; if (play && vis && !id) id = raf(tick); pb.textContent = play ? 'Pause' : 'Play'; };
+    sb.forEach(b => (b.onclick = () => { sp = +b.dataset.speed; sb.forEach(x => x.setAttribute('aria-pressed', x == b)); if (!ms(f)) f = next(f); layout(); show(); }));
+    pb.onclick = () => { play = !play; go(); };
+    $('[data-stepf]', lab).onclick = () => { play = false; f = next(f); acc = 0; show(); go(); };
+    cells.forEach((c, i) => (c.onclick = () => { play = false; f = i; acc = 0; show(); go(); }));
+    onView(lab, v => { vis = v; go(); });
+    layout(); show(); go();
+  }
+
+  // Generic pickers: a [data-k] button fills its [data-picker] box (used by the code comparator).
+  $$('[data-picker]').forEach(box => $$('[data-k]', box).forEach(b => (b.onclick = () => {
+    $$('[data-k]', box).forEach(x => x.setAttribute('aria-pressed', x == b));
+    $$('[data-m]', box).forEach(c => c.classList.toggle('on', c.dataset.m == b.dataset.k));
+    for (const o of 'td') { const el = $(`[data-o=${o}]`, box); if (el && b.dataset[o]) el.textContent = b.dataset[o]; }
+  })));
 
   // Dark Fantasy 32 inspector: [name, base, accent %, forbidden] from palette.json direction.biomes.
   const BIO = {
@@ -57,11 +178,9 @@
     '#C39BE8': 'Arcane top. Landlord glow, Lease text and curse status.',
     '#D66A51': 'Blood top. The lethal skull on the Stone of Despair, danger UI and the Landlord seal reveal.',
   };
-  const pal = d.querySelector('[data-pal]');
+  const pal = $('[data-pal]');
   if (pal) {
-    const sws = $$('.sw', pal), bio = pal.querySelector('[data-bio]'), card = pal.querySelector('[data-pick]'), all = bio.innerHTML;
-    sws.forEach(sw => (sw.dataset.baseLabel = sw.getAttribute('aria-label') || sw.dataset.h));
-    const fb = $$('.pal-f button', pal), list = s => s.split(' ').join(', ');
+    const sws = $$('.sw', pal), bio = $('[data-bio]', pal), card = $('[data-pick]', pal), all = bio.innerHTML, fb = $$('.pal-f button', pal), list = s => s.split(' ').join(', ');
     let f = 'all', sel;
     const has = (l, sw) => l.split(' ').some(t => t == sw.dataset.r || t == sw.dataset.h);
     const state = sw => {
@@ -70,31 +189,288 @@
       return !b ? '' : q ? 'accent ' + q + '%' : has(b[3], sw) ? 'forbidden' : has(b[1], sw) ? 'base' : 'other';
     };
     const copy = () => {
-      const h = sel.dataset.h, msg = card.querySelector('p:last-child');
-      const done = ok => (msg.textContent = ok ? `Copied ${h} to the clipboard.` : `Select and copy ${h} by hand.`);
+      const h = sel.dataset.h, msg = $('[data-msg]', card), done = ok => (msg.textContent = ok ? `Copied ${h} to the clipboard.` : `Select and copy ${h} by hand.`);
       try { navigator.clipboard.writeText(h).then(() => done(1), () => done(0)); } catch (e) { done(0); }
     };
     const apply = () => {
       for (const sw of sws) {
-        const st = state(sw), hot = st[0] == 'a' || st == 'reserved';
+        const st = state(sw), hot = st[0] == 'a' || st == 'reserved', base = sw.dataset.label || (sw.dataset.label = sw.getAttribute('aria-label'));
         sw.className = 'sw' + (st == 'base' ? ' is-base' : hot ? ' is-hot' : st == 'forbidden' ? ' is-off' : st ? ' is-dim' : '') + (sw == sel ? ' is-sel' : '');
         sw.setAttribute('aria-pressed', sw == sel);
-        sw.setAttribute('aria-label', st && st != 'other' ? `${sw.dataset.baseLabel}, ${st}` : sw.dataset.baseLabel);
+        sw.setAttribute('aria-label', st && st != 'other' ? `${base}, ${st}` : base);
         if (hot) sw.dataset.q = st == 'reserved' ? 'R' : st.slice(7); else delete sw.dataset.q;
       }
       fb.forEach(b => b.setAttribute('aria-pressed', b.dataset.f == f));
       const b = BIO[f];
       bio.innerHTML = b
-        ? `<h4>Biome // ${b[0]}</h4><p class="small" style="margin:0">Base ramps: <b>${list(b[1])}</b>.<br>Accent quotas: ${Object.entries(b[2]).map(([h, q]) => `${h} at ${q}%`).join(', ')}.<br>Forbidden: ${list(b[3])}.</p>`
-        : f == 'reserved' ? '<h4>Reserved roles (3)</h4><p class="small" style="margin:0">Three colours carry a meaning and appear nowhere else. R marks them in the grid.</p>' : all;
+        ? `<h4>Biome // ${b[0]}</h4><p class="small">Base ramps: <b>${list(b[1])}</b>.<br>Accent quotas: ${Object.entries(b[2]).map(([h, q]) => `${h} at ${q}%`).join(', ')}.<br>Forbidden: ${list(b[3])}.</p>`
+        : f == 'reserved' ? '<h4>Reserved roles (3)</h4><p class="small">Three colours carry one meaning each and appear nowhere else. R marks them in the grid.</p>' : all;
       if (!sel) return;
       const h = sel.dataset.h, r = sel.dataset.r, rs = sws.filter(s => s.dataset.r == r), st = state(sel);
-      card.innerHTML = `<h4>Selected colour</h4><div class="pick" style="--c:${h}"><i></i><div><strong>${h}</strong><span class="mono small mu">${r} ${rs.indexOf(sel) + 1} of ${rs.length}${st && st != 'other' ? ' // ' + st : ''}</span></div><button class="btn" type="button">Copy</button></div>${RES[h] ? `<p class="small" style="margin:12px 0 0">Reserved. ${RES[h]}</p>` : ''}<p class="mono small mu" style="margin:10px 0 0"></p>`;
-      card.querySelector('button').onclick = copy;
+      card.innerHTML = `<h4>Selected colour</h4><div class="pick" style="--c:${h}"><i></i><div><strong>${h}</strong><span class="mono small mu">${r} ${rs.indexOf(sel) + 1} of ${rs.length}${st && st != 'other' ? ' // ' + st : ''}</span></div><button class="btn sm" type="button">Copy</button></div>${RES[h] ? `<p class="small" style="margin-top:10px">Reserved. ${RES[h]}</p>` : ''}<p class="mono small mu" style="margin-top:8px" data-msg></p>`;
+      $('button', card).onclick = copy;
     };
     fb.forEach(b => (b.onclick = () => { f = b.dataset.f; apply(); }));
     sws.forEach(sw => (sw.onclick = () => { sel = sw; apply(); }));
     apply();
+  }
+
+  // Orbiting constellations. Icons are 24x24 paths on a 45-degree grid (constellation.mjs); s = stroke, f = fill.
+  const sq = (x, y, h) => `M${x - h} ${y - h}H${x + h}V${y + h}H${x - h}Z`;
+  const IC = {
+    cube: ['M4 9H15V20H4Z M4 9L9 4H20L15 9 M20 4V15L15 20', sq(9.5, 14.5, 1.6)],
+    prism: ['M10 4L18 18H2Z M-1 14.4L5.1 12.5 M13.4 10L23.5 7.2 M14.9 12.5H23.5 M16.3 15L23.5 17.8'],
+    hooks: ['M3.5 17V8.5L8.5 3.5H14L16.5 6V11 M20.5 7V15.5L15.5 20.5H10L7.5 18V13', sq(10.6, 7.4, .9) + sq(13.4, 16.6, .9)],
+    braces: ['M9.5 3.5H8.5L6.5 5.5V9.5L4 12L6.5 14.5V18.5L8.5 20.5H9.5 M14.5 3.5H15.5L17.5 5.5V9.5L20 12L17.5 14.5V18.5L15.5 20.5H14.5 M12 12.6V15L10.8 16.8'],
+    ts: ['M7.5 6.5L2 12L7.5 17.5 M16.5 6.5L22 12L16.5 17.5 M9 8.5H15 M12 8.5V16'],
+    db: ['M5 6.5L7.5 4H16.5L19 6.5L16.5 9H7.5Z M5 6.5V17.5L7.5 20H16.5L19 17.5V6.5 M5 12L7.5 14.5H16.5L19 12'],
+    shell: ['M5 6.5L10.5 12L5 17.5 M12.5 17.5H19.5'],
+    layers: ['M3.5 10.5H10.5L13.5 13.5V20.5H3.5Z M7 10.5V7H14L17 10V17H13.5 M10.5 7V3.5H17.5L20.5 6.5V13.5H17'],
+    axes: ['M9.5 3.5V14.5H20.5 M9.5 14.5L3.5 20.5 M7.3 5.7L9.5 3.5L11.7 5.7 M18.3 12.3L20.5 14.5L18.3 16.7 M3.5 17.4V20.5H6.6'],
+    square: ['M4 20H20L4 4Z M7.5 16.5H12L7.5 12Z', sq(15, 5.5, .9) + sq(19.5, 5.5, .9) + sq(19.5, 10, .9)],
+    bim: ['M5.5 9H13.5V20.5H5.5Z M5.5 9L10.5 4H18.5L13.5 9 M18.5 4V15.5L13.5 20.5 M5.5 14.75H13.5L18.5 9.75'],
+    mesh: ['M8.5 3.5V20.5 M15.5 3.5V20.5 M3.5 8.5H20.5 M3.5 15.5H20.5', sq(8.5, 8.5, 1.7) + sq(15.5, 8.5, 1.7) + sq(8.5, 15.5, 1.7) + sq(15.5, 15.5, 1.7)],
+    floppy: ['M4 4H16.5L20 7.5V20H4Z M8 4V9H15V4 M7.5 20V14H16.5V20'],
+    loop: ['M20.5 11.5V15.5L15.5 20.5H8.5L3.5 15.5V8.5L8.5 3.5H16 M13.5 1L16 3.5L13.5 6 M8 12.5L10.75 15.25L16.25 9.75'],
+    code: ['M7.5 6.5L2 12L7.5 17.5 M16.5 6.5L22 12L16.5 17.5 M14 5L10 19'],
+    vertex: ['M5 19.5V10L10 5H19.5V19.5Z', sq(5, 10, 1.8) + sq(10, 5, 1.8)],
+    hex: ['M12 3L19.79 7.5V16.5L12 21L4.21 16.5V7.5Z M8.5 12H15.5 M12.7 9.2L15.5 12L12.7 14.8'],
+    reticle: ['M9.5 6H14.5L18 9.5V14.5L14.5 18H9.5L6 14.5V9.5Z M12 2.5V8.5 M12 15.5V21.5 M2.5 12H8.5 M15.5 12H21.5', sq(12, 12, 1)],
+    kv: ['M4 7H9 M13.5 7H20 M4 12H7.5 M13.5 12H17.5 M4 17H9 M13.5 17H20', [7, 12, 17].map(y => `M10.4 ${y - 2}H11.6V${y - .8}H10.4Z M10.4 ${y + .8}H11.6V${y + 2}H10.4Z`).join(' ')],
+    pipe: ['M2.5 9.5H7.5V14.5H2.5Z M16.5 3.5H21.5V8.5H16.5Z M16.5 15.5H21.5V20.5H16.5Z M7.5 12H9.5L15.5 6H16.5 M9.5 12L15.5 18H16.5'],
+  };
+  const paths = k => { const [s, f] = IC[k] || ['']; return `<path d="${s}"/>${f ? `<path class="f" d="${f}"/>` : ''}`; };
+  $$('[data-orbit]').forEach(box => {
+    const stage = $('.orbit-stage', box), hub = $('.orb-hub', stage), orbs = $$('.orb', stage), items = [hub, ...orbs];
+    const chipBox = $('.orb-chips', box), tog = $('.orb-tog', stage), t = $('[data-o=t]', box), dd = $('[data-o=d]', box);
+    items.forEach(b => {
+      const s = b.dataset;
+      b.setAttribute('aria-label', `${s.k} ${s.name}, ${s.sub}`);
+      b.innerHTML = b == hub
+        ? `<svg class="o" viewBox="0 0 100 100" aria-hidden="true"><path class="oc" d="M22 1H78L99 22V78L78 99H22L1 78V22Z"/></svg><span class="n">${s.k}</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${paths(s.icon)}</svg><strong>${s.name}</strong><small>${s.sub}</small>`
+        : `<span class="orb-u"><svg class="o" viewBox="0 0 48 48" aria-hidden="true"><path class="oc" d="M11 1H37L47 11V37L37 47H11L1 37V11Z"/><g class="ic" transform="translate(12 12)">${paths(s.icon)}</g></svg><b>${s.k}</b></span>`;
+    });
+    const chips = items.map(b => {
+      const c = d.createElement('button');
+      c.type = 'button'; c.className = 'orb-chip'; c.dataset.k = b.dataset.k;
+      c.innerHTML = `<b>${b.dataset.k}</b><span>${b.dataset.name}</span>`;
+      chipBox.append(c);
+      return c;
+    });
+    const sel = k => {
+      [...items, ...chips].forEach(b => b.setAttribute('aria-pressed', b.dataset.k == k));
+      const s = items.find(b => b.dataset.k == k).dataset;
+      t.textContent = `${s.k} // ${s.name} // ${s.sub}`;
+      dd.textContent = s.d;
+    };
+    sel(hub.dataset.k);
+
+    // Motion: hover, focus or a click on a node or chip eases the rings to a stop; leaving eases them back.
+    let vis = 0, hov = 0, foc = 0, pin = 0, user = 0, rate = 1, ramp = 0, pinT;
+    const target = () => (vis && !hov && !foc && !pin && !user ? 1 : 0);
+    const anims = () => (stage.getAnimations ? stage.getAnimations({ subtree: true }).filter(a => /^orb-/.test(a.animationName || '')) : null);
+    const step = () => {
+      ramp = 0;
+      const as = anims(), tg = target();
+      if (!as) return stage.classList.toggle('is-paused', !tg);
+      if (!as.length) return;
+      if (!vis) { rate = 0; return as.forEach(a => a.pause()); }
+      rate = Math.abs(tg - rate) < .02 ? tg : rate + (tg - rate) * .14;
+      as.forEach(a => { a.playbackRate = rate; if (rate && a.playState != 'running') a.play(); });
+      if (!rate) as.forEach(a => a.pause());
+      if (rate != tg) ramp = raf(step);
+    };
+    const drive = () => ramp || (ramp = raf(step));
+    const hold = k => { sel(k); pin = 1; clearTimeout(pinT); pinT = setTimeout(() => { pin = 0; drive(); }, 4000); drive(); };
+    [...items, ...chips].forEach(b => {
+      b.addEventListener('click', () => hold(b.dataset.k));
+      b.addEventListener('pointerenter', e => e.pointerType == 'mouse' && sel(b.dataset.k));
+      b.addEventListener('focus', () => sel(b.dataset.k));
+    });
+    [stage, chipBox].forEach(el => {
+      el.addEventListener('pointerenter', e => { if (e.pointerType == 'mouse') { hov = 1; drive(); } });
+      el.addEventListener('pointerleave', () => { hov = 0; drive(); });
+    });
+    box.addEventListener('focusin', e => { if (e.target != tog && e.target.matches(':focus-visible')) { foc = 1; drive(); } });
+    box.addEventListener('focusout', e => { if (!box.contains(e.relatedTarget) || e.relatedTarget == tog) { foc = 0; drive(); } });
+    tog.onclick = () => {
+      user = !user;
+      if (!user) hov = foc = pin = 0;
+      tog.setAttribute('aria-pressed', !!user);
+      tog.textContent = user ? 'Orbit' : 'Pause';
+      tog.setAttribute('aria-label', user ? 'Resume the orbit' : 'Pause the orbit');
+      drive();
+    };
+    onView(stage, v => { vis = v; drive(); });
+  });
+
+  // OpenStrut sandbox: a 3 x 2 bay frame drawn on Canvas 2D, illustrative tributary Nk and live IFC4 text.
+  $$('[data-sbx]').forEach(el => {
+    const cv = $('canvas', el), cx = cv.getContext('2d'), hud = $('.sbx-hud', el), stepEl = $('.step', el), ramp = $('.sbx-ramp', el);
+    const I = n => $(`[name=${n}]`, el), inp = { lx: I('lx'), ly: I('ly'), st: I('st'), ex: I('ex') };
+    const NX = 3, NY = 2, H = 2.8, Q = 12;
+    let yaw = -.62, pitch = .5, view = '3d', vis = 0, hov = 0, drag = null, id = 0, last = 0, settle = 0, dpr = 1, cw = 0, ch = 0, C, M;
+    const colors = () => {
+      const s = getComputedStyle(cv), [r, g, b] = s.backgroundColor.match(/[\d.]+/g).map(Number), dark = r * .3 + g * .59 + b * .11 < 128;
+      C = { fg: s.color, ln: s.borderTopColor, mu: s.borderBottomColor, ac: s.borderLeftColor, ramp: dark ? ['#38BDF8', '#FBBF24', '#FF5A1F'] : ['#0369A1', '#B45309', '#C2410C'] };
+      ramp.style.cssText = `--r0:${C.ramp[0]};--r1:${C.ramp[1]};--r2:${C.ramp[2]}`;
+    };
+    const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+    const tone = k => { const [a, b] = k < .5 ? [C.ramp[0], C.ramp[1]] : [C.ramp[1], C.ramp[2]], u = k < .5 ? k * 2 : k * 2 - 1, A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * u)).join()})`; };
+    const fmt = v => Math.round(v).toLocaleString('en-US');
+    const model = () => {
+      const a = +inp.lx.value, b = +inp.ly.value, n = +inp.st.value, e = +inp.ex.value / 100, cols = [];
+      for (let j = 0; j <= NY; j++) for (let i = 0; i <= NX; i++) cols.push({ i, j, A: (i % NX ? 1 : .5) * a * ((j % NY) ? 1 : .5) * b });
+      const gap = H * (1 + e * .9);
+      return { a, b, n, e, cols, gap, max: Q * a * b * n, W: a * NX, D: b * NY, Z: gap * (n - 1) + H };
+    };
+    const nk = (c, s) => Q * c.A * (M.n - s);
+    const P = (x, y, z, k) => {
+      x -= M.W / 2; y -= M.D / 2; z -= M.Z / 2;
+      const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+      const X = x * cy - y * sy, Y = x * sy + y * cy, up = z * cp + Y * sp, dep = Y * cp - z * sp, f = k.F / (k.F + dep);
+      return [k.cx + X * f * k.s, k.cy - up * f * k.s];
+    };
+    const line = (a, b, c, w) => { cx.strokeStyle = c; cx.lineWidth = w; cx.beginPath(); cx.moveTo(a[0], a[1]); cx.lineTo(b[0], b[1]); cx.stroke(); };
+    const draw = () => {
+      if (!cw) return;
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx.clearRect(0, 0, cw, ch);
+      cx.lineCap = 'square';
+      if (view == '2d') return plan();
+      const R0 = Math.hypot(M.W, M.D, M.Z) / 2, k = { cx: cw / 2, cy: ch / 2 + 6, s: Math.min(cw, ch) * .44 / R0, F: R0 * 4 };
+      for (let s = 0; s < M.n; s++) {
+        const z0 = s * M.gap, z1 = z0 + H, q = [[0, 0], [M.W, 0], [M.W, M.D], [0, M.D]].map(([x, y]) => P(x, y, z1, k));
+        cx.globalAlpha = .1; cx.fillStyle = C.ac; cx.beginPath(); q.forEach((p, i) => (i ? cx.lineTo(...p) : cx.moveTo(...p))); cx.fill(); cx.globalAlpha = 1;
+        for (let j = 0; j <= NY; j++) line(P(0, j * M.b, z1, k), P(M.W, j * M.b, z1, k), C.mu, 1.2);
+        for (let i = 0; i <= NX; i++) line(P(i * M.a, 0, z1, k), P(i * M.a, M.D, z1, k), C.mu, 1.2);
+        for (const c of M.cols) line(P(c.i * M.a, c.j * M.b, z0, k), P(c.i * M.a, c.j * M.b, z1, k), tone(nk(c, s) / M.max), 3.2);
+      }
+    };
+    const plan = () => {
+      const pad = 34, s = Math.min((cw - pad * 2) / M.W, (ch - pad * 2) / M.D), ox = (cw - M.W * s) / 2, oy = (ch - M.D * s) / 2, X = x => ox + x * s, Y = y => oy + y * s;
+      cx.globalAlpha = .08; cx.fillStyle = C.ac; cx.fillRect(X(0), Y(0), M.W * s, M.D * s); cx.globalAlpha = 1;
+      for (let j = 0; j <= NY; j++) line([X(0), Y(j * M.b)], [X(M.W), Y(j * M.b)], C.mu, 1.4);
+      for (let i = 0; i <= NX; i++) line([X(i * M.a), Y(0)], [X(i * M.a), Y(M.D)], C.mu, 1.4);
+      cx.font = '11px ui-monospace,Consolas,monospace'; cx.textBaseline = 'top';
+      M.cols.forEach((c, n) => {
+        const x = X(c.i * M.a), y = Y(c.j * M.b), v = nk(c, 0);
+        cx.fillStyle = tone(v / M.max); cx.fillRect(x - 6, y - 6, 12, 12);
+        cx.fillStyle = C.fg; cx.fillText(`P${n + 1} ${fmt(v)}`, x + 8, y + 6);
+      });
+      cx.fillStyle = C.mu; cx.textBaseline = 'alphabetic';
+      cx.fillText(`Lx ${M.a.toFixed(1)} m`, X(M.a / 2) - 22, Y(0) - 10);
+      cx.fillText(`Ly ${M.b.toFixed(1)} m`, X(0) - 30, Y(M.D) + 22);
+    };
+    const gid = s => { const A = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$'; let h = 2166136261, o = ''; for (let i = 0; i < 22; i++) { for (const c of s + i) h = Math.imul(h ^ c.charCodeAt(0), 16777619); o += A[(h >>> 9) % (i ? 64 : 4)]; } return o; };
+    const r = v => { const t = String(Math.round(v * 1000) / 1000); return t.includes('.') ? t : t + '.'; };
+    const ifc = () => {
+      const { a, b, n } = M, nc = (NX + 1) * (NY + 1), nb = NX * (NY + 1) + NY * (NX + 1), p1 = nk(M.cols[0], 0);
+      return ['ISO-10303-21;', 'HEADER;', "FILE_DESCRIPTION(('ViewDefinition [ReferenceView]'),'2;1');", "FILE_SCHEMA(('IFC4'));", 'ENDSEC;', 'DATA;',
+        `#1=IFCPROJECT('${gid('prj')}',$,'Frame ${a} x ${b} m, ${n} storeys',$,$,$,$,(#2),$);`,
+        "#2=IFCGEOMETRICREPRESENTATIONCONTEXT($,'Model',3,1.E-05,#5,$);",
+        '#3=IFCCARTESIANPOINT((0.,0.,0.));', '#4=IFCDIRECTION((0.,0.,1.));', '#5=IFCAXIS2PLACEMENT3D(#3,$,$);', '#6=IFCLOCALPLACEMENT($,#5);',
+        "#10=IFCRECTANGLEPROFILEDEF(.AREA.,'20x40',$,0.2,0.4);", `#11=IFCEXTRUDEDAREASOLID(#10,$,#4,${r(H)});`,
+        "#12=IFCSHAPEREPRESENTATION(#2,'Body','SweptSolid',(#11));", '#13=IFCPRODUCTDEFINITIONSHAPE($,$,(#12));',
+        `#14=IFCCOLUMN('${gid('P1')}',$,'P1',$,$,#6,#13,$,.COLUMN.);`,
+        `#15=IFCPROPERTYSINGLEVALUE('Nk',$,IFCFORCEMEASURE(${r(p1 * 1000)}),$); /* ${fmt(p1)} kN */`,
+        `#16=IFCPROPERTYSET('${gid('pset')}',$,'Pset_Sandbox',$,(#15));`, `#17=IFCRELDEFINESBYPROPERTIES('${gid('rel')}',$,$,$,(#14),#16);`,
+        "#20=IFCRECTANGLEPROFILEDEF(.AREA.,'12x40',$,0.12,0.4);", '#21=IFCDIRECTION((1.,0.,0.));', '#22=IFCDIRECTION((0.,1.,0.));',
+        `#23=IFCCARTESIANPOINT((0.,0.,${r(H - .2)}));`, '#24=IFCAXIS2PLACEMENT3D(#23,#21,#22);', `#25=IFCEXTRUDEDAREASOLID(#20,#24,#4,${r(a)});`,
+        "#26=IFCSHAPEREPRESENTATION(#2,'Body','SweptSolid',(#25));", '#27=IFCPRODUCTDEFINITIONSHAPE($,$,(#26));',
+        `#28=IFCBEAM('${gid('V1')}',$,'V1',$,$,#6,#27,$,.BEAM.);`,
+        `#30=IFCRECTANGLEPROFILEDEF(.AREA.,'L1',$,${r(a)},${r(b)});`, `#31=IFCCARTESIANPOINT((${r(a / 2)},${r(b / 2)},${r(H - .12)}));`, '#32=IFCAXIS2PLACEMENT3D(#31,$,$);',
+        '#33=IFCEXTRUDEDAREASOLID(#30,#32,#4,0.12);', "#34=IFCSHAPEREPRESENTATION(#2,'Body','SweptSolid',(#33));", '#35=IFCPRODUCTDEFINITIONSHAPE($,$,(#34));',
+        `#36=IFCSLAB('${gid('L1')}',$,'L1',$,$,#6,#35,$,.FLOOR.);`,
+        `/* full model: ${nc * n} IFCCOLUMN, ${nb * n} IFCBEAM, ${NX * NY * n} IFCSLAB */`, 'ENDSEC;', 'END-ISO-10303-21;'].join('\n');
+    };
+    const update = () => {
+      M = model();
+      $('output', inp.lx.parentElement).textContent = M.a.toFixed(1) + ' m';
+      $('output', inp.ly.parentElement).textContent = M.b.toFixed(1) + ' m';
+      $('output', inp.st.parentElement).textContent = M.n;
+      $('output', inp.ex.parentElement).textContent = inp.ex.value + '%';
+      hud.innerHTML = `<b>${view == '3d' ? '3D exploded Nk' : '2D plan, storey 1 Nk'}</b><br>Nk max <b>${fmt(M.max)} kN</b> // q ${Q} kN/m² // illustrative`;
+      stepEl.textContent = ifc();
+      draw();
+    };
+    const auto = () => vis && !hov && !drag && view == '3d' && !RM.matches;
+    const frame = t => {
+      id = 0;
+      if (auto()) { yaw += Math.min(50, t - (last || t)) * .00022; last = t; } else last = 0;
+      if (t < settle) colors();
+      draw();
+      if (auto() || t < settle) id = raf(frame);
+    };
+    const kick = () => id || (id = raf(frame));
+    Object.values(inp).forEach(i => (i.oninput = update));
+    $$('[data-view]', el).forEach(b => (b.onclick = () => { view = b.dataset.view; $$('[data-view]', el).forEach(x => x.setAttribute('aria-pressed', x == b)); update(); kick(); }));
+    cv.addEventListener('pointerenter', e => { if (e.pointerType == 'mouse') hov = 1; });
+    cv.addEventListener('pointerleave', () => { hov = 0; kick(); });
+    cv.addEventListener('pointerdown', e => { if (view != '3d') return; drag = { x: e.clientX, y: e.clientY, yaw, pitch }; cv.setPointerCapture(e.pointerId); });
+    cv.addEventListener('pointermove', e => { if (!drag) return; yaw = drag.yaw + (e.clientX - drag.x) * .008; pitch = Math.max(.08, Math.min(1.45, drag.pitch + (e.clientY - drag.y) * .006)); draw(); });
+    ['pointerup', 'pointercancel'].forEach(t => cv.addEventListener(t, () => { drag = null; kick(); }));
+    d.addEventListener('ptc:paint', () => { settle = performance.now() + 700; colors(); kick(); });
+    const fit = () => { dpr = Math.min(2, devicePixelRatio || 1); cw = cv.clientWidth; ch = cv.clientHeight; cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); draw(); };
+    self.ResizeObserver ? new ResizeObserver(fit).observe(cv) : addEventListener('resize', fit);
+    onView(cv, v => { vis = v; if (v) kick(); });
+    colors(); update(); fit();
+  });
+
+  // OpenStrut live app: nothing loads from the app's origin until a click on the facade.
+  $$('[data-app]').forEach(app => {
+    const src = app.dataset.src, fr = $('.app-frame', app), face = $('.app-face', app), bar = $('.app-bar', app), hint = $('.hint', bar);
+    const frame = () => $('iframe', fr);
+    const launch = b => {
+      hint.textContent = '';
+      const g = d.createElement('b');
+      g.textContent = 'Guide // ';
+      hint.append(g, b.dataset.hint);
+      bar.hidden = false;
+      if (!frame()) {
+        const f = d.createElement('iframe');
+        f.src = src; f.title = 'OpenStrut V2 live app'; f.allow = 'fullscreen; clipboard-write; xr-spatial-tracking'; f.referrerPolicy = 'no-referrer';
+        fr.append(f);
+      }
+      face.hidden = true;
+    };
+    $$('[data-hint]', face).forEach(b => (b.onclick = () => launch(b)));
+    $('[data-act=fs]', bar).onclick = () => (app.requestFullscreen ? app.requestFullscreen().catch(() => {}) : frame() && frame().requestFullscreen && frame().requestFullscreen());
+    $('[data-act=reload]', bar).onclick = () => frame() && (frame().src = src);
+    $('[data-act=close]', bar).onclick = () => { if (d.fullscreenElement) d.exitFullscreen(); frame() && frame().remove(); bar.hidden = true; face.hidden = false; };
+  });
+
+  // Byte bars grow when they reach the viewport.
+  $$('.bars').forEach(b => onView(b, v => v && b.classList.add('in'), { threshold: .4 }));
+
+  // WCAG inspector: ratios computed here from the same tokens as site.css.
+  const wc = $('[data-wcag]');
+  if (wc) {
+    const T = {
+      studio: { d: ['#111214', '#1A1C20', '#F3F4F6', '#8E95A2', '#FF5A1F', '#111214'], l: ['#F3F3F0', '#FFFFFF', '#141518', '#5E636E', '#C43A0A', '#FFFFFF'] },
+      dawnbringer: { d: ['#0B0710', '#140E1F', '#F2E3C6', '#B39FA8', '#F5C05C', '#0B0710'], l: ['#F4EFE6', '#FCF9F2', '#1B1221', '#5A4B63', '#8F4F0A', '#FFFFFF'] },
+      openstrut: { d: ['#0B121C', '#111B29', '#EDF4FB', '#92ABC6', '#38BDF8', '#09111B'], l: ['#EEF3F8', '#FFFFFF', '#0F1D2D', '#475E76', '#0369A1', '#FFFFFF'] },
+    };
+    const PAIRS = [['Body text on background', 2, 0], ['Muted text on background', 3, 0], ['Accent links on background', 4, 0], ['Accent links on cards', 4, 1], ['Button label on accent', 5, 4]];
+    const lum = h => hex(h).map(v => (v /= 255) <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4).reduce((s, v, i) => s + v * [.2126, .7152, .0722][i], 0);
+    const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+    const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+    const lvl = v => (v >= 7 ? 'AAA' : v >= 4.5 ? 'AA' : v >= 3 ? 'AA large' : 'Fail');
+    const list = $('.wc', wc), out = $('.wc-out', wc);
+    let w = R.dataset.world in T ? R.dataset.world : 'studio', m = theme() == 'dark' ? 'd' : 'l', p = 0;
+    const render = () => {
+      const tk = T[w][m];
+      $$('[data-w]', wc).forEach(b => b.setAttribute('aria-pressed', b.dataset.w == w));
+      $$('[data-md]', wc).forEach(b => b.setAttribute('aria-pressed', b.dataset.md == m));
+      list.innerHTML = PAIRS.map(([n, f, b], i) => { const v = ratio(tk[f], tk[b]); return `<button type="button" aria-pressed="${i == p}" data-i="${i}"><i style="--b:${tk[b]};--f:${tk[f]}">Aa</i><span><b>${n}</b>${tk[f]} on ${tk[b]}</span><em>${v.toFixed(2)}:1<small>${lvl(v)}</small></em></button>`; }).join('');
+      $$('button', list).forEach(b => (b.onclick = () => { p = +b.dataset.i; render(); }));
+      const [n, f, b] = PAIRS[p], v = ratio(tk[f], tk[b]);
+      out.style.cssText = `--b:${tk[b]};--f:${tk[f]}`;
+      $('span', out).textContent = `${v.toFixed(2)}:1 // ${lvl(v)} // ${n}, ${w} ${m == 'd' ? 'dark' : 'light'}. ${tk[f]} on ${tk[b]}.`;
+    };
+    $$('[data-w]', wc).forEach(b => (b.onclick = () => { w = b.dataset.w; render(); }));
+    $$('[data-md]', wc).forEach(b => (b.onclick = () => { m = b.dataset.md; render(); }));
+    render();
   }
 
   // Lightbox: <button data-zoom> wraps the image (or a dark/light pair). Esc or an outside click closes.
@@ -103,11 +479,10 @@
     dlg.className = 'lb';
     dlg.setAttribute('aria-label', 'Image viewer');
     dlg.innerHTML = '<button class="x" type="button">Close // Esc</button><figure><img><figcaption></figcaption></figure>';
-    const img = dlg.querySelector('img');
+    const img = $('img', dlg);
     Object.assign(img, { src: src.currentSrc || src.src, width: src.naturalWidth, height: src.naturalHeight, alt: src.alt });
-    if (btn.dataset.zoom == 'px') img.style.imageRendering = 'pixelated';
-    dlg.querySelector('figcaption').textContent = btn.dataset.cap || src.alt;
-    dlg.querySelector('.x').onclick = () => dlg.close();
+    $('figcaption', dlg).textContent = btn.dataset.cap || src.alt;
+    $('.x', dlg).onclick = () => dlg.close();
     dlg.onclick = e => e.target == dlg && dlg.close();
     dlg.onclose = () => dlg.remove();
     d.body.append(dlg);

@@ -6,7 +6,7 @@
     <path d="M5 9.5h10v1h-10zM9.5 5h1v10h-1zM945 9.5h10v1h-10zM949.5 5h1v10h-1zM5 449.5h10v1h-10zM9.5 445h1v10h-1zM945 449.5h10v1h-10zM949.5 445h1v10h-1z" fill="#5E636E" fill-opacity="0.55"/>
     <path d="M20 42.5H940" stroke="#DCDCD6"/>
     <path d="M20.5 43V48M40.5 43V46M60.5 43V46M80.5 43V46M100.5 43V46M120.5 43V48M140.5 43V46M160.5 43V46M180.5 43V46M200.5 43V46M220.5 43V48M240.5 43V46M260.5 43V46M280.5 43V46M300.5 43V46M320.5 43V48M340.5 43V46M360.5 43V46M380.5 43V46M400.5 43V46M420.5 43V48M440.5 43V46M460.5 43V46M480.5 43V46M500.5 43V46M520.5 43V48M540.5 43V46M560.5 43V46M580.5 43V46M600.5 43V46M620.5 43V48M640.5 43V46M660.5 43V46M680.5 43V46M700.5 43V46M720.5 43V48M740.5 43V46M760.5 43V46M780.5 43V46M800.5 43V46M820.5 43V48M840.5 43V46M860.5 43V46M880.5 43V46M900.5 43V46M920.5 43V48M940.5 43V46" stroke="#DCDCD6"/>
-    <path d="M20 41h20v3h-20zM236 41h20v3h-20zM524 41h20v3h-20zM722 41h20v3h-20z" fill="#FF5A1F"/>
+    <path d="M20 41h20v3h-20zM236 41h20v3h-20zM524 41h20v3h-20zM722 41h20v3h-20z" fill="#D9420D"/>
   </g>
   <g id="os-l-header">
     <text x="20" y="29" font-size="10.5" letter-spacing="1.6" fill="#5E636E"><tspan font-weight="600" fill="#141518">OPENSTRUT V2</tspan><tspan dx="6" fill="#C43A0A">/</tspan><tspan dx="6">SOFTWARE ARCHITECTURE &amp; STRUCTURAL CALCULATION PIPELINE</tspan></text>
@@ -45,8 +45,8 @@
     <path d="M237 156.5H499" stroke="#DCDCD6"/>
     <text x="264" y="172" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#5E636E">normas/ · design code set per project</text>
     <rect x="264.5" y="180.5" width="225" height="99" fill="#F3F3F0" stroke="#DCDCD6"/>
-    <rect x="265" y="181" width="224" height="98" fill="#FF5A1F" fill-opacity="0.05"/>
-    <rect x="264" y="180" width="2" height="100" fill="#FF5A1F"/>
+    <rect x="265" y="181" width="224" height="98" fill="#D9420D" fill-opacity="0.05"/>
+    <rect x="264" y="180" width="2" height="100" fill="#D9420D"/>
     <g id="os-l-nbr6118">
       <text x="276" y="199" font-size="12.5" font-weight="600" fill="#141518">NBR 6118:2023</text>
       <text x="480" y="199" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#5E636E">nbr6118-2023/</text>
@@ -72,9 +72,9 @@
     </g>
     <g id="os-l-fork" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
       <path d="M250 195V300q0 3 3 3H264" stroke="#3B82F6" stroke-opacity="0.9"/>
-      <path d="M250 157V192q0 3 3 3H264" stroke="#FF5A1F"/>
+      <path d="M250 157V192q0 3 3 3H264" stroke="#D9420D"/>
     </g>
-    <circle cx="250" cy="156.5" r="2" fill="#FF5A1F"/>
+    <circle cx="250" cy="156.5" r="2" fill="#D9420D"/>
   </g>
   <g id="os-l-detailing">
     <path d="M524.5 84.5H687.5L697.5 94.5V371.5H524.5Z" fill="#FFFFFF" stroke="#DCDCD6"/>
@@ -117,16 +117,16 @@
   </g>
   <g id="os-l-flow">
     <g fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M212 336H218q3 0 3 -3V264" stroke="#FF5A1F" stroke-dasharray="2.5 3"/>
-      <path d="M212 120H229.5M212 192H221M212 264H221M221 120V264" stroke="#FF5A1F"/>
+      <path d="M212 336H218q3 0 3 -3V264" stroke="#D9420D" stroke-dasharray="2.5 3"/>
+      <path d="M212 120H229.5M212 192H221M212 264H221M221 120V264" stroke="#D9420D"/>
       <path d="M490 303H506q3 0 3 -3V195" stroke="#3B82F6" stroke-opacity="0.9"/>
-      <path d="M490 195H509V123q0 -3 3 -3H517.5" stroke="#FF5A1F"/>
-      <path d="M698 120H715.5M707 120V333q0 3 3 3H715.5M707 192H715.5M707 264H715.5" stroke="#FF5A1F"/>
+      <path d="M490 195H509V123q0 -3 3 -3H517.5" stroke="#D9420D"/>
+      <path d="M698 120H715.5M707 120V333q0 3 3 3H715.5M707 192H715.5M707 264H715.5" stroke="#D9420D"/>
     </g>
-    <path d="M235.5 120l-6 -3.25v6.5z" fill="#FF5A1F"/>
-    <path d="M523.5 120l-6 -3.25v6.5z" fill="#FF5A1F"/>
-    <path d="M721.5 120l-6 -3.25v6.5z" fill="#FF5A1F"/><path d="M721.5 192l-6 -3.25v6.5z" fill="#FF5A1F"/><path d="M721.5 264l-6 -3.25v6.5z" fill="#FF5A1F"/><path d="M721.5 336l-6 -3.25v6.5z" fill="#FF5A1F"/>
-    <circle cx="221" cy="120" r="2" fill="#FF5A1F"/><circle cx="509" cy="195" r="2" fill="#FF5A1F"/><circle cx="707" cy="120" r="2" fill="#FF5A1F"/>
+    <path d="M235.5 120l-6 -3.25v6.5z" fill="#D9420D"/>
+    <path d="M523.5 120l-6 -3.25v6.5z" fill="#D9420D"/>
+    <path d="M721.5 120l-6 -3.25v6.5z" fill="#D9420D"/><path d="M721.5 192l-6 -3.25v6.5z" fill="#D9420D"/><path d="M721.5 264l-6 -3.25v6.5z" fill="#D9420D"/><path d="M721.5 336l-6 -3.25v6.5z" fill="#D9420D"/>
+    <circle cx="221" cy="120" r="2" fill="#D9420D"/><circle cx="509" cy="195" r="2" fill="#D9420D"/><circle cx="707" cy="120" r="2" fill="#D9420D"/>
   </g>
   <g id="os-l-verification">
     <path d="M20.5 388.5H929.5L939.5 398.5V437.5H20.5Z" fill="#FFFFFF" stroke="#DCDCD6"/>
