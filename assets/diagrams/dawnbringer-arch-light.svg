@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" role="img" aria-labelledby="db-light-title db-light-desc">
 <title id="db-light-title">Dawnbringer: Godot 4.5 architecture</title>
-<desc id="db-light-desc">Four zones, left to right: data and localization (JSON content and CSV catalogs), a pure deterministic core with no scene tree, the Votive Gothic 2x renderer with procedural audio, and edge services with five shipping platforms. A six-layer verification pipeline runs underneath all four.</desc>
+<desc id="db-light-desc">Four zones, left to right: data and localization (JSON content and CSV catalogs), a deterministic RefCounted rules core in game/core/, the Votive Gothic 2x renderer with procedural audio, and edge services with export presets for five target platforms. A six-layer verification pipeline runs underneath all four.</desc>
 <defs>
 <pattern id="db-light-grid" x="1.5" y="9.5" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="1.5" height="1.5" fill="#DCDCD6"/></pattern>
 </defs>
 <rect width="960" height="460" fill="#F3F3F0"/>
 <rect width="960" height="460" fill="url(#db-light-grid)"/>
 <g id="db-light-header">
-<rect x="24" y="20" width="4" height="24" fill="#FF5A1F"/>
+<rect x="24" y="20" width="4" height="24" fill="#D9420D"/>
 <text x="38" y="37" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="2.4" fill="#141518">DAWNBRINGER <tspan fill="#C43A0A">//</tspan> GODOT 4.5 ARCHITECTURE</text>
 <text x="936" y="36" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="9.5" letter-spacing="1.1" fill="#5E636E">v0.7.2 · 640×360 DESIGN · 2× HD</text>
 </g>
@@ -17,7 +17,7 @@
 <path d="M38 132.5H186M38 257.5H186M238 132.5H418M238 256.5H418M466 132.5H670M466 194.5H670M466 270.5H670M718 132.5H922M718 203.5H922M718 262.5H922M190.5 378V428M668.5 378V428"/>
 <path fill="#F3F3F0" d="M79.5 63.5H186.5V74.5L183.5 77.5H76.5V66.5ZM557.5 63.5H670.5V74.5L667.5 77.5H554.5V66.5ZM844.5 63.5H922.5V74.5L919.5 77.5H841.5V66.5Z"/>
 </g>
-<path id="db-light-core-rule" fill="#FF5A1F" d="M220 81L225 76V338H220Z"/>
+<path id="db-light-core-rule" fill="#D9420D" d="M220 81L225 76V338H220Z"/>
 <path id="db-light-core-tab" fill="#C43A0A" d="M311 63H418V75L415 78H308V66Z"/>
 <g id="db-light-flow" fill="#C43A0A">
 <path fill="none" stroke="#C43A0A" stroke-width="1.5" d="M200 204H214M432 204H446M684 204H698"/>
@@ -79,7 +79,7 @@
 <text x="238" y="216" letter-spacing="0">act every <tspan fill="#141518">TICKS / pace</tspan></text>
 <text x="686" y="418">GUT TESTS</text>
 <text x="770" y="418">SUITES</text>
-<text x="842" y="418">PYTHON TOOLS</text>
+<text x="842" y="418">PYTHON FILES</text>
 </g>
 <g font-size="8" text-anchor="middle">
 <text x="563" y="257">#D66A51</text>
@@ -162,7 +162,8 @@
 <g fill="#141518">
 <text x="208" y="414">Fast GUT (&lt;2m)</text>
 <text x="312" y="414">UI &amp; Run Flow</text>
-<text x="440" y="414">Balance Bots</text>
+<text x="440" y="414">Balance</text>
+<text x="440" y="427">&amp; Evolution Bots</text>
 <text x="536" y="414">Automated Playtests</text>
 <text x="536" y="427">&amp; 12 Screen Formats</text>
 </g>

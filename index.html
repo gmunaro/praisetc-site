@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-world="studio">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
 <title>Praise The Code (PTC): software and game engineering studio</title>
-<meta name="description" content="Praise The Code is an independent software and game engineering studio in São Paulo, Brazil. Makers of Dawnbringer, a deterministic roguelike, and OpenStrut V2, a structural engineering web app.">
+<meta name="description" content="Praise The Code is an independent software and game studio in São Paulo, Brazil. Makers of Dawnbringer, a deterministic roguelike, and OpenStrut V2, a structural engineering web app.">
 <link rel="canonical" href="https://praisetc.com/">
 <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F3F3F0" media="(prefers-color-scheme: light)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Praise The Code">
 <meta property="og:title" content="Praise The Code">
-<meta property="og:description" content="Independent software and game engineering studio in São Paulo, Brazil. Makers of Dawnbringer and OpenStrut V2.">
+<meta property="og:description" content="Independent software and game studio in São Paulo, Brazil. Makers of Dawnbringer and OpenStrut V2.">
 <meta property="og:url" content="https://praisetc.com/">
 <meta property="og:image" content="https://praisetc.com/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -26,168 +26,232 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"PRAISE THE CODE","alternateName":["PTC","PraiseTC"],"url":"https://praisetc.com/","logo":"https://praisetc.com/assets/apple-touch-icon.png","email":"contato@praisetc.com","foundingDate":"2025-01","taxID":"58.830.051/0001-20","address":{"@type":"PostalAddress","addressLocality":"São Paulo","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.linkedin.com/company/praisetc","https://github.com/praisetcdev","https://www.youtube.com/@praisetc","https://bsky.app/profile/praisetc.bsky.social"]}</script>
 </head>
 <body>
+<div class="atmo" aria-hidden="true"><i class="a-st"></i><i class="a-db"></i><i class="a-os"></i></div>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav"><div class="wrap">
+<header class="nav"><span class="prog" aria-hidden="true"></span><div class="wrap">
   <a class="brand" href="./" aria-label="Praise The Code, overview"><img class="theme-dark" src="assets/mark-dark.svg" width="32" height="32" alt="ptc_ mark"><img class="theme-light" src="assets/mark-light.svg" width="32" height="32" alt="ptc_ mark"><span>Praise The Code</span></a>
   <nav class="links" aria-label="Main"><a href="./" aria-current="page">Overview</a><a href="projects/dawnbringer/">Dawnbringer</a><a href="projects/openstrut/">OpenStrut</a><a href="projects/engineering/">Engineering</a></nav>
+  <button class="world-pill" type="button" aria-label="Visual world: studio. Go to the next section"><i aria-hidden="true"></i><span>STUDIO</span></button>
   <button class="tog" type="button" aria-pressed="false"><i aria-hidden="true"></i>Dark</button>
 </div></header>
 
 <main id="main">
-<section class="hero grid-bg">
+<section class="hero" data-world-section="studio">
   <div class="wrap hero-g">
     <div class="rule">
       <p class="eye">23°33'S 46°38'W <b>//</b> Est. 2025 <b>//</b> praisetc.com</p>
-      <h1>Praise The Code<span>_</span></h1>
-      <p class="lead">Independent software and game engineering studio in São Paulo, Brazil. We build a deterministic roguelike in Godot and a structural engineering web app whose legacy NB-1/78 mode is checked against a 1991 MS-DOS binary.</p>
+      <h1>Praise The Code<span class="blink">_</span></h1>
+      <p class="lead">Independent software and game studio in São Paulo. We ship a deterministic roguelike and a structural engineering web app.</p>
       <div class="acts">
         <a class="btn p" href="#work">Selected work <span class="ar" aria-hidden="true">&#8595;</span></a>
         <a class="btn" href="mailto:contato@praisetc.com">contato@praisetc.com</a>
       </div>
     </div>
     <aside class="card cut" aria-label="Studio sheet">
-      <img class="mark theme-dark" src="assets/mark-dark.svg" width="88" height="88" alt="ptc_ mark on Carbon Zinc">
-      <img class="mark theme-light" src="assets/mark-light.svg" width="88" height="88" alt="ptc_ mark on Warm Concrete">
+      <img class="mark theme-dark" src="assets/mark-dark.svg" width="72" height="72" alt="ptc_ mark on Carbon Zinc">
+      <img class="mark theme-light" src="assets/mark-light.svg" width="72" height="72" alt="ptc_ mark on Warm Concrete">
       <dl class="spec">
         <dt>Company</dt><dd>PRAISE THE CODE</dd>
         <dt>Location</dt><dd>São Paulo, SP, Brazil</dd>
         <dt>Founded</dt><dd>January 2025</dd>
-        <dt>Products</dt><dd>Dawnbringer (Godot 4.5, v0.7.2: demo on Windows, macOS and Linux, Android alpha) and OpenStrut V2 (offline-first web app, GPL-3.0-or-later)</dd>
-        <dt>This page</dt><dd>1 CSS file, 1 deferred script, 0 webfonts, 0 third-party requests</dd>
+        <dt>Products</dt><dd>Dawnbringer, OpenStrut V2</dd>
+        <dt>This page</dt><dd>0 frameworks, 0 webfonts, 0 third-party requests on load</dd>
       </dl>
     </aside>
   </div>
-  <div class="wrap" style="margin-top:clamp(40px,6vw,72px)">
+  <div class="wrap">
     <ul class="tele" aria-label="Measured numbers">
-      <li><b>4,671</b><span>GUT test functions in 517 files</span><small>Dawnbringer</small></li>
-      <li><b>227</b><span>Vitest and Playwright E2E files</span><small>OpenStrut V2</small></li>
-      <li><b>25 KB</b><span>zero-dependency IFC4 writer</span><small>OpenStrut V2</small></li>
-      <li><b>14</b><span>shipped locales plus a pseudo-locale</span><small>Dawnbringer</small></li>
-      <li><b>0 KB</b><span>JavaScript framework code on this page</span><small>praisetc.com</small></li>
+      <li><b data-count="4671">4,671</b><span>GUT test functions</span><small>Dawnbringer</small></li>
+      <li><b data-count="227">227</b><span>Vitest and Playwright files</span><small>OpenStrut V2</small></li>
+      <li><b data-count="25" data-suffix=" KB">25 KB</b><span>IFC4 writer, no dependencies</span><small>OpenStrut V2</small></li>
+      <li><b data-count="14">14</b><span>shipped locales</span><small>Dawnbringer</small></li>
+      <li><b data-count="0">0</b><span>third-party requests on load</span><small>praisetc.com</small></li>
     </ul>
   </div>
 </section>
 
-<section class="sec" id="work" aria-labelledby="p1">
+<section class="sec" id="work" aria-labelledby="p1" data-world-section="dawnbringer">
   <div class="wrap">
-    <p class="eye">Selected work <b>//</b> engineering and art direction</p>
     <div class="proj-h"><span class="idx" aria-hidden="true">01</span><div><p class="eye">Game <b>//</b> Godot 4.5 <b>//</b> GDScript</p><h2 id="p1">Dawnbringer</h2></div></div>
     <div class="proj-g">
-      <figure class="frame"><a href="projects/dawnbringer/"><img src="assets/showcase/dawnbringer-hero.webp" width="1280" height="720" decoding="async" alt="Dawnbringer key art: a red-haired hunter faces a Landlord with a branch crown under a red moon."></a></figure>
       <div>
-        <p>A dark-fantasy roguelike auto-battler built for Windows, macOS, Linux, Android and iOS, with a live desktop demo and an Android alpha. Build a hunter, read each foe's gear, then pay the Landlord or fight.</p>
-        <p>Fights run in an integer-only simulation with no random numbers, so the same inputs produce the same fight on every device. The art follows a written direction, Votive Gothic, with a locked 32-colour palette and five pillars that each come with a test.</p>
+        <div class="tabs" role="tablist" aria-label="Dawnbringer media">
+          <button type="button" role="tab" id="t-db1" aria-controls="p-db1" aria-selected="true">Concept art</button>
+          <button type="button" role="tab" id="t-db2" aria-controls="p-db2" aria-selected="false" tabindex="-1">v0.9 lighting loop</button>
+        </div>
+        <div class="frame">
+          <div id="p-db1" role="tabpanel" aria-labelledby="t-db1">
+            <div class="lantern" data-lantern><img src="assets/showcase/dawnbringer-concept.webp" width="1600" height="900" loading="lazy" decoding="async" alt="Dawnbringer R4 concept art: a knight with a lantern and a red cape faces the Charnel Maw across flooded ruins under a broken eclipse."><span class="glow" aria-hidden="true"></span><span class="tagline">R4 CONCEPT ART</span></div>
+          </div>
+          <div id="p-db2" role="tabpanel" aria-labelledby="t-db2" hidden>
+            <div class="stage" data-vid>
+              <video width="960" height="540" poster="assets/showcase/dawnbringer-v09-poster.webp" muted loop playsinline preload="metadata" aria-label="v0.9 combat loop in Godot 4.5: the Ironbound Penitent fights the Charnel Maw with dynamic lighting on high."><source src="assets/showcase/dawnbringer-v09-loop.mp4" type="video/mp4"><source src="assets/showcase/dawnbringer-v09-loop.webm" type="video/webm"></video>
+              <span class="badge"><i></i>v0.9 DEV // DYNAMIC LIGHTING</span>
+              <div class="vid-ctl"><button type="button" data-play>Play</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="thesis">A dark-fantasy roguelike auto-battler whose integer-only battle engine replays every fight the same way on every device.</p>
         <dl class="kv">
+          <dt>Live</dt><dd>v0.7.2 demo on Windows, macOS and Linux, plus an Android closed test</dd>
+          <dt>Next</dt><dd>v0.9 dynamic lighting, in development</dd>
           <dt>Engine</dt><dd>Godot 4.5, GL Compatibility renderer</dd>
-          <dt>Battle core</dt><dd><code>battle_sim.gd</code>, integer clock, zero RNG</dd>
-          <dt>Tests</dt><dd>4,671 GUT functions in 517 files, six layers</dd>
-          <dt>Content</dt><dd>JSON only: 105 items, 19 Landlords, 6 biomes</dd>
+          <dt>Tests</dt><dd>4,671 GUT functions in 517 files</dd>
         </dl>
-        <div class="acts"><a class="btn p" href="projects/dawnbringer/">Read the case study <span class="ar" aria-hidden="true">&#8594;</span></a><a class="btn ext" href="https://dawnbringergame.com/">dawnbringergame.com</a></div>
+        <div class="acts"><a class="btn p" href="projects/dawnbringer/">Explore case study <span class="ar" aria-hidden="true">&#8594;</span></a><a class="btn ext" href="https://dawnbringergame.com/">dawnbringergame.com</a></div>
       </div>
     </div>
-    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
-      <ul class="leg leg-a" aria-label="Dawnbringer stack, nodes 01 to 04">
-        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // GDScript // 1,068 files" data-d="1,051 files in game/ and 17 in tools/. 517 are GUT test files; the rest run the battle engine, run flow, HUD and HdTexture. Plus 81 .tscn scenes."><b>01</b><span>GDScript</span><small>1,068 files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="02" data-at="218,99" data-t="02 // GLSL // 13 shaders" data-d="11 .gdshader and 2 .gdshaderinc files. hd_sharp.gdshaderinc samples the 2x art sharp-bilinear; hit_flash and afterlife_sprite drive combat feedback."><b>02</b><span>GLSL</span><small>13 shaders</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="03" data-at="403,189" data-t="03 // Python // 589 files" data-d="529 in tools/. 2x art generators (hd.py, gen_chars.py, gen_bosses.py), the seeded SFX synthesizer gen_sfx.py, the headless PvP verifier and art validators."><b>03</b><span>Python</span><small>589 files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="04" data-at="200,301" data-t="04 // JSON + CSV // data and i18n" data-d="game/content/ holds only JSON, no .gd file. game/i18n/ holds the Godot CSV catalogs ui.csv and content.csv: 14 shipped locales plus the eo pseudo-locale."><b>04</b><span>JSON · CSV</span><small>Data + 14 locales</small></button></li>
-      </ul>
-      <figure class="const-fig">
-        <img class="theme-dark" src="assets/diagrams/constellation-dawnbringer-dark.svg" width="560" height="400" decoding="async" alt="Dawnbringer stack constellation: GDScript at the hub, GLSL, Python and JSON with CSV on the inner ring, TypeScript, SQL and Shell on the outer ring.">
-        <img class="theme-light" src="assets/diagrams/constellation-dawnbringer-light.svg" width="560" height="400" decoding="async" alt="Dawnbringer stack constellation: GDScript at the hub, GLSL, Python and JSON with CSV on the inner ring, TypeScript, SQL and Shell on the outer ring.">
-        <span class="ring" aria-hidden="true"><i></i></span>
-      </figure>
-      <ul class="leg leg-b" aria-label="Dawnbringer stack, nodes 05 to 07">
-        <li><button type="button" aria-pressed="false" data-k="05" data-at="444,91" data-t="05 // TypeScript // 42 files" data-d="Cloudflare Workers in tools/bugreport-worker and tools/pvp-worker: bug reports, the Android licence check, opt-in telemetry and the weekly challenge queue."><b>05</b><span>TypeScript</span><small>42 Worker files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="06" data-at="465,281" data-t="06 // SQL // 7 D1 migrations" data-d="Migrations 0001 to 0006 for the bug-report Worker, plus 0001_pvp.sql for the PvP Worker. The client IP keys the rate limiter and is never stored."><b>06</b><span>SQL</span><small>7 D1 migrations</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="07" data-at="92,274" data-t="07 // Shell // 55 scripts" data-d="tools/test/run_tests.sh runs the test layers with --fast, --ui, --dir and --godot. The other scripts drive CI and exports."><b>07</b><span>Shell</span><small>55 scripts</small></button></li>
-      </ul>
-      <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // 1,068 files</b><span data-o="d">1,051 files in game/ and 17 in tools/. 517 are GUT test files; the rest run the battle engine, run flow, HUD and HdTexture. Plus 81 .tscn scenes.</span></p>
+    <div class="orbit" data-orbit>
+      <div class="orbit-wrap"><div class="orbit-stage">
+        <div class="orb-ring r1">
+          <span class="orb-arm" style="--a:-120deg"><button class="orb" type="button" data-k="02" data-icon="prism" data-name="GLSL" data-sub="13 shaders" data-d="11 .gdshader and 2 .gdshaderinc files. hit_flash.gdshader and afterlife_sprite.gdshader drive combat feedback.">02</button></span>
+          <span class="orb-arm" style="--a:-8deg"><button class="orb" type="button" data-k="03" data-icon="hooks" data-name="Python" data-sub="589 files" data-d="529 in tools/: the 2x art generators, the seeded SFX synthesizer gen_sfx.py and the headless PvP verifier.">03</button></span>
+          <span class="orb-arm" style="--a:130deg"><button class="orb" type="button" data-k="04" data-icon="braces" data-name="JSON · CSV" data-sub="Data + 14 i18n" data-d="game/content/ holds only JSON, no .gd file. game/i18n/ holds CSV catalogs for 14 shipped locales.">04</button></span>
+        </div>
+        <div class="orb-ring r2">
+          <span class="orb-arm" style="--a:-35deg"><button class="orb" type="button" data-k="05" data-icon="ts" data-name="TypeScript" data-sub="42 files" data-d="Cloudflare Workers for bug reports, the Android licence check, opt-in telemetry and the weekly PvP queue.">05</button></span>
+          <span class="orb-arm" style="--a:22deg"><button class="orb" type="button" data-k="06" data-icon="db" data-name="SQL" data-sub="7 D1 migrations" data-d="Seven D1 migrations for the two Workers. The client IP keys the rate limiter and is never stored.">06</button></span>
+          <span class="orb-arm" style="--a:160deg"><button class="orb" type="button" data-k="07" data-icon="shell" data-name="Shell" data-sub="55 scripts" data-d="tools/test/run_tests.sh runs the test layers with --fast and --ui. The other scripts drive CI and exports.">07</button></span>
+        </div>
+        <button class="orb-hub" type="button" data-k="01" data-icon="cube" data-name="GDScript" data-sub="1,068 files" data-d="1,051 files in game/ and 17 in tools/, including 517 GUT test files, plus 81 .tscn scenes.">01 GDScript</button>
+        <button class="orb-tog" type="button" aria-pressed="false" aria-label="Pause the orbit">Pause</button>
+      </div></div>
+      <div class="orbit-panel">
+        <p class="eye">Dawnbringer stack <b>//</b> 7 languages</p>
+        <div class="orb-chips" role="group" aria-label="Dawnbringer stack nodes" style="--rows:4"></div>
+        <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // 1,068 files</b><span data-o="d">1,051 files in game/ and 17 in tools/, including 517 GUT test files, plus 81 .tscn scenes.</span></p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="sec cv" aria-labelledby="p2">
+<section class="sec cv" aria-labelledby="p2" data-world-section="openstrut">
   <div class="wrap">
     <div class="proj-h"><span class="idx" aria-hidden="true">02</span><div><p class="eye">Engineering <b>//</b> TypeScript <b>//</b> GPL-3.0-or-later</p><h2 id="p2">OpenStrut V2</h2></div></div>
     <div class="proj-g">
-      <figure class="frame"><a href="projects/openstrut/"><img src="assets/showcase/openstrut-explodido-nk.webp" width="1366" height="768" loading="lazy" decoding="async" alt="OpenStrut 3D viewer: exploded view of a three-floor building with columns coloured by normal force Nk, from 20.79 to 517.3 kN."></a></figure>
       <div>
-        <p>A free, offline-first web app for reinforced-concrete design of simple buildings: slabs, beams and columns, floor by floor. It runs in the browser with no server and saves each project as a local <code>.openstrut.json</code> file.</p>
-        <p>One pure TypeScript engine runs two codes, NBR 6118:2023 and NB-1/78. The NB-1/78 original mode reproduces SISTRUT 4.0 (MS-DOS, 1991) number for number with Float32 rounding, checked against that binary running in DOSBox-X. Results require review by a licensed structural engineer.</p>
+        <div class="tabs" role="tablist" aria-label="OpenStrut demos">
+          <button type="button" role="tab" id="t-os1" aria-controls="p-os1" aria-selected="true">3D / 2D sandbox</button>
+          <button type="button" role="tab" id="t-os2" aria-controls="p-os2" aria-selected="false" tabindex="-1">Run live app</button>
+        </div>
+        <div id="p-os1" role="tabpanel" aria-labelledby="t-os1">
+          <div class="sbx compact" data-sbx>
+            <div class="sbx-v">
+              <canvas width="640" height="480" role="img" aria-label="Parametric concrete frame preview. Drag sideways to orbit."></canvas>
+              <p class="sbx-hud"></p>
+              <span class="sbx-ramp" aria-hidden="true"><i></i>Nk</span>
+            </div>
+            <div class="sbx-c">
+              <div class="tabs" role="group" aria-label="View"><button type="button" data-view="3d" aria-pressed="true">3D exploded Nk</button><button type="button" data-view="2d" aria-pressed="false">2D plan</button></div>
+              <label><span>Span Lx <output>4.5 m</output></span><input type="range" name="lx" min="3" max="6" step="0.5" value="4.5"></label>
+              <label><span>Span Ly <output>4.0 m</output></span><input type="range" name="ly" min="3" max="6" step="0.5" value="4"></label>
+              <label><span>Storeys <output>3</output></span><input type="range" name="st" min="1" max="6" step="1" value="3"></label>
+              <label><span>Explode Nk <output>40%</output></span><input type="range" name="ex" min="0" max="100" step="5" value="40"></label>
+              <pre class="code step" tabindex="0" aria-label="IFC4 STEP text for the current frame"></pre>
+              <p class="note">Interactive parametric preview. Launch the live app for full NBR 6118:2023 &amp; NB-1/78 calculations.</p>
+            </div>
+          </div>
+        </div>
+        <div id="p-os2" role="tabpanel" aria-labelledby="t-os2" hidden>
+          <div class="app" data-app data-src="https://gmunaro.github.io/openstrut/">
+            <div class="app-bar" hidden>
+              <p class="hint" aria-live="polite"></p>
+              <button type="button" data-act="fs">Fullscreen</button><button type="button" data-act="reload">Reload</button><a class="ext" href="https://gmunaro.github.io/openstrut/" target="_blank" rel="noopener">Open external</a><button type="button" data-act="close">Close</button>
+            </div>
+            <div class="app-frame">
+              <div class="app-face">
+                <p class="eye">Live app <b>//</b> loads on click</p>
+                <h3>The real OpenStrut V2, in this page</h3>
+                <p>Nothing loads from the app until you press a button.</p>
+                <button class="btn p" type="button" data-hint="Inside the app, click &quot;Abrir a obra-exemplo&quot; or &quot;Exemplo NBR 6118:2023&quot; to load the calculated two-storey example.">Launch live OpenStrut V2</button>
+                <div class="recipes" role="group" aria-label="Guided starts">
+                  <button type="button" data-hint="Click &quot;Exemplo NBR 6118:2023&quot;, open the 3D tab, then turn on &quot;Explodido&quot; to colour the columns by Nk.">3D Exploded Nk</button>
+                  <button type="button" data-hint="Open &quot;Exemplo NB-1/78&quot; and read the Resultados tab, then reopen with &quot;Exemplo NBR 6118:2023&quot; to compare.">NBR 6118 vs NB-1/78</button>
+                  <button type="button" data-hint="Open &quot;Exemplo NBR 6118:2023&quot;, turn on the &quot;Armadura&quot; layer in the 3D tab, then use &quot;Exportar&quot; and &quot;Exportar IFC&quot;.">Rebar &amp; IFC4 Export</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="thesis">A free, offline-first web app that designs reinforced-concrete buildings in the browser under NBR 6118:2023 and NB-1/78.</p>
+        <p class="warn mini"><b>Engineering notice.</b> A licensed structural engineer must review every result before use.</p>
         <dl class="kv">
           <dt>Engine</dt><dd><code>src/calculo/</code>, pure TypeScript, no React</dd>
-          <dt>IFC4 export</dt><dd>182-line writer, 25.0 KB chunk, no dependencies</dd>
-          <dt>Tests</dt><dd>187 Vitest files and 40 Playwright E2E files</dd>
-          <dt>Formats</dt><dd>IFC4, DXF R12, glTF, SISTRUT 1991 import</dd>
+          <dt>Parity</dt><dd>NB-1/78 in Float32, checked against the 1991 binary in DOSBox-X</dd>
+          <dt>IFC4</dt><dd>25.0 KB writer with no dependencies</dd>
+          <dt>Tests</dt><dd>187 Vitest and 40 Playwright E2E files</dd>
         </dl>
-        <div class="acts"><a class="btn p" href="projects/openstrut/">Read the case study <span class="ar" aria-hidden="true">&#8594;</span></a><a class="btn ext" href="https://gmunaro.github.io/openstrut/">Live app</a><a class="btn ext" href="https://github.com/gmunaro/openstrut">GitHub</a></div>
+        <div class="acts"><a class="btn p" href="projects/openstrut/">Explore case study <span class="ar" aria-hidden="true">&#8594;</span></a><a class="btn ext" href="https://gmunaro.github.io/openstrut/">Live app</a><a class="btn ext" href="https://github.com/gmunaro/openstrut">GitHub</a></div>
       </div>
     </div>
-    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
-      <ul class="leg leg-a" aria-label="OpenStrut stack, nodes 01 to 04">
-        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // TypeScript // 412 files" data-d="352 in src/. The structural engine for both codes, domain geometry, the IFC4 STEP writer, the DXF R12 exporter, the SISTRUT 1991 parser and the test suites."><b>01</b><span>TypeScript</span><small>412 files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="02" data-at="248,86" data-t="02 // React TSX // 103 files" data-d="The offline-first PWA interface: the 2D SVG CAD editor, the 3D, 4D and AR viewer, force tables and printable reports."><b>02</b><span>React TSX</span><small>103 UI files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="03" data-at="404,195" data-t="03 // WebGL // Three.js" data-d="src/telas/obra3d/: exploded view coloured by normal force Nk, cut per floor, 3D reinforcement, a 4D construction sequence and GPU path tracing."><b>03</b><span>WebGL · 3D</span><small>Three.js</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="04" data-at="312,326" data-t="04 // SVG CAD // 2D plan" data-d="src/planta/: vector plan editor with a configurable grid, edge snapping, undo and redo, and status colours for no warnings, warnings and failure."><b>04</b><span>SVG CAD</span><small>2D plan editor</small></button></li>
-      </ul>
-      <figure class="const-fig">
-        <img class="theme-dark" src="assets/diagrams/constellation-openstrut-dark.svg" width="560" height="400" decoding="async" alt="OpenStrut stack constellation: TypeScript at the hub, React TSX, WebGL and SVG CAD on the inner ring, IFC4 STEP, DXF R12, QuickBASIC and Python with Shell on the outer ring.">
-        <img class="theme-light" src="assets/diagrams/constellation-openstrut-light.svg" width="560" height="400" decoding="async" alt="OpenStrut stack constellation: TypeScript at the hub, React TSX, WebGL and SVG CAD on the inner ring, IFC4 STEP, DXF R12, QuickBASIC and Python with Shell on the outer ring.">
-        <span class="ring" aria-hidden="true"><i></i></span>
-      </figure>
-      <ul class="leg leg-b" aria-label="OpenStrut stack, nodes 05 to 08">
-        <li><button type="button" aria-pressed="false" data-k="05" data-at="458,115" data-t="05 // IFC4 STEP // 25 KB writer" data-d="src/exportacao/ifc/ writes ISO 10303-21 directly: 25.0 KB, 10.0 KB gzip, loaded on demand. It exports IfcColumn, IfcBeam, IfcSlab and IfcReinforcingBar."><b>05</b><span>IFC4 STEP</span><small>25 KB writer</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="06" data-at="457,300" data-t="06 // DXF R12 // CAD export" data-d="Formwork plans and beam reinforcement drawings export as DXF R12, which any CAD program opens."><b>06</b><span>DXF R12</span><small>CAD export</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="07" data-at="103,300" data-t="07 // QuickBASIC 4.5 // 1991 oracle" data-d="3 .bas sources and more than 100 real SISTRUT 4.0 files (.LAJ, .VIG, .COL and others) are the Float32 parity oracle against DOSBox-X."><b>07</b><span>QuickBASIC</span><small>1991 oracle</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="08" data-at="99,121" data-t="08 // Python + Shell // 24 verifiers" data-d="12 Python and 12 shell scripts check IFC roundtrips in IfcOpenShell and cross-check results against the DOSBox-X oracle."><b>08</b><span>Python · Sh</span><small>24 verifiers</small></button></li>
-      </ul>
-      <p class="const-out" aria-live="polite"><b data-o="t">01 // TypeScript // 412 files</b><span data-o="d">352 in src/. The structural engine for both codes, domain geometry, the IFC4 STEP writer, the DXF R12 exporter, the SISTRUT 1991 parser and the test suites.</span></p>
+    <div class="orbit" data-orbit>
+      <div class="orbit-wrap"><div class="orbit-stage">
+        <div class="orb-ring r1">
+          <span class="orb-arm" style="--a:-105deg"><button class="orb" type="button" data-k="02" data-icon="layers" data-name="React TSX" data-sub="103 UI files" data-d="The offline-first PWA interface, with the SVG plan editor, the 3D viewer, force tables and printable reports.">02</button></span>
+          <span class="orb-arm" style="--a:-5deg"><button class="orb" type="button" data-k="03" data-icon="axes" data-name="WebGL · 3D" data-sub="Three.js" data-d="src/telas/obra3d/ draws the exploded Nk view, cuts per floor, 3D rebar, a 4D sequence and a GPU path tracer.">03</button></span>
+          <span class="orb-arm" style="--a:75deg"><button class="orb" type="button" data-k="04" data-icon="square" data-name="SVG CAD" data-sub="2D plan" data-d="src/planta/ is a vector plan editor with a grid, edge snapping, undo and colour-coded warnings.">04</button></span>
+        </div>
+        <div class="orb-ring r2">
+          <span class="orb-arm" style="--a:-27deg"><button class="orb" type="button" data-k="05" data-icon="bim" data-name="IFC4 STEP" data-sub="25 KB writer" data-d="A 182-line ISO 10303-21 writer, 25.0 KB or 10.0 KB gzip, loaded only when the user exports.">05</button></span>
+          <span class="orb-arm" style="--a:28deg"><button class="orb" type="button" data-k="06" data-icon="mesh" data-name="DXF R12" data-sub="CAD export" data-d="Formwork plans and beam reinforcement export as DXF R12, which any CAD program opens.">06</button></span>
+          <span class="orb-arm" style="--a:152deg"><button class="orb" type="button" data-k="07" data-icon="floppy" data-name="QuickBASIC" data-sub="1991 oracle" data-d="3 .bas sources and 100+ real SISTRUT 4.0 files are the Float32 parity oracle in DOSBox-X.">07</button></span>
+          <span class="orb-arm" style="--a:205deg"><button class="orb" type="button" data-k="08" data-icon="loop" data-name="Python · Sh" data-sub="24 verifiers" data-d="12 Python and 12 shell scripts check IFC roundtrips in IfcOpenShell and cross-check the DOSBox-X oracle.">08</button></span>
+        </div>
+        <button class="orb-hub" type="button" data-k="01" data-icon="ts" data-name="TypeScript" data-sub="412 files" data-d="352 in src/: both design codes, domain geometry, the IFC4 and DXF writers and the SISTRUT 1991 parser.">01 TypeScript</button>
+        <button class="orb-tog" type="button" aria-pressed="false" aria-label="Pause the orbit">Pause</button>
+      </div></div>
+      <div class="orbit-panel">
+        <p class="eye">OpenStrut V2 stack <b>//</b> 8 languages and formats</p>
+        <div class="orb-chips" role="group" aria-label="OpenStrut stack nodes" style="--rows:4"></div>
+        <p class="const-out" aria-live="polite"><b data-o="t">01 // TypeScript // 412 files</b><span data-o="d">352 in src/: both design codes, domain geometry, the IFC4 and DXF writers and the SISTRUT 1991 parser.</span></p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="sec cv" aria-labelledby="p3">
+<section class="sec cv" aria-labelledby="p3" data-world-section="studio">
   <div class="wrap">
-    <div class="proj-h"><span class="idx" aria-hidden="true">03</span><div><p class="eye">Studio <b>//</b> verification <b>//</b> visual system</p><h2 id="p3">Engineering craft and visual system</h2></div></div>
+    <div class="proj-h"><span class="idx" aria-hidden="true">03</span><div><p class="eye">Studio <b>//</b> verification <b>//</b> visual system</p><h2 id="p3">Engineering</h2></div></div>
     <figure class="frame"><a href="projects/engineering/"><img src="assets/banner-ptc.svg" width="1128" height="191" loading="lazy" decoding="async" alt="Praise The Code banner: orange rule, the modular praise.tc_ signature and the line Software, Tools, Games, São Paulo."></a></figure>
-    <div class="proj-g" style="margin-top:clamp(24px,4vw,40px)">
-      <div class="prose">
-        <p>Both products follow the same rules. Cores are deterministic. Tests compare against something the code did not produce: a published worked example, a hand calculation, a 1991 binary. Every format has a byte budget. Assets come from generators that rebuild them from source.</p>
-        <p>This site follows them too: hand-written HTML, one stylesheet, one deferred script, no framework, no webfont, no third-party request, and explicit image sizes so nothing moves while it loads.</p>
-      </div>
-      <div>
-        <p class="small mu"><b class="mono" style="color:var(--ac);font-weight:400">Experiments //</b> JEV-Factorio is an experimental agent that plays Factorio 2.0. It stays an experiment here, with no case study until it has results we can measure.</p>
-        <div class="acts"><a class="btn p" href="projects/engineering/">Read the case study <span class="ar" aria-hidden="true">&#8594;</span></a></div>
-      </div>
+    <div class="cards c2" style="margin-top:22px">
+      <article class="card cut"><p class="eye">Rule 01</p><h3>Deterministic cores</h3><p>Integer clocks and seeded generators give the same output for the same input.</p></article>
+      <article class="card cut"><p class="eye">Rule 02</p><h3>Independent oracles</h3><p>Expected values come from sources the code did not produce.</p></article>
+      <article class="card cut"><p class="eye">Rule 03</p><h3>Byte budgets</h3><p>Every file format has a byte budget.</p></article>
+      <article class="card cut"><p class="eye">Rule 04</p><h3>Generated assets</h3><p>Sprites and brand files rebuild from generator scripts.</p></article>
     </div>
-    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
-      <ul class="leg leg-a" aria-label="Studio tooling, nodes 01 to 03">
-        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // HTML + CSS // zero-dependency UI" data-d="Each page of praisetc.com is hand-written HTML with one shared stylesheet and one deferred script. No framework, no bundler, no webfont."><b>01</b><span>HTML · CSS</span><small>Zero-dep UI</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="02" data-at="342,99" data-t="02 // SVG // 45 degree grid" data-d="The ptc_ mark and every diagram here are SVG. The mark uses an 18.75 px module in a 400 px canvas, a 1-module stroke and a 45° chamfer at each bend."><b>02</b><span>SVG</span><small>45° grid</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="03" data-at="173,268" data-t="03 // Node ESM // asset generator" data-d="gerar_praisetc_svg.mjs builds 14 brand SVGs from tokens.json and renders 23 PNGs in headless Chrome, with no npm package. It exits with code 1 if a size or safe-area check fails."><b>03</b><span>Node ESM</span><small>Asset gen</small></button></li>
-      </ul>
-      <figure class="const-fig">
-        <img class="theme-dark" src="assets/diagrams/constellation-studio-dark.svg" width="560" height="400" decoding="async" alt="Studio tooling constellation: HTML and CSS at the hub, SVG and Node ESM on the inner ring, Python, JSON tokens and Actions CI on the outer ring.">
-        <img class="theme-light" src="assets/diagrams/constellation-studio-light.svg" width="560" height="400" decoding="async" alt="Studio tooling constellation: HTML and CSS at the hub, SVG and Node ESM on the inner ring, Python, JSON tokens and Actions CI on the outer ring.">
-        <span class="ring" aria-hidden="true"><i></i></span>
-      </figure>
-      <ul class="leg leg-b" aria-label="Studio tooling, nodes 04 to 06">
-        <li><button type="button" aria-pressed="false" data-k="04" data-at="468,138" data-t="04 // Python // visual QA" data-d="A Playwright audit opens every page in dark and light at 1280 and 390 px. It fails on console errors, broken images, missing image sizes, horizontal overflow, third-party requests or CLS above 0.01."><b>04</b><span>Python</span><small>Visual QA</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="05" data-at="457,300" data-t="05 // JSON // WCAG tokens" data-d="tokens.json stores each colour with its measured contrast, such as 17.03:1 for Bright Aluminium on Carbon Zinc and 4.77:1 for Deep Signal on Warm Concrete."><b>05</b><span>JSON</span><small>WCAG tokens</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="06" data-at="82,178" data-t="06 // GitHub Actions // tests and checks" data-d="Dawnbringer's test workflow pins Godot 4.5-stable by SHA-512 and runs the fast and UI test matrix. OpenStrut runs bun run check and Playwright E2E."><b>06</b><span>Actions CI</span><small>Tests + checks</small></button></li>
-      </ul>
-      <p class="const-out" aria-live="polite"><b data-o="t">01 // HTML + CSS // zero-dependency UI</b><span data-o="d">Each page of praisetc.com is hand-written HTML with one shared stylesheet and one deferred script. No framework, no bundler, no webfont.</span></p>
+    <div class="acts" style="margin-top:22px"><a class="btn p" href="projects/engineering/">Explore craft &amp; tokens <span class="ar" aria-hidden="true">&#8594;</span></a></div>
+    <div class="orbit" data-orbit>
+      <div class="orbit-wrap"><div class="orbit-stage">
+        <div class="orb-ring r1">
+          <span class="orb-arm" style="--a:-60deg"><button class="orb" type="button" data-k="02" data-icon="vertex" data-name="SVG" data-sub="45° grid" data-d="The ptc_ mark and the diagrams are SVG on an 18.75 px module with a 45° chamfer at each bend.">02</button></span>
+          <span class="orb-arm" style="--a:150deg"><button class="orb" type="button" data-k="03" data-icon="hex" data-name="Node ESM" data-sub="Asset gen" data-d="gerar_praisetc_svg.mjs builds 14 brand SVGs and 23 PNGs from tokens.json and fails on a bad size.">03</button></span>
+        </div>
+        <div class="orb-ring r2">
+          <span class="orb-arm" style="--a:-20deg"><button class="orb" type="button" data-k="04" data-icon="reticle" data-name="Python" data-sub="Visual QA" data-d="A Playwright audit opens every page in both themes at 1280 and 390 px and fails on overflow or layout shift.">04</button></span>
+          <span class="orb-arm" style="--a:28deg"><button class="orb" type="button" data-k="05" data-icon="kv" data-name="JSON" data-sub="WCAG tokens" data-d="tokens.json stores each colour with its measured contrast, such as 17.03:1 for body text on dark.">05</button></span>
+          <span class="orb-arm" style="--a:188deg"><button class="orb" type="button" data-k="06" data-icon="pipe" data-name="Actions CI" data-sub="Tests + checks" data-d="Dawnbringer CI pins Godot 4.5-stable by SHA-512. OpenStrut CI runs bun run check and Playwright.">06</button></span>
+        </div>
+        <button class="orb-hub" type="button" data-k="01" data-icon="code" data-name="HTML · CSS" data-sub="Zero-dep UI" data-d="Hand-written pages, one stylesheet and one deferred script. No framework, no bundler, no webfont.">01 HTML · CSS</button>
+        <button class="orb-tog" type="button" aria-pressed="false" aria-label="Pause the orbit">Pause</button>
+      </div></div>
+      <div class="orbit-panel">
+        <p class="eye">Studio tooling <b>//</b> 6 tools</p>
+        <div class="orb-chips" role="group" aria-label="Studio tooling nodes" style="--rows:3"></div>
+        <p class="const-out" aria-live="polite"><b data-o="t">01 // HTML · CSS // Zero-dep UI</b><span data-o="d">Hand-written pages, one stylesheet and one deferred script. No framework, no bundler, no webfont.</span></p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="sec cv" id="contact" aria-labelledby="c1">
+<section class="sec cv" id="contact" aria-labelledby="c1" data-world-section="studio">
   <div class="wrap contact">
     <div>
       <p class="eye">Contact <b>//</b> profiles</p>
-      <h2 id="c1" style="font-size:clamp(1.75rem,3.6vw,2.75rem);margin-bottom:28px">Talk to the studio</h2>
+      <h2 id="c1">Talk to the studio</h2>
       <ul class="rows">
         <li><span>Email</span><a href="mailto:contato@praisetc.com">contato@praisetc.com</a></li>
         <li><span>LinkedIn</span><a href="https://www.linkedin.com/company/praisetc">linkedin.com/company/praisetc</a></li>
@@ -198,13 +262,13 @@
     </div>
     <div>
       <p class="eye">Company <b>//</b> registration</p>
-      <h2 style="font-size:clamp(1.75rem,3.6vw,2.75rem);margin-bottom:28px">Company</h2>
+      <h2>Company</h2>
       <ul class="rows">
         <li><span>Name</span><span class="v">PRAISE THE CODE</span></li>
         <li><span>Brand</span><span class="v">PTC / PraiseTC</span></li>
         <li><span>CNPJ</span><span class="v mono">58.830.051/0001-20</span></li>
         <li><span>Location</span><span class="v">São Paulo, SP, Brazil</span></li>
-        <li><span>Founded</span><span class="v">January 2025</span></li>
+        <li><span>Coordinates</span><span class="v mono">23°33'S 46°38'W</span></li>
       </ul>
     </div>
   </div>

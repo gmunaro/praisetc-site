@@ -1,22 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-world="dawnbringer" data-fixed>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
-<title>Dawnbringer case study: deterministic engine and Votive Gothic art | Praise The Code</title>
-<meta name="description" content="How Dawnbringer is built: an integer-only battle engine with zero RNG, JSON content, six test layers with 4,671 GUT tests, procedural audio and the Votive Gothic 2x pixel-art pipeline.">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Dawnbringer case study: deterministic engine, v0.9 lighting and Votive Gothic art | Praise The Code</title>
+<meta name="description" content="How Dawnbringer is built: an integer-only Godot 4.5 battle engine, six test layers with 4,671 GUT tests, the v0.9 dynamic lighting in development and the Votive Gothic art direction.">
 <link rel="canonical" href="https://praisetc.com/projects/dawnbringer/">
-<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F3F3F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0710" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F4EFE6" media="(prefers-color-scheme: light)">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Praise The Code">
 <meta property="og:title" content="Dawnbringer case study">
-<meta property="og:description" content="Integer-only battle engine, six test layers, procedural audio and the Votive Gothic art direction.">
+<meta property="og:description" content="Integer-only battle engine, six test layers, v0.9 dynamic lighting in development and the Votive Gothic art direction.">
 <meta property="og:url" content="https://praisetc.com/projects/dawnbringer/">
-<meta property="og:image" content="https://praisetc.com/assets/showcase/dawnbringer-hero.webp">
-<meta property="og:image:width" content="1280">
-<meta property="og:image:height" content="720">
+<meta property="og:image" content="https://praisetc.com/assets/showcase/dawnbringer-concept.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
@@ -24,71 +24,124 @@
 <script src="../../assets/site.js" defer></script>
 <script type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
-<body>
+<body class="w-db">
+<div class="atmo" aria-hidden="true"><i class="a-st"></i><i class="a-db"></i><i class="a-os"></i></div>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav"><div class="wrap">
+<header class="nav"><span class="prog" aria-hidden="true"></span><div class="wrap">
   <a class="brand" href="../../" aria-label="Praise The Code, overview"><img class="theme-dark" src="../../assets/mark-dark.svg" width="32" height="32" alt="ptc_ mark"><img class="theme-light" src="../../assets/mark-light.svg" width="32" height="32" alt="ptc_ mark"><span>Praise The Code</span></a>
   <nav class="links" aria-label="Main"><a href="../../">Overview</a><a href="./" aria-current="page">Dawnbringer</a><a href="../openstrut/">OpenStrut</a><a href="../engineering/">Engineering</a></nav>
+  <span class="world-pill"><i aria-hidden="true"></i><span class="sr">Visual world: </span><span>DAWNBRINGER</span></span>
   <button class="tog" type="button" aria-pressed="false"><i aria-hidden="true"></i>Dark</button>
 </div></header>
 
 <main id="main">
-<section class="hero grid-bg">
+<section class="hero">
   <div class="wrap">
     <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="../../">praisetc.com</a></li><li>Projects</li><li aria-current="page">Dawnbringer</li></ol></nav>
     <div class="hero-g">
       <div class="rule">
         <p class="eye">Case study 01 <b>//</b> game engineering <b>//</b> art direction</p>
-        <h1>Dawnbringer<span>_</span></h1>
-        <p class="lead">A dark-fantasy roguelike auto-battler built in Godot 4.5. Build a hunter, read each foe's gear, then pay the Landlord or fight. This page covers the deterministic battle engine, the data and test pipeline, and the Votive Gothic art direction.</p>
-        <ul class="chips" aria-label="Technical profile"><li>Godot 4.5</li><li>GL Compatibility</li><li>GDScript</li><li>v0.7.2 source</li><li>640×360 base viewport</li><li>14 export presets</li></ul>
-      </div>
-      <div class="card cut">
-        <p class="eye">Official links</p>
-        <ul class="rows">
-          <li><span>Site</span><a class="ext" href="https://dawnbringergame.com/">dawnbringergame.com</a></li>
-          <li><span>Demo</span><a class="ext" href="https://dawnbringergame.com/download/">Windows, macOS, Linux</a></li>
-          <li><span>Android</span><a class="ext" href="https://dawnbringergame.com/beta/">Android alpha</a></li>
-          <li><span>Press</span><a class="ext" href="https://dawnbringergame.com/presskit/">Press kit</a></li>
-          <li><span>Social</span><span class="v"><a href="https://bsky.app/profile/dawnbringergame.bsky.social">Bluesky</a> · <a href="https://www.youtube.com/@dawnbringergame">YouTube</a> · <a href="https://www.reddit.com/r/Dawnbringer/">Reddit</a></span></li>
+        <h1 class="h-logo"><img src="../../assets/showcase/dawnbringer-logo.webp" width="720" height="180" decoding="async" alt="Dawnbringer"></h1>
+        <p class="lead">Votive Gothic pixel art on a deterministic Godot 4.5 core, guarded by 4,671 GUT tests across six verification layers.</p>
+        <ul class="chips" aria-label="Status">
+          <li><b>v0.7.2</b> Demo · Desktop + Android test</li>
+          <li><b>v0.9</b> Lighting · In dev</li>
+          <li>Export presets · 5 platforms</li>
+          <li>Zero RNG core</li>
         </ul>
+        <div class="acts"><a class="btn p ext" href="https://dawnbringergame.com/download/">Play the demo</a><a class="btn ext" href="https://dawnbringergame.com/beta/">Android test</a><a class="btn ext" href="https://dawnbringergame.com/presskit/">Press kit</a></div>
       </div>
+      <aside class="card cut" aria-label="Release status">
+        <p class="eye">Release status</p>
+        <ul class="rows">
+          <li><span>Demo</span><span class="v">v0.7.2 on Windows, macOS and Linux</span></li>
+          <li><span>Mobile</span><span class="v">Android closed test</span></li>
+          <li><span>Presets</span><span class="v">Windows, macOS, Linux, Android, iOS</span></li>
+          <li><span>PvP</span><span class="v">Gated offline in v0.7.2</span></li>
+          <li><span>Site</span><a class="ext" href="https://dawnbringergame.com/">dawnbringergame.com</a></li>
+        </ul>
+      </aside>
     </div>
-    <figure class="frame" style="margin-top:clamp(36px,5vw,60px)">
-      <button class="zoom" type="button" data-zoom data-cap="Dawnbringer key art, 1280×720: a hunter faces the Landlord known as the Orchard Eater under a red moon."><img src="../../assets/showcase/dawnbringer-hero.webp" width="1280" height="720" fetchpriority="high" decoding="async" alt="Dawnbringer key art: a red-haired hunter faces a Landlord with a branch crown under a red moon."></button>
-      <figcaption><b>Plate 00 //</b> Key art at 1280×720, the 2x density of the 640×360 design space.</figcaption>
+    <figure class="frame" style="margin-top:clamp(30px,4.5vw,52px)">
+      <div class="lantern" data-lantern><img src="../../assets/showcase/dawnbringer-concept.webp" width="1600" height="900" fetchpriority="high" decoding="async" alt="Dawnbringer R4 concept art: a knight with a lantern and a red cape faces the Charnel Maw across flooded ruins under a broken eclipse."><span class="glow" aria-hidden="true"></span><span class="tagline">R4 CONCEPT ART</span></div>
+      <figcaption><b>R4 concept art //</b> The lantern bearer and the Charnel Maw, the v0.9 Landlord. On desktop, move the pointer to carry the lantern glow.</figcaption>
     </figure>
+  </div>
+</section>
+
+<section class="sec cv" id="lighting" aria-labelledby="h-light">
+  <div class="wrap">
+    <div class="sh"><p class="num">01 // v0.9 lighting // in development</p><h2 id="h-light">Dynamic lighting lab</h2><p class="lead">Drag across one Godot 4.5 fight to switch the v0.9 lighting rig between off and high.</p></div>
+    <div class="tabs" role="tablist" aria-label="Lighting demos">
+      <button type="button" role="tab" id="t-l1" aria-controls="p-l1" aria-selected="true">OFF ↔ HIGH curtain</button>
+      <button type="button" role="tab" id="t-l2" aria-controls="p-l2" aria-selected="false" tabindex="-1">Full combat loop</button>
+    </div>
+    <figure class="frame">
+      <div id="p-l1" role="tabpanel" aria-labelledby="t-l1">
+        <div data-vid data-cur>
+          <div class="cur" style="--pos:56%">
+            <video class="lo" width="960" height="540" poster="../../assets/showcase/dawnbringer-v09-off-poster.webp" muted loop playsinline preload="metadata" aria-label="The same fight with dynamic lighting off."><source src="../../assets/showcase/dawnbringer-v09-compare-off.mp4" type="video/mp4"><source src="../../assets/showcase/dawnbringer-v09-compare-off.webm" type="video/webm"></video>
+            <video class="hi" width="960" height="540" poster="../../assets/showcase/dawnbringer-v09-poster.webp" muted loop playsinline preload="metadata" aria-label="The same fight with dynamic lighting on high: wet floor reflections, mist and rim light."><source src="../../assets/showcase/dawnbringer-v09-compare-high.mp4" type="video/mp4"><source src="../../assets/showcase/dawnbringer-v09-compare-high.webm" type="video/webm"></video>
+            <span class="cur-line" aria-hidden="true"></span>
+            <span class="badge"><i></i>v0.9 DEV // DYNAMIC LIGHTING</span>
+            <span class="cur-lab l" aria-hidden="true">HIGH</span><span class="cur-lab r" aria-hidden="true">OFF</span>
+          </div>
+          <div class="cur-bar">
+            <label class="sr" for="cur-r">Share of the frame with lighting on high</label>
+            <input id="cur-r" type="range" min="5" max="95" value="56">
+            <output for="cur-r">56% HIGH</output>
+            <button type="button" data-pos="0">0% OFF</button><button type="button" data-pos="50">50% SPLIT</button><button type="button" data-pos="100">100% HIGH</button><button type="button" data-play>Play</button>
+          </div>
+        </div>
+      </div>
+      <div id="p-l2" role="tabpanel" aria-labelledby="t-l2" hidden>
+        <div class="stage" data-vid>
+          <video width="960" height="540" poster="../../assets/showcase/dawnbringer-v09-poster.webp" muted loop playsinline preload="metadata" aria-label="v0.9 combat loop: Prepare, Penance thorns, a blocked first round, then a sword counter in round two."><source src="../../assets/showcase/dawnbringer-v09-loop.mp4" type="video/mp4"><source src="../../assets/showcase/dawnbringer-v09-loop.webm" type="video/webm"></video>
+          <span class="badge"><i></i>v0.9 DEV // DYNAMIC LIGHTING</span>
+          <div class="vid-ctl"><button type="button" data-play>Play</button></div>
+        </div>
+      </div>
+      <figcaption><b>Godot 4.5 captures //</b> The curtain plays the same 2.2 s with lighting off and on high, kept in sync. The full loop runs 3.3 s on high.</figcaption>
+    </figure>
+    <div class="cards c4" style="margin-top:20px">
+      <article class="card"><p class="eye">dynamic_light_rig.gd</p><h3>Light budget</h3><p>Up to 6 lights on high and 2 on low. Off stops processing, so it costs nothing.</p></article>
+      <article class="card"><p class="eye">backdrop_wet + fog_scatter</p><h3>Wet floor and mist</h3><p>The floor reflects each light and the mist scatters it, both synced every frame.</p></article>
+      <article class="card"><p class="eye">ThorVG // Godot 4.5</p><h3>SVG rigs</h3><p>Heroes and the Charnel Maw are vector rigs under 500 KB, with no filter or image tags.</p></article>
+      <article class="card"><p class="eye">≤ 3 Hz flicker // Reduce motion</p><h3>Safe flicker</h3><p>Flicker stays under 3 Hz, and Reduce motion freezes flicker, ripples, mist and shock rings.</p></article>
+    </div>
   </div>
 </section>
 
 <section class="sec cv" id="stack" aria-labelledby="h-stack">
   <div class="wrap">
-    <div class="sh"><p class="num">01 // Stack</p><h2 id="h-stack">Language and runtime constellation</h2><p class="lead">Counted on disk with <code>os.walk</code>, skipping <code>.git</code>, <code>.godot</code>, exports and build folders. Select a node to read its role.</p></div>
-    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
-      <ul class="leg leg-a" aria-label="Dawnbringer stack, nodes 01 to 04">
-        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // GDScript // 1,068 files" data-d="1,051 files in game/ and 17 in tools/. 517 are GUT test files with 4,671 test functions; the rest run the battle engine, run flow, HUD and HdTexture. Plus 81 .tscn scenes."><b>01</b><span>GDScript</span><small>1,068 files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="02" data-at="218,99" data-t="02 // GLSL // 13 shaders" data-d="11 .gdshader and 2 .gdshaderinc files. hd_sharp.gdshaderinc samples the 2x art sharp-bilinear; hit_flash.gdshader and afterlife_sprite.gdshader drive combat feedback and colour grading."><b>02</b><span>GLSL</span><small>13 shaders</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="03" data-at="403,189" data-t="03 // Python // 589 files" data-d="529 in tools/ and 16 in game/. 2x art generators (hd.py, gen_chars.py, gen_bosses.py, gen_backdrop.py), the seeded SFX synthesizer gen_sfx.py, the headless PvP verifier and art validators."><b>03</b><span>Python</span><small>589 files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="04" data-at="200,301" data-t="04 // JSON + CSV // data and i18n" data-d="game/content/ holds only JSON, no .gd file. game/i18n/ holds the Godot CSV catalogs ui.csv and content.csv: 14 shipped locales plus the eo pseudo-locale."><b>04</b><span>JSON · CSV</span><small>Data + 14 locales</small></button></li>
-      </ul>
-      <figure class="const-fig">
-        <img class="theme-dark" src="../../assets/diagrams/constellation-dawnbringer-dark.svg" width="560" height="400" decoding="async" alt="Dawnbringer stack constellation: GDScript at the hub, GLSL, Python and JSON with CSV on the inner ring, TypeScript, SQL and Shell on the outer ring.">
-        <img class="theme-light" src="../../assets/diagrams/constellation-dawnbringer-light.svg" width="560" height="400" decoding="async" alt="Dawnbringer stack constellation: GDScript at the hub, GLSL, Python and JSON with CSV on the inner ring, TypeScript, SQL and Shell on the outer ring.">
-        <span class="ring" aria-hidden="true"><i></i></span>
-      </figure>
-      <ul class="leg leg-b" aria-label="Dawnbringer stack, nodes 05 to 07">
-        <li><button type="button" aria-pressed="false" data-k="05" data-at="444,91" data-t="05 // TypeScript // 42 files" data-d="Cloudflare Workers in tools/bugreport-worker and tools/pvp-worker: bug reports, the Android licence check, opt-in telemetry and the weekly challenge queue."><b>05</b><span>TypeScript</span><small>42 Worker files</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="06" data-at="465,281" data-t="06 // SQL // 7 D1 migrations" data-d="Migrations 0001 to 0006 for the bug-report Worker, plus 0001_pvp.sql for the PvP Worker. The client IP keys the rate limiter and is never stored."><b>06</b><span>SQL</span><small>7 D1 migrations</small></button></li>
-        <li><button type="button" aria-pressed="false" data-k="07" data-at="92,274" data-t="07 // Shell // 55 scripts" data-d="tools/test/run_tests.sh runs the test layers with --fast, --ui, --dir and --godot. The other scripts drive CI and exports."><b>07</b><span>Shell</span><small>55 scripts</small></button></li>
-      </ul>
-      <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // 1,068 files</b><span data-o="d">1,051 files in game/ and 17 in tools/. 517 are GUT test files with 4,671 test functions; the rest run the battle engine, run flow, HUD and HdTexture. Plus 81 .tscn scenes.</span></p>
+    <div class="sh"><p class="num">02 // Stack</p><h2 id="h-stack">Seven languages around one core</h2><p class="lead">File counts measured on disk across the game and its tools. Select a node to read its role.</p></div>
+    <div class="orbit" data-orbit>
+      <div class="orbit-wrap"><div class="orbit-stage">
+        <div class="orb-ring r1">
+          <span class="orb-arm" style="--a:-120deg"><button class="orb" type="button" data-k="02" data-icon="prism" data-name="GLSL" data-sub="13 shaders" data-d="11 .gdshader and 2 .gdshaderinc files. hit_flash.gdshader and afterlife_sprite.gdshader drive combat feedback.">02</button></span>
+          <span class="orb-arm" style="--a:-8deg"><button class="orb" type="button" data-k="03" data-icon="hooks" data-name="Python" data-sub="589 files" data-d="529 in tools/: the 2x art generators, the seeded SFX synthesizer gen_sfx.py and the headless PvP verifier.">03</button></span>
+          <span class="orb-arm" style="--a:130deg"><button class="orb" type="button" data-k="04" data-icon="braces" data-name="JSON · CSV" data-sub="Data + 14 i18n" data-d="game/content/ holds only JSON, no .gd file. game/i18n/ holds CSV catalogs for 14 shipped locales.">04</button></span>
+        </div>
+        <div class="orb-ring r2">
+          <span class="orb-arm" style="--a:-35deg"><button class="orb" type="button" data-k="05" data-icon="ts" data-name="TypeScript" data-sub="42 files" data-d="Cloudflare Workers for bug reports, the Android licence check, opt-in telemetry and the weekly PvP queue.">05</button></span>
+          <span class="orb-arm" style="--a:22deg"><button class="orb" type="button" data-k="06" data-icon="db" data-name="SQL" data-sub="7 D1 migrations" data-d="Seven D1 migrations for the two Workers. The client IP keys the rate limiter and is never stored.">06</button></span>
+          <span class="orb-arm" style="--a:160deg"><button class="orb" type="button" data-k="07" data-icon="shell" data-name="Shell" data-sub="55 scripts" data-d="tools/test/run_tests.sh runs the test layers with --fast and --ui. The other scripts drive CI and exports.">07</button></span>
+        </div>
+        <button class="orb-hub" type="button" data-k="01" data-icon="cube" data-name="GDScript" data-sub="1,068 files" data-d="1,051 files in game/ and 17 in tools/, including 517 GUT test files, plus 81 .tscn scenes.">01 GDScript</button>
+        <button class="orb-tog" type="button" aria-pressed="false" aria-label="Pause the orbit">Pause</button>
+      </div></div>
+      <div class="orbit-panel">
+        <p class="eye">Dawnbringer stack <b>//</b> 7 languages</p>
+        <div class="orb-chips" role="group" aria-label="Dawnbringer stack nodes" style="--rows:4"></div>
+        <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // 1,068 files</b><span data-o="d">1,051 files in game/ and 17 in tools/, including 517 GUT test files, plus 81 .tscn scenes.</span></p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="sec cv" id="architecture" aria-labelledby="h-arch">
   <div class="wrap">
-    <div class="sh"><p class="num">02 // Architecture</p><h2 id="h-arch">Software architecture blueprint</h2><p class="lead">Four zones from left to right: data and localization, a deterministic rules core in <code>game/core/</code>, the 2x renderer with procedural audio, and edge services. Six verification layers run under all four.</p></div>
+    <div class="sh"><p class="num">03 // Architecture</p><h2 id="h-arch">Architecture and verification</h2><p class="lead">Data, a deterministic rules core, the 2x renderer and edge services, with six test layers under all four.</p></div>
     <figure class="frame">
       <button class="zoom" type="button" data-zoom data-cap="Dawnbringer architecture: data and localization, deterministic core, Votive Gothic 2x renderer with procedural audio, edge services, and the six-layer verification pipeline underneath.">
         <img class="theme-dark" src="../../assets/diagrams/dawnbringer-arch-dark.svg" width="960" height="460" decoding="async" alt="Dawnbringer architecture diagram with four zones and a six-layer verification pipeline underneath.">
@@ -96,73 +149,26 @@
       </button>
       <figcaption><b>Fig. 01 //</b> Godot 4.5 architecture. Select the diagram to enlarge it.</figcaption>
     </figure>
-
-    <div class="cards c2" style="margin-top:clamp(28px,4vw,44px)">
-      <article class="card">
-        <p class="eye">game/core/battle/battle_sim.gd <b>//</b> 1,398 lines</p>
-        <h3>Deterministic integer battle engine</h3>
-        <p>The simulation uses integers only. A grep for <code>randi</code>, <code>randf</code>, <code>randomize</code> or <code>RandomNumberGenerator</code> across <code>game/core/battle/</code> returns no hit. Each fighter acts every <code>TICKS / pace</code> ticks. A tie goes to the fighter with more time, then to the hero.</p>
-        <pre class="code"><span class="k">const</span> MAX_SPEED  := 16
-<span class="k">const</span> TICKS      := 5342931457063200
-<span class="k">const</span> CLOCK_DIV  := 16
-<span class="k">const</span> MAX_ROUNDS := 30   <span class="c"># past this, the hero loses</span>
-<span class="k">const</span> DUSK_ROUND := 13
-<span class="k">const</span> HARD_DEF_K := 50</pre>
-        <p style="margin:16px 0 0">The first death ends the fight. Damage goes through hard DEF first, <code>floor(A * def / (def + HARD_DEF_K))</code>, then armour, then HP. Entry points are <code>simulate</code>, <code>simulate_group</code>, <code>simulate_duel</code> and <code>fingerprint</code>.</p>
-      </article>
-      <article class="card">
-        <p class="eye">game/content/*.json <b>//</b> data only</p>
-        <h3>Data-driven content</h3>
-        <p>The content folder holds JSON and nothing else. No <code>.gd</code> file lives in <code>game/content/</code>. Counts come from parsing each file.</p>
-        <ul class="stats">
-          <li><b>105</b><span>items</span></li><li><b>19</b><span>Landlords</span></li><li><b>19</b><span>monster cards</span></li>
-          <li><b>6</b><span>biomes</span></li><li><b>9</b><span>vows</span></li><li><b>4</b><span>guilds</span></li>
-          <li><b>31</b><span>events</span></li><li><b>6</b><span>champions</span></li><li><b>10</b><span>spells</span></li>
-        </ul>
-        <p style="margin:16px 0 0">Text lives in Godot CSV catalogs in <code>game/i18n/</code>: <code>ui.csv</code> for everything the code shows and <code>content.csv</code> for the JSON fields. English is the source, with 13 translations (14 shipped locales in total) plus the <code>eo</code> pseudo-locale.</p>
-      </article>
-      <article class="card">
-        <p class="eye">docs/TESTING.md <b>//</b> 4,671 GUT tests in 517 files</p>
-        <h3>Six-layer verification pipeline</h3>
-        <ol class="ladder">
-          <li><b>L0</b><span>Rules, content, economy and i18n. Under 2 minutes, on every push.</span></li>
-          <li><b>L1</b><span>UI and flow. 13 minutes on Linux, about 20 on a PC, on every push in CI.</span></li>
-          <li><b>L2</b><span>Balance bots in <code>game/tools/bot/*.gd</code>.</span></li>
-          <li><b>L3</b><span>Automated evolution bots on a dedicated test machine.</span></li>
-          <li><b>L4</b><span>Automated bots that play the game through text.</span></li>
-          <li><b>L5</b><span>Automated bots that play from the screen image, on 12 screen formats.</span></li>
-        </ol>
-        <p style="margin:14px 0 0">CI pins Godot <code>4.5-stable</code> and checks its SHA-512 against <code>SHA512-SUMS.txt</code> before it runs the <code>fast</code> and <code>ui</code> matrix.</p>
-      </article>
-      <article class="card">
-        <p class="eye">tools/audio <b>//</b> tools/*-worker</p>
-        <h3>Procedural audio and edge Workers</h3>
-        <p><code>gen_sfx.py</code> synthesizes the sound effects with no samples and no ffmpeg: 44.1 kHz, 16-bit mono, a seeded generator instead of the system RNG, peak normalization and DC blocking. The same seed writes the same file.</p>
-        <p>The <code>audio.gd</code> autoload runs 14 SFX voices with a 35 ms minimum repeat and a 1.4 s music crossfade. <code>set_landlord_tension(t)</code> drives the adaptive Landlord night track.</p>
-        <p style="margin:0"><code>bugreport-worker</code> turns in-game reports into issues and receives opt-in telemetry in the <code>RunTrace</code> format; the game asks at most twice. <code>pvp-worker</code> answers 503 on every route unless <code>PVP_ENABLED</code> is true, and a headless verifier replays each challenge through <code>verify.gd</code>. The 0.7.2 build ships with <code>pvp/online=false</code>, so this path is off in production.</p>
-      </article>
+    <div class="cards c4" style="margin-top:20px">
+      <article class="card"><p class="eye">battle_sim.gd // 1,398 lines</p><h3>Integer clock</h3><p>No randi, randf or RandomNumberGenerator in the battle folder. Ties go to time left, then to the hero.</p></article>
+      <article class="card"><p class="eye">docs/TESTING.md // 4,671 GUT</p><h3>Six-layer test ladder</h3><p>L0 checks rules in under 2 minutes. L5 bots play from screenshots on 12 screen formats.</p></article>
+      <article class="card"><p class="eye">game/content + game/i18n</p><h3>JSON and 14 locales</h3><p>Content is JSON only, with 105 items, 19 Landlords and 6 biomes, in 14 shipped locales.</p></article>
+      <article class="card"><p class="eye">tools/*-worker</p><h3>Edge Workers, PvP gated</h3><p>Workers take bug reports and opt-in telemetry. PvP answers 503 unless enabled, and v0.7.2 ships it off.</p></article>
     </div>
   </div>
 </section>
 
 <section class="sec cv" id="art" aria-labelledby="h-art">
   <div class="wrap">
-    <div class="sh"><p class="num">03 // Art direction</p><h2 id="h-art">Votive Gothic</h2></div>
+    <div class="sh"><p class="num">04 // Art direction</p><h2 id="h-art">Votive Gothic and Dark Fantasy 32</h2><p class="lead">Five pillars, each with a test an artist can run, and 32 colours locked in <code>palette.json</code>.</p></div>
     <blockquote>"A candle carried through a house that belongs to someone else."<cite>docs/v3/ART_DIRECTION.md // the direction in one line</cite></blockquote>
-    <p class="lead" style="margin-bottom:clamp(28px,4vw,44px)">The weight and cold of Dark Souls, the small expressive motion of Undertale and the instant state reading of Slay the Spire, drawn as 2x pixel art in the 32 colours of Dark Fantasy 32. Each pillar comes with a test an artist can run on a frame.</p>
     <ol class="pill">
-      <li><b>P1</b><h3>The wick is the only warm thing</h3><p><code>#FFE9A8</code> belongs to Hesper's fire, champion wicks, heal, crit and revive FX, The Last Light and UI focus. Darkness and Landlords stay cold.</p><p class="t">#FFE9A8 appears only in those reserved roles.</p></li>
-      <li><b>P2</b><h3>Silhouette first</h3><p>Every figure must read at design size: 32 px for champions and monsters, 64 px for Landlords.</p><p class="t">a flat #0B0710 silhouette on #3A2A3C is still recognizable.</p></li>
-      <li><b>P3</b><h3>Pose over frames</h3><p>Weight comes from held key poses and long recoveries, not from frame count.</p><p class="t">anticipation lasts at least 2x the strike frame, and dangerous moves telegraph before they hit.</p></li>
-      <li><b>P4</b><h3>Small motion, big character</h3><p>Idles carry 1 to 2 design pixels of personality, documented as <code>beat</code> in the JSON sidecar.</p><p class="t">an idle where the whole sprite slides fails.</p></li>
-      <li><b>P5</b><h3>State is never in doubt</h3><p>Screen shake and flash have hard caps.</p><p class="t">any frozen combat frame answers who is winning and what is lethal within 2 seconds.</p></li>
+      <li><b>P1</b><h3>The wick is the only warm thing</h3><p>#FFE9A8 appears only in its reserved roles.</p></li>
+      <li><b>P2</b><h3>Silhouette first</h3><p>A flat #0B0710 shape on #3A2A3C still reads at design size.</p></li>
+      <li><b>P3</b><h3>Pose over frames</h3><p>Anticipation lasts at least twice the strike frame.</p></li>
+      <li><b>P4</b><h3>Small motion, big character</h3><p>Idles move 1 to 2 design pixels; a whole-sprite slide fails.</p></li>
+      <li><b>P5</b><h3>State is never in doubt</h3><p>Any frozen combat frame shows who is winning within 2 seconds.</p></li>
     </ol>
-  </div>
-</section>
-
-<section class="sec cv" id="palette" aria-labelledby="h-pal">
-  <div class="wrap">
-    <div class="sh"><p class="num">04 // Palette</p><h2 id="h-pal">Dark Fantasy 32 and the six biomes</h2><p class="lead"><code>game/assets/palette.json</code> locks 32 colours in 9 ramps. Light comes from the upper left, the outline is a selective 1 px <code>#0B0710</code>, and anti-aliasing is forbidden. Each biome lists its base ramps, accent quotas and forbidden colours. Pick a biome, then click a swatch to inspect and copy it.</p></div>
     <div class="pal" data-pal>
       <div class="pal-f" role="group" aria-label="Filter the palette">
         <button type="button" data-f="all" aria-pressed="true">All 32</button>
@@ -180,40 +186,19 @@
             <div class="pal-r"><span>ink</span><div><button class="sw" type="button" data-r="ink" data-h="#0B0710" style="--c:#0B0710" aria-label="#0B0710, ink 1"></button><button class="sw" type="button" data-r="ink" data-h="#140E1F" style="--c:#140E1F" aria-label="#140E1F, ink 2"></button><button class="sw" type="button" data-r="ink" data-h="#1E1428" style="--c:#1E1428" aria-label="#1E1428, ink 3"></button><button class="sw" type="button" data-r="ink" data-h="#2C1C33" style="--c:#2C1C33" aria-label="#2C1C33, ink 4"></button></div></div>
             <div class="pal-r"><span>stone</span><div><button class="sw" type="button" data-r="stone" data-h="#3A2A3C" style="--c:#3A2A3C" aria-label="#3A2A3C, stone 1"></button><button class="sw" type="button" data-r="stone" data-h="#4C3742" style="--c:#4C3742" aria-label="#4C3742, stone 2"></button><button class="sw" type="button" data-r="stone" data-h="#5E4548" style="--c:#5E4548" aria-label="#5E4548, stone 3"></button><button class="sw" type="button" data-r="stone" data-h="#71564E" style="--c:#71564E" aria-label="#71564E, stone 4"></button><button class="sw" type="button" data-r="stone" data-h="#8A6A56" style="--c:#8A6A56" aria-label="#8A6A56, stone 5"></button><button class="sw" type="button" data-r="stone" data-h="#A6845F" style="--c:#A6845F" aria-label="#A6845F, stone 6"></button></div></div>
             <div class="pal-r"><span>skin</span><div><button class="sw" type="button" data-r="skin" data-h="#A98B6B" style="--c:#A98B6B" aria-label="#A98B6B, skin 1"></button><button class="sw" type="button" data-r="skin" data-h="#C9A97B" style="--c:#C9A97B" aria-label="#C9A97B, skin 2"></button><button class="sw" type="button" data-r="skin" data-h="#E3CDA4" style="--c:#E3CDA4" aria-label="#E3CDA4, skin 3"></button><button class="sw" type="button" data-r="skin" data-h="#F2E3C6" style="--c:#F2E3C6" aria-label="#F2E3C6, skin 4"></button></div></div>
-            <div class="pal-r"><span>blood</span><div><button class="sw" type="button" data-r="blood" data-h="#7E2E34" style="--c:#7E2E34" aria-label="#7E2E34, blood 1"></button><button class="sw" type="button" data-r="blood" data-h="#B2403F" style="--c:#B2403F" aria-label="#B2403F, blood 2"></button><button class="sw" type="button" data-r="blood" data-h="#D66A51" style="--c:#D66A51" aria-label="#D66A51, blood 3, reserved"></button></div></div>
+            <div class="pal-r"><span>blood</span><div><button class="sw" type="button" data-r="blood" data-h="#7E2E34" style="--c:#7E2E34" aria-label="#7E2E34, blood 1"></button><button class="sw" type="button" data-r="blood" data-h="#B2403F" style="--c:#B2403F" aria-label="#B2403F, blood 2"></button><button class="sw" type="button" data-r="blood" data-h="#D66A51" style="--c:#D66A51" aria-label="#D66A51, blood 3"></button></div></div>
             <div class="pal-r"><span>steelblu</span><div><button class="sw" type="button" data-r="steelblu" data-h="#3C4E78" style="--c:#3C4E78" aria-label="#3C4E78, steelblu 1"></button><button class="sw" type="button" data-r="steelblu" data-h="#5A78B0" style="--c:#5A78B0" aria-label="#5A78B0, steelblu 2"></button><button class="sw" type="button" data-r="steelblu" data-h="#8FB0DC" style="--c:#8FB0DC" aria-label="#8FB0DC, steelblu 3"></button></div></div>
-            <div class="pal-r"><span>ember</span><div><button class="sw" type="button" data-r="ember" data-h="#E0873A" style="--c:#E0873A" aria-label="#E0873A, ember 1"></button><button class="sw" type="button" data-r="ember" data-h="#F5C05C" style="--c:#F5C05C" aria-label="#F5C05C, ember 2"></button><button class="sw" type="button" data-r="ember" data-h="#FFE9A8" style="--c:#FFE9A8" aria-label="#FFE9A8, ember 3, reserved"></button></div></div>
+            <div class="pal-r"><span>ember</span><div><button class="sw" type="button" data-r="ember" data-h="#E0873A" style="--c:#E0873A" aria-label="#E0873A, ember 1"></button><button class="sw" type="button" data-r="ember" data-h="#F5C05C" style="--c:#F5C05C" aria-label="#F5C05C, ember 2"></button><button class="sw" type="button" data-r="ember" data-h="#FFE9A8" style="--c:#FFE9A8" aria-label="#FFE9A8, ember 3"></button></div></div>
             <div class="pal-r"><span>poison</span><div><button class="sw" type="button" data-r="poison" data-h="#3C6B45" style="--c:#3C6B45" aria-label="#3C6B45, poison 1"></button><button class="sw" type="button" data-r="poison" data-h="#6FA84E" style="--c:#6FA84E" aria-label="#6FA84E, poison 2"></button><button class="sw" type="button" data-r="poison" data-h="#A8D96B" style="--c:#A8D96B" aria-label="#A8D96B, poison 3"></button></div></div>
-            <div class="pal-r"><span>arcane</span><div><button class="sw" type="button" data-r="arcane" data-h="#5B3A82" style="--c:#5B3A82" aria-label="#5B3A82, arcane 1"></button><button class="sw" type="button" data-r="arcane" data-h="#8A5FBF" style="--c:#8A5FBF" aria-label="#8A5FBF, arcane 2"></button><button class="sw" type="button" data-r="arcane" data-h="#C39BE8" style="--c:#C39BE8" aria-label="#C39BE8, arcane 3, reserved"></button></div></div>
+            <div class="pal-r"><span>arcane</span><div><button class="sw" type="button" data-r="arcane" data-h="#5B3A82" style="--c:#5B3A82" aria-label="#5B3A82, arcane 1"></button><button class="sw" type="button" data-r="arcane" data-h="#8A5FBF" style="--c:#8A5FBF" aria-label="#8A5FBF, arcane 2"></button><button class="sw" type="button" data-r="arcane" data-h="#C39BE8" style="--c:#C39BE8" aria-label="#C39BE8, arcane 3"></button></div></div>
             <div class="pal-r"><span>steel</span><div><button class="sw" type="button" data-r="steel" data-h="#5A6672" style="--c:#5A6672" aria-label="#5A6672, steel 1"></button><button class="sw" type="button" data-r="steel" data-h="#93A0AE" style="--c:#93A0AE" aria-label="#93A0AE, steel 2"></button><button class="sw" type="button" data-r="steel" data-h="#CBD6E2" style="--c:#CBD6E2" aria-label="#CBD6E2, steel 3"></button></div></div>
           </div>
-          <p class="legend-row" style="margin-top:12px"><span>Outlined: base ramp</span><span>Orange ring + %: accent quota</span><span>Struck: forbidden</span><span>R: reserved role</span></p>
+          <p class="legend-row"><span>Outlined: base ramp</span><span>Gold ring + %: accent quota</span><span>Struck: forbidden</span><span>R: reserved role</span></p>
         </div>
         <div class="pal-i" aria-live="polite">
-          <div class="card" data-bio><h4>Dark Fantasy 32 // all colours</h4><p class="small" style="margin:0">32 colours in 9 ramps: ink, stone, skin, blood, steelblu, ember, poison, arcane and steel. <code>tests/art/test_backdrops.gd</code> checks the backdrops against it.</p></div>
-          <div class="card" data-pick><h4>Selected colour</h4><p class="small mu" style="margin:0">Click a swatch to see its ramp, its role in the current biome and to copy its hex.</p></div>
+          <div class="card" data-bio><h4>Dark Fantasy 32 // all colours</h4><p class="small">9 ramps, light from the upper left, a selective 1 px #0B0710 outline and no anti-aliasing.</p></div>
+          <div class="card" data-pick><h4>Selected colour</h4><p class="small">Click a swatch to see its ramp and biome role, then copy its hex.</p></div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec cv" id="hd" aria-labelledby="h-hd">
-  <div class="wrap">
-    <div class="sh"><p class="num">05 // Rendering</p><h2 id="h-hd">2x HD pipeline with sharp-bilinear sampling</h2><p class="lead">Artists rig every sprite in design space, and the generators rasterize it natively at 2x density. Nothing is upscaled.</p></div>
-    <div class="proj-g">
-      <div>
-        <dl class="kv" style="margin-top:0">
-          <dt>Champions</dt><dd>32×32 design, 64×64 texels</dd>
-          <dt>Landlords</dt><dd>64×64 design, 128×128 texels</dd>
-          <dt>Items</dt><dd>16×16 design, 32×32 texels</dd>
-          <dt>Backdrops</dt><dd>640×360 design, 1280×720 texels</dd>
-          <dt>Shading</dt><dd>5 tones per material (<code>hd.RAMP5</code>), 1 to 2 texels of occlusion, selective 1-texel <code>#0B0710</code> outline</dd>
-        </dl>
-      </div>
-      <div class="prose">
-        <p><code>HdTexture</code> (<code>game/scenes/battle/hd_texture.gd</code>) reports the design size to Godot's layout and hands the 2x texels to the GPU.</p>
-        <p>At 1080p one texel covers 1.5 screen pixels, and phones scale by fractional factors. Plain nearest sampling then draws some texels wider than others and shimmers when sprites move. <code>hd_sharp.gdshaderinc</code> applies sharp-bilinear sampling so blocks stay crisp and keep equal widths.</p>
       </div>
     </div>
   </div>
@@ -221,36 +206,19 @@
 
 <section class="sec cv" id="motion" aria-labelledby="h-motion">
   <div class="wrap">
-    <div class="sh"><p class="num">06 // Motion</p><h2 id="h-motion">Animation contract</h2><p class="lead">116 sprites × 14 strips. Every strip has a JSON sidecar with <code>durations_ms</code>, <code>events</code> (<code>hit</code>, <code>release</code>, <code>footstep</code>, <code>wick_out</code>) and <code>beat</code>. At 2x and 4x speed no frame drops under 33 ms. The game drops smear frames first, then follow-through, and never drops anticipation or impact. Hit-stop never drops under 30 ms.</p></div>
-    <figure class="frame">
-      <button class="zoom" type="button" data-zoom="px" data-cap="Champion light attack: anticipation 110 ms, peak hold 160, smear 40, impact 90 with the hit at 310 ms, follow-through 100, recover 120. 620 ms in total."><img src="../../assets/showcase/dawnbringer-attack-ref.webp" width="2816" height="672" loading="lazy" decoding="async" alt="Reference sheet of a champion light attack in six frames with a timing bar: 110, 160, 40, 90, 100 and 120 ms."></button>
-      <figcaption><b>Sheet A //</b> Light attack in 6 frames: 110 / 160 peak hold / 40 smear / 90 impact / 100 / 120 ms. The hit lands at 310 of 620 ms.</figcaption>
-    </figure>
-    <figure class="frame" style="margin-top:22px">
-      <button class="zoom" type="button" data-zoom="px" data-cap="Landlord entrance key poses: dark at 0 ms, eyes at 300, rise with a cold rim light at 700, loom at 1200, settle at 1500. 2.4 s with the name card."><img src="../../assets/showcase/dawnbringer-entrance-ref.webp" width="2784" height="752" loading="lazy" decoding="async" alt="Reference sheet of a Landlord entrance in five key poses, from darkness to the Hollow King settled with a name card."></button>
-      <figcaption><b>Sheet B //</b> Landlord entrance: dark at 0 ms, eyes at 300, cold rim at 700, loom at 1200, settle at 1500. 2.4 s with the name card.</figcaption>
-    </figure>
-    <div class="proj-g" style="margin-top:22px">
-      <figure class="frame">
-        <button class="zoom" type="button" data-zoom="px" data-cap="UI panel motion: open in 180 ms with ease-out-back scale and 100 ms alpha, close in 110 ms with ease-in."><img src="../../assets/showcase/dawnbringer-ui-motion-ref.webp" width="2304" height="1448" loading="lazy" decoding="async" alt="Curves for a UI panel opening and closing: scale and alpha over 300 ms, with frames at 0, 40, 80, 120 and 180 ms."></button>
-        <figcaption><b>Sheet C //</b> Panel open 180 ms (ease-out-back, alpha 100 ms), close 110 ms (ease-in).</figcaption>
-      </figure>
-      <div class="prose">
-        <p>The sheets live in <code>docs/v3/art_direction/</code> next to <code>palette_roles.png</code>. <code>ANIMATION_DIRECTION.md</code> defines the timing contract they illustrate.</p>
-        <p>The attack holds its peak for 160 ms and spends 40 ms on the smear. When the player speeds the fight up, the smear goes first: the 160 ms hold is what makes the blow read as heavy.</p>
+    <div class="sh"><p class="num">05 // Motion</p><h2 id="h-motion">Animation speed lab</h2><p class="lead">Speed the champion's light attack up to 4x and watch the 33 ms floor drop the smear frame first.</p></div>
+    <div class="alab" data-alab>
+      <div class="alab-vp" role="img" aria-label="Champion light attack, six pixel-art frames"><b>F1 ANTICIPATION</b></div>
+      <div>
+        <div class="alab-c" role="group" aria-label="Playback">
+          <button type="button" data-speed="1" aria-pressed="true">1x</button><button type="button" data-speed="2" aria-pressed="false">2x</button><button type="button" data-speed="4" aria-pressed="false">4x</button><button type="button" data-play>Pause</button><button type="button" data-stepf>Step frame</button>
+        </div>
+        <div class="alab-tl" role="group" aria-label="Frames, width by duration">
+          <button type="button" style="--w:110"><b>F1</b><span>110 ms</span></button><button type="button" style="--w:160"><b>F2</b><span>160 ms</span></button><button type="button" style="--w:40"><b>F3</b><span>40 ms</span></button><button type="button" style="--w:90"><b>F4</b><span>90 ms</span></button><button type="button" style="--w:100"><b>F5</b><span>100 ms</span></button><button type="button" style="--w:120"><b>F6</b><span>120 ms</span></button>
+        </div>
+        <p class="alab-out" aria-live="polite"><b>Frame 1 of 6, anticipation.</b> 110 ms at 1x. The hit lands at 310 of 620 ms.</p>
+        <p class="note">Peak hold 160 ms and impact 90 ms never drop (<code>ANIMATION_DIRECTION.md:32-34</code>). Every sprite is generated from design-space rigs at 2x and sampled sharp-bilinear by <code>hd_sharp.gdshaderinc</code>.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec cv" id="plates" aria-labelledby="h-plates">
-  <div class="wrap">
-    <div class="sh"><p class="num">07 // Plates</p><h2 id="h-plates">Gameplay plates</h2><p class="lead">In-game captures at the 640×360 design resolution. Select one to view it at full size.</p></div>
-    <div class="cards c2">
-      <figure class="frame"><button class="zoom" type="button" data-zoom="px" data-cap="Round 1 in a ruined foundry: Ironbound Penitent against the Ladle Smelter and two Slag Beetles."><img src="../../assets/showcase/dawnbringer-battle.webp" width="640" height="360" loading="lazy" decoding="async" alt="Battle in a ruined foundry: the Ironbound Penitent faces the Ladle Smelter at round 1, with HP, DEF and speed bars."></button><figcaption><b>Battle //</b> Round 1, Ironbound Penitent against the Ladle Smelter and Slag Beetles.</figcaption></figure>
-      <figure class="frame"><button class="zoom" type="button" data-zoom="px" data-cap="The Orchard Eater, Landlord of Dustfall Reach, asks a tithe of 18 from a purse of 60. Pay the tithe or fight."><img src="../../assets/showcase/dawnbringer-landlord.webp" width="640" height="360" loading="lazy" decoding="async" alt="Landlord screen: the Orchard Eater of Dustfall Reach with stats, a tithe of 18 and the buttons Pay the tithe and Fight."></button><figcaption><b>Landlord //</b> The Orchard Eater asks a tithe of 18. Pay it or fight.</figcaption></figure>
-      <figure class="frame"><button class="zoom" type="button" data-zoom="px" data-cap="Hunter sheet for Frithogyth, Carries the Coffer: stats, weapon and gear slots, belt, skills and the Furnace, Iron, Gallows and Plague family sets."><img src="../../assets/showcase/dawnbringer-build.webp" width="640" height="360" loading="lazy" decoding="async" alt="Hunter sheet for Frithogyth with stats, gear slots, belt, skills and family set bonuses."></button><figcaption><b>Build //</b> Hunter sheet with gear slots and family set bonuses.</figcaption></figure>
-      <figure class="frame"><button class="zoom" type="button" data-zoom="px" data-cap="The House before a run: hunter look, the Riposte bonus, the Iron Club starting weapon, the item pool jar and the gold the hunter carries."><img src="../../assets/showcase/dawnbringer-camp.webp" width="640" height="360" loading="lazy" decoding="async" alt="The House screen: hunter customization, starting bonus Riposte, starting weapon Iron Club, item pool jar and gold to carry."></button><figcaption><b>The House //</b> Hunter setup, starting weapon and the item pool before a run.</figcaption></figure>
     </div>
   </div>
 </section>

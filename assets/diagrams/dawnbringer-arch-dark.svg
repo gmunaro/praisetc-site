@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" role="img" aria-labelledby="db-dark-title db-dark-desc">
 <title id="db-dark-title">Dawnbringer: Godot 4.5 architecture</title>
-<desc id="db-dark-desc">Four zones, left to right: data and localization (JSON content and CSV catalogs), a pure deterministic core with no scene tree, the Votive Gothic 2x renderer with procedural audio, and edge services with five shipping platforms. A six-layer verification pipeline runs underneath all four.</desc>
+<desc id="db-dark-desc">Four zones, left to right: data and localization (JSON content and CSV catalogs), a deterministic RefCounted rules core in game/core/, the Votive Gothic 2x renderer with procedural audio, and edge services with export presets for five target platforms. A six-layer verification pipeline runs underneath all four.</desc>
 <defs>
 <pattern id="db-dark-grid" x="1.5" y="9.5" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="1.5" height="1.5" fill="#2C3038"/></pattern>
 </defs>
@@ -79,7 +79,7 @@
 <text x="238" y="216" letter-spacing="0">act every <tspan fill="#F3F4F6">TICKS / pace</tspan></text>
 <text x="686" y="418">GUT TESTS</text>
 <text x="770" y="418">SUITES</text>
-<text x="842" y="418">PYTHON TOOLS</text>
+<text x="842" y="418">PYTHON FILES</text>
 </g>
 <g font-size="8" text-anchor="middle">
 <text x="563" y="257">#D66A51</text>
@@ -162,7 +162,8 @@
 <g fill="#F3F4F6">
 <text x="208" y="414">Fast GUT (&lt;2m)</text>
 <text x="312" y="414">UI &amp; Run Flow</text>
-<text x="440" y="414">Balance Bots</text>
+<text x="440" y="414">Balance</text>
+<text x="440" y="427">&amp; Evolution Bots</text>
 <text x="536" y="414">Automated Playtests</text>
 <text x="536" y="427">&amp; 12 Screen Formats</text>
 </g>
