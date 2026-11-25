@@ -76,6 +76,17 @@
   $$('[role=tablist]').forEach(tl => {
     const tabs = $$('[role=tab]', tl);
     const sel = t => tabs.forEach(b => { const on = b == t; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; d.getElementById(b.getAttribute('aria-controls')).hidden = !on; });
+    const panes = tabs.map(b => d.getElementById(b.getAttribute('aria-controls')));
+    const even = () => {
+      const cur = tabs.find(b => b.getAttribute('aria-selected') == 'true') || tabs[0];
+      panes.forEach(p => (p.style.minHeight = ''));
+      const h = Math.max(...tabs.map((b, i) => (sel(b), panes[i].offsetHeight)));
+      sel(cur);
+      panes.forEach(p => (p.style.minHeight = h + 'px'));
+    };
+    even();
+    let vw = innerWidth;
+    addEventListener('resize', () => vw != innerWidth && ((vw = innerWidth), even()));
     tabs.forEach((b, i) => {
       b.onclick = () => sel(b);
       b.onkeydown = e => { const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (k) { const n = tabs[(i + k + tabs.length) % tabs.length]; sel(n); n.focus(); } };
@@ -106,20 +117,40 @@
   // OFF / HIGH curtain: drag, range or jump buttons set --pos; the OFF layer follows the HIGH clock.
   $$('[data-cur]').forEach(w => {
     const st = $('.cur', w), lo = $('video.lo', w), hi = $('video.hi', w), rg = $('input[type=range]', w), out = $('output', w);
+    let cur = 0;
     const set = p => {
-      p = Math.max(0, Math.min(100, Math.round(p)));
+      p = cur = Math.max(0, Math.min(100, Math.round(p)));
+      const w = st.clientWidth, x = p / 100 * w;
       st.style.setProperty('--pos', p + '%');
-      rg.value = Math.max(5, Math.min(95, p));
+      st.style.setProperty('--hx', (x < 22 ? 22 - x : x > w - 22 ? w - 22 - x : 0) + 'px'); // keep the handle inside the frame
+      st.classList.toggle('no-l', p < 8);
+      st.classList.toggle('no-r', p > 92);
+      rg.value = p;
       out.textContent = p + '% HIGH';
       rg.setAttribute('aria-valuetext', `${p}% of the frame with lighting on high`);
     };
     rg.oninput = () => set(+rg.value);
     $$('[data-pos]', w).forEach(b => (b.onclick = () => set(+b.dataset.pos)));
-    let drag = 0;
+    // Mouse drags at once. Touch waits for a horizontal move, so a vertical swipe still scrolls the page; a tap jumps.
+    let drag = null;
     const at = e => { const r = st.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); };
-    st.addEventListener('pointerdown', e => { drag = 1; st.setPointerCapture(e.pointerId); at(e); });
-    st.addEventListener('pointermove', e => drag && at(e));
-    ['pointerup', 'pointercancel'].forEach(t => st.addEventListener(t, () => (drag = 0)));
+    st.addEventListener('pointerdown', e => {
+      drag = { x: e.clientX, y: e.clientY, live: e.pointerType == 'mouse' };
+      if (drag.live) { st.setPointerCapture(e.pointerId); at(e); }
+    });
+    st.addEventListener('pointermove', e => {
+      if (!drag) return;
+      if (!drag.live) {
+        const dx = Math.abs(e.clientX - drag.x), dy = Math.abs(e.clientY - drag.y);
+        if (dy > 8 && dy >= dx) return (drag = null);
+        if (dx < 8) return;
+        drag.live = true; st.setPointerCapture(e.pointerId);
+      }
+      at(e);
+    });
+    st.addEventListener('pointerup', e => { if (drag && !drag.live) at(e); drag = null; });
+    st.addEventListener('pointercancel', () => (drag = null));
+    addEventListener('resize', () => set(cur));
     hi.addEventListener('timeupdate', () => { if (Math.abs(lo.currentTime - hi.currentTime) > .06) lo.currentTime = hi.currentTime; });
     set(+rg.value);
   });
@@ -139,7 +170,7 @@
       const tot = DUR.reduce((s, _, i) => s + ms(i), 0);
       out.innerHTML = `<b>Frame ${f + 1} of 6, ${NM[f]}.</b> ${DUR[f]} ms at 1x, ${ms(f) ? ms(f) + ' ms' : 'dropped'} at ${sp}x.<br>Loop ${tot} ms at ${sp}x${sp == 4 ? ', smear dropped' : ''}.`;
     };
-    const layout = () => cells.forEach((c, i) => { const m = ms(i); c.style.setProperty('--w', m || 26); c.classList.toggle('drop', !m); $('span', c).textContent = m ? m + ' ms' : 'DROPPED'; });
+    const layout = () => cells.forEach((c, i) => { const m = ms(i); c.style.setProperty('--w', m || 26); c.classList.toggle('drop', !m); $('span', c).textContent = m ? m + ' ms' : 'DROP'; });
     const tick = t => {
       id = 0;
       if (!play || !vis) return;
@@ -158,11 +189,26 @@
   }
 
   // Generic pickers: a [data-k] button fills its [data-picker] box (used by the code comparator).
-  $$('[data-picker]').forEach(box => $$('[data-k]', box).forEach(b => (b.onclick = () => {
-    $$('[data-k]', box).forEach(x => x.setAttribute('aria-pressed', x == b));
-    $$('[data-m]', box).forEach(c => c.classList.toggle('on', c.dataset.m == b.dataset.k));
-    for (const o of 'td') { const el = $(`[data-o=${o}]`, box); if (el && b.dataset[o]) el.textContent = b.dataset[o]; }
-  })));
+  // The box reserves the height of its tallest option, so switching never moves the page below it.
+  $$('[data-picker]').forEach(box => {
+    const ks = $$('[data-k]', box);
+    const pick = b => {
+      ks.forEach(x => x.setAttribute('aria-pressed', x == b));
+      $$('[data-m]', box).forEach(c => c.classList.toggle('on', c.dataset.m == b.dataset.k));
+      for (const o of 'td') { const el = $(`[data-o=${o}]`, box); if (el && b.dataset[o]) el.textContent = b.dataset[o]; }
+    };
+    const reserve = () => {
+      const cur = ks.find(x => x.getAttribute('aria-pressed') == 'true') || ks[0];
+      box.style.minHeight = '';
+      const h = Math.max(...ks.map(b => (pick(b), box.offsetHeight)));
+      pick(cur);
+      box.style.minHeight = h + 'px';
+    };
+    ks.forEach(b => (b.onclick = () => pick(b)));
+    reserve();
+    let w = innerWidth;
+    addEventListener('resize', () => w != innerWidth && ((w = innerWidth), reserve()));
+  });
 
   // Dark Fantasy 32 inspector: [name, base, accent %, forbidden] from palette.json direction.biomes.
   const BIO = {
@@ -211,7 +257,7 @@
       $('button', card).onclick = copy;
     };
     fb.forEach(b => (b.onclick = () => { f = b.dataset.f; apply(); }));
-    sws.forEach(sw => (sw.onclick = () => { sel = sw; apply(); }));
+    sws.forEach(sw => (sw.onclick = () => { sel = sw; apply(); if (innerWidth < 980) card.scrollIntoView({ block: 'nearest', behavior: RM.matches ? 'auto' : 'smooth' }); }));
     apply();
   }
 
@@ -297,7 +343,7 @@
       user = !user;
       if (!user) hov = foc = pin = 0;
       tog.setAttribute('aria-pressed', !!user);
-      tog.textContent = user ? 'Orbit' : 'Pause';
+      tog.textContent = user ? 'Play' : 'Pause';
       tog.setAttribute('aria-label', user ? 'Resume the orbit' : 'Pause the orbit');
       drive();
     };
@@ -309,7 +355,8 @@
     const cv = $('canvas', el), cx = cv.getContext('2d'), hud = $('.sbx-hud', el), stepEl = $('.step', el), ramp = $('.sbx-ramp', el);
     const I = n => $(`[name=${n}]`, el), inp = { lx: I('lx'), ly: I('ly'), st: I('st'), ex: I('ex') };
     const NX = 3, NY = 2, H = 2.8, Q = 12;
-    let yaw = -.62, pitch = .5, view = '3d', vis = 0, hov = 0, drag = null, id = 0, last = 0, settle = 0, dpr = 1, cw = 0, ch = 0, C, M;
+    let yaw = -.62, pitch = .5, view = '3d', vis = 0, hov = 0, drag = null, id = 0, last = 0, settle = 0, dpr = 1, cw = 0, ch = 0, top = 34, C, M;
+    const hudTop = () => (top = Math.max(34, hud.getBoundingClientRect().bottom - cv.getBoundingClientRect().top + 16)); // canvas space under the HUD
     const colors = () => {
       const s = getComputedStyle(cv), [r, g, b] = s.backgroundColor.match(/[\d.]+/g).map(Number), dark = r * .3 + g * .59 + b * .11 < 128;
       C = { fg: s.color, ln: s.borderTopColor, mu: s.borderBottomColor, ac: s.borderLeftColor, ramp: dark ? ['#38BDF8', '#FBBF24', '#FF5A1F'] : ['#0369A1', '#B45309', '#C2410C'] };
@@ -338,7 +385,7 @@
       cx.clearRect(0, 0, cw, ch);
       cx.lineCap = 'square';
       if (view == '2d') return plan();
-      const R0 = Math.hypot(M.W, M.D, M.Z) / 2, k = { cx: cw / 2, cy: ch / 2 + 6, s: Math.min(cw, ch) * .44 / R0, F: R0 * 4 };
+      const R0 = Math.hypot(M.W, M.D, M.Z) / 2, av = ch - top - 8, k = { cx: cw / 2, cy: top + av / 2, s: Math.min(cw, av) * .46 / R0, F: R0 * 4 };
       for (let s = 0; s < M.n; s++) {
         const z0 = s * M.gap, z1 = z0 + H, q = [[0, 0], [M.W, 0], [M.W, M.D], [0, M.D]].map(([x, y]) => P(x, y, z1, k));
         cx.globalAlpha = .1; cx.fillStyle = C.ac; cx.beginPath(); q.forEach((p, i) => (i ? cx.lineTo(...p) : cx.moveTo(...p))); cx.fill(); cx.globalAlpha = 1;
@@ -347,20 +394,26 @@
         for (const c of M.cols) line(P(c.i * M.a, c.j * M.b, z0, k), P(c.i * M.a, c.j * M.b, z1, k), tone(nk(c, s) / M.max), 3.2);
       }
     };
+    // 2D plan: keeps clear of the HUD (top) and the Nk legend (bottom right); right-edge labels flip to the left.
     const plan = () => {
-      const pad = 34, s = Math.min((cw - pad * 2) / M.W, (ch - pad * 2) / M.D), ox = (cw - M.W * s) / 2, oy = (ch - M.D * s) / 2, X = x => ox + x * s, Y = y => oy + y * s;
+      const t = top + 8, padX = 44, bot = 62;
+      const s = Math.min((cw - padX * 2) / M.W, (ch - t - bot) / M.D), ox = (cw - M.W * s) / 2, oy = t + (ch - t - bot - M.D * s) / 2, X = x => ox + x * s, Y = y => oy + y * s;
       cx.globalAlpha = .08; cx.fillStyle = C.ac; cx.fillRect(X(0), Y(0), M.W * s, M.D * s); cx.globalAlpha = 1;
       for (let j = 0; j <= NY; j++) line([X(0), Y(j * M.b)], [X(M.W), Y(j * M.b)], C.mu, 1.4);
       for (let i = 0; i <= NX; i++) line([X(i * M.a), Y(0)], [X(i * M.a), Y(M.D)], C.mu, 1.4);
+      const narrow = M.a * s < 130; // phone width: Nk value only, centred under each column
       cx.font = '11px ui-monospace,Consolas,monospace'; cx.textBaseline = 'top';
       M.cols.forEach((c, n) => {
         const x = X(c.i * M.a), y = Y(c.j * M.b), v = nk(c, 0);
         cx.fillStyle = tone(v / M.max); cx.fillRect(x - 6, y - 6, 12, 12);
-        cx.fillStyle = C.fg; cx.fillText(`P${n + 1} ${fmt(v)}`, x + 8, y + 6);
+        const edge = c.i == NX; cx.textAlign = narrow ? 'center' : edge ? 'right' : 'left';
+        const tag = M.a * s < 56 && v >= 1000 ? (v / 1000).toFixed(1) + 'k' : fmt(v);
+        cx.fillStyle = C.fg; cx.fillText(narrow ? tag : `P${n + 1} ${fmt(v)}`, narrow ? x : edge ? x - 8 : x + 8, y + 9);
       });
-      cx.fillStyle = C.mu; cx.textBaseline = 'alphabetic';
-      cx.fillText(`Lx ${M.a.toFixed(1)} m`, X(M.a / 2) - 22, Y(0) - 10);
-      cx.fillText(`Ly ${M.b.toFixed(1)} m`, X(0) - 30, Y(M.D) + 22);
+      cx.fillStyle = C.mu; cx.textBaseline = 'alphabetic'; cx.textAlign = 'center';
+      cx.fillText(`Lx ${M.a.toFixed(1)} m`, X(M.a / 2), Y(0) - 10);
+      cx.textAlign = 'left';
+      cx.fillText(`Ly ${M.b.toFixed(1)} m`, X(0) - 8, Y(M.D) + 38);
     };
     const gid = s => { const A = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_$'; let h = 2166136261, o = ''; for (let i = 0; i < 22; i++) { for (const c of s + i) h = Math.imul(h ^ c.charCodeAt(0), 16777619); o += A[(h >>> 9) % (i ? 64 : 4)]; } return o; };
     const r = v => { const t = String(Math.round(v * 1000) / 1000); return t.includes('.') ? t : t + '.'; };
@@ -391,6 +444,7 @@
       $('output', inp.st.parentElement).textContent = M.n;
       $('output', inp.ex.parentElement).textContent = inp.ex.value + '%';
       hud.innerHTML = `<b>${view == '3d' ? '3D exploded Nk' : '2D plan, storey 1 Nk'}</b><br>Nk max <b>${fmt(M.max)} kN</b> // q ${Q} kN/m² // illustrative`;
+      hudTop();
       stepEl.textContent = ifc();
       draw();
     };
@@ -404,14 +458,28 @@
     };
     const kick = () => id || (id = raf(frame));
     Object.values(inp).forEach(i => (i.oninput = update));
-    $$('[data-view]', el).forEach(b => (b.onclick = () => { view = b.dataset.view; $$('[data-view]', el).forEach(x => x.setAttribute('aria-pressed', x == b)); update(); kick(); }));
+    $$('[data-view]', el).forEach(b => (b.onclick = () => { view = b.dataset.view; $$('[data-view]', el).forEach(x => x.setAttribute('aria-pressed', x == b)); cv.style.cursor = view == '2d' ? 'default' : ''; update(); kick(); }));
     cv.addEventListener('pointerenter', e => { if (e.pointerType == 'mouse') hov = 1; });
     cv.addEventListener('pointerleave', () => { hov = 0; kick(); });
-    cv.addEventListener('pointerdown', e => { if (view != '3d') return; drag = { x: e.clientX, y: e.clientY, yaw, pitch }; cv.setPointerCapture(e.pointerId); });
-    cv.addEventListener('pointermove', e => { if (!drag) return; yaw = drag.yaw + (e.clientX - drag.x) * .008; pitch = Math.max(.08, Math.min(1.45, drag.pitch + (e.clientY - drag.y) * .006)); draw(); });
+    // Mouse rotates at once; touch rotates only after a mostly horizontal move, so vertical swipes scroll the page.
+    cv.addEventListener('pointerdown', e => {
+      if (view != '3d') return;
+      drag = { x: e.clientX, y: e.clientY, yaw, pitch, live: e.pointerType == 'mouse' };
+      if (drag.live) cv.setPointerCapture(e.pointerId);
+    });
+    cv.addEventListener('pointermove', e => {
+      if (!drag) return;
+      if (!drag.live) {
+        const dx = Math.abs(e.clientX - drag.x), dy = Math.abs(e.clientY - drag.y);
+        if (dy > 8 && dy >= dx) return (drag = null);
+        if (dx < 8) return;
+        Object.assign(drag, { live: true, x: e.clientX, y: e.clientY }); cv.setPointerCapture(e.pointerId);
+      }
+      yaw = drag.yaw + (e.clientX - drag.x) * .008; pitch = Math.max(.08, Math.min(1.45, drag.pitch + (e.clientY - drag.y) * .006)); draw();
+    });
     ['pointerup', 'pointercancel'].forEach(t => cv.addEventListener(t, () => { drag = null; kick(); }));
     d.addEventListener('ptc:paint', () => { settle = performance.now() + 700; colors(); kick(); });
-    const fit = () => { dpr = Math.min(2, devicePixelRatio || 1); cw = cv.clientWidth; ch = cv.clientHeight; cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); draw(); };
+    const fit = () => { dpr = Math.min(2, devicePixelRatio || 1); cw = cv.clientWidth; ch = cv.clientHeight; hudTop(); cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); draw(); };
     self.ResizeObserver ? new ResizeObserver(fit).observe(cv) : addEventListener('resize', fit);
     onView(cv, v => { vis = v; if (v) kick(); });
     colors(); update(); fit();
@@ -432,6 +500,7 @@
       hint.append(g, b.dataset.label || b.textContent);
       // the external tab is the full app, not the embedded mode
       ext.href = src.replace(/[?&]embed=1$/, '');
+      const H = fr.offsetHeight;
       bar.hidden = false;
       if (!frame()) {
         const f = d.createElement('iframe');
@@ -440,11 +509,14 @@
       }
       frame().src = src;
       face.hidden = true;
+      const h = Math.max(0, H - bar.offsetHeight) + 'px';
+      fr.style.minHeight = h; frame().style.minHeight = h;
     };
     $$('[data-demo]', face).forEach(b => (b.onclick = () => launch(b)));
+    if (!d.fullscreenEnabled) $('[data-act=fs]', bar).hidden = true; // iPhone Safari has no element fullscreen
     $('[data-act=fs]', bar).onclick = () => (app.requestFullscreen ? app.requestFullscreen().catch(() => {}) : frame() && frame().requestFullscreen && frame().requestFullscreen());
     $('[data-act=reload]', bar).onclick = () => frame() && (frame().src = src);
-    $('[data-act=close]', bar).onclick = () => { if (d.fullscreenElement) d.exitFullscreen(); frame() && frame().remove(); bar.hidden = true; face.hidden = false; };
+    $('[data-act=close]', bar).onclick = () => { if (d.fullscreenElement) d.exitFullscreen(); frame() && frame().remove(); bar.hidden = true; face.hidden = false; fr.style.minHeight = ''; };
   });
 
   // Byte bars grow when they reach the viewport.
@@ -470,13 +542,14 @@
       $$('[data-w]', wc).forEach(b => b.setAttribute('aria-pressed', b.dataset.w == w));
       $$('[data-md]', wc).forEach(b => b.setAttribute('aria-pressed', b.dataset.md == m));
       list.innerHTML = PAIRS.map(([n, f, b], i) => { const v = ratio(tk[f], tk[b]); return `<button type="button" aria-pressed="${i == p}" data-i="${i}"><i style="--b:${tk[b]};--f:${tk[f]}">Aa</i><span><b>${n}</b>${tk[f]} on ${tk[b]}</span><em>${v.toFixed(2)}:1<small>${lvl(v)}</small></em></button>`; }).join('');
-      $$('button', list).forEach(b => (b.onclick = () => { p = +b.dataset.i; render(); }));
+      $$('button', list).forEach(b => (b.onclick = () => { p = +b.dataset.i; render(); list.children[p].focus(); }));
       const [n, f, b] = PAIRS[p], v = ratio(tk[f], tk[b]);
       out.style.cssText = `--b:${tk[b]};--f:${tk[f]}`;
       $('span', out).textContent = `${v.toFixed(2)}:1 // ${lvl(v)} // ${n}, ${w} ${m == 'd' ? 'dark' : 'light'}. ${tk[f]} on ${tk[b]}.`;
     };
     $$('[data-w]', wc).forEach(b => (b.onclick = () => { w = b.dataset.w; render(); }));
     $$('[data-md]', wc).forEach(b => (b.onclick = () => { m = b.dataset.md; render(); }));
+    d.addEventListener('ptc:paint', () => { m = theme() == 'dark' ? 'd' : 'l'; render(); });
     render();
   }
 
