@@ -429,7 +429,7 @@
       hint.textContent = '';
       const g = d.createElement('b');
       g.textContent = 'Live // ';
-      hint.append(g, b.textContent);
+      hint.append(g, b.dataset.label || b.textContent);
       // the external tab is the full app, not the embedded mode
       ext.href = src.replace(/[?&]embed=1$/, '');
       bar.hidden = false;
