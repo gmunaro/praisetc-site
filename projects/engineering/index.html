@@ -46,7 +46,7 @@
     </div>
     <figure class="frame" style="margin-top:clamp(30px,4.5vw,52px)">
       <img src="../../assets/banner-ptc.svg" width="1128" height="191" fetchpriority="high" decoding="async" alt="Praise The Code banner: orange rule, the modular praise.tc_ signature and the line Software, Tools, Games, São Paulo.">
-      <figcaption><b>Banner //</b> 1128×191 SVG generated from <code>tokens.json</code>.</figcaption>
+      <figcaption><b>Banner //</b> Generated from the colour tokens, like every brand file.</figcaption>
     </figure>
   </div>
 </section>
@@ -57,21 +57,19 @@
     <div class="orbit" data-orbit>
       <div class="orbit-wrap"><div class="orbit-stage">
         <div class="orb-ring r1">
-          <span class="orb-arm" style="--a:-60deg"><button class="orb" type="button" data-k="02" data-icon="vertex" data-name="SVG" data-sub="45° grid" data-d="The ptc_ mark and the diagrams are SVG on an 18.75 px module with a 45° chamfer at each bend.">02</button></span>
-          <span class="orb-arm" style="--a:150deg"><button class="orb" type="button" data-k="03" data-icon="hex" data-name="Node ESM" data-sub="Asset gen" data-d="gerar_praisetc_svg.mjs builds 14 brand SVGs and 23 PNGs from tokens.json and fails on a bad size.">03</button></span>
+          <span class="orb-arm" style="--a:-100deg"><button class="orb" type="button" data-k="02" data-icon="hex" data-name="Node ESM" data-sub="Brand build" data-d="A script rebuilds every brand SVG and PNG from the colour tokens, then fails if a size or a text margin is off.">02</button></span>
         </div>
         <div class="orb-ring r2">
-          <span class="orb-arm" style="--a:-20deg"><button class="orb" type="button" data-k="04" data-icon="reticle" data-name="Python" data-sub="Visual QA" data-d="A Playwright audit opens every page in both themes at 1280 and 390 px and fails on overflow or layout shift.">04</button></span>
-          <span class="orb-arm" style="--a:28deg"><button class="orb" type="button" data-k="05" data-icon="kv" data-name="JSON" data-sub="WCAG tokens" data-d="tokens.json stores each colour with its measured contrast, such as 17.03:1 for body text on dark.">05</button></span>
-          <span class="orb-arm" style="--a:188deg"><button class="orb" type="button" data-k="06" data-icon="pipe" data-name="Actions CI" data-sub="Tests + checks" data-d="Dawnbringer CI pins Godot 4.5-stable by SHA-512. OpenStrut CI runs bun run check and Playwright.">06</button></span>
+          <span class="orb-arm" style="--a:-20deg"><button class="orb" type="button" data-k="03" data-icon="reticle" data-name="Python" data-sub="Visual QA" data-d="Each page is checked in both themes at desktop and phone width; overflow or layout shift fails the release.">03</button></span>
+          <span class="orb-arm" style="--a:160deg"><button class="orb" type="button" data-k="04" data-icon="kv" data-name="JSON" data-sub="Contrast tokens" data-d="Each colour stores its measured contrast and WCAG grade, so weak pairs are caught before use.">04</button></span>
         </div>
-        <button class="orb-hub" type="button" data-k="01" data-icon="code" data-name="HTML · CSS" data-sub="Zero-dep UI" data-d="Hand-written pages, one stylesheet and one deferred script. No framework, no bundler, no webfont.">01 HTML · CSS</button>
+        <button class="orb-hub" type="button" data-k="01" data-icon="code" data-name="HTML · CSS" data-sub="Zero-dep UI" data-d="Hand-written pages, one stylesheet and one script. No framework or webfont, and no third party sees a visit before a click.">01 HTML · CSS</button>
         <button class="orb-tog" type="button" aria-pressed="false" aria-label="Pause the orbit">Pause</button>
       </div></div>
       <div class="orbit-panel">
-        <p class="eye">Studio tooling <b>//</b> 6 tools</p>
-        <div class="orb-chips" role="group" aria-label="Studio tooling nodes" style="--rows:3"></div>
-        <p class="const-out" aria-live="polite"><b data-o="t">01 // HTML · CSS // Zero-dep UI</b><span data-o="d">Hand-written pages, one stylesheet and one deferred script. No framework, no bundler, no webfont.</span></p>
+        <p class="eye">Studio tooling <b>//</b> 4 tools</p>
+        <div class="orb-chips" role="group" aria-label="Studio tooling nodes" style="--rows:2"></div>
+        <p class="const-out" aria-live="polite"><b data-o="t">01 // HTML · CSS // Zero-dep UI</b><span data-o="d">Hand-written pages, one stylesheet and one script. No framework or webfont, and no third party sees a visit before a click.</span></p>
       </div>
     </div>
   </div>
@@ -79,12 +77,12 @@
 
 <section class="sec cv" id="rules" aria-labelledby="h-rules">
   <div class="wrap">
-    <div class="sh"><p class="num">02 // Rules</p><h2 id="h-rules">Four engineering rules</h2><p class="lead">Each rule names files you can open in the two repositories.</p></div>
+    <div class="sh"><p class="num">02 // Rules</p><h2 id="h-rules">Four engineering rules</h2><p class="lead">Each rule states what it prevents and what it buys.</p></div>
     <div class="cards c2">
-      <article class="card cut"><p class="eye">Rule 01</p><h3>Deterministic cores</h3><ul class="dots"><li><code>battle_sim.gd</code> runs on an integer clock, <code>TICKS = 5342931457063200</code>.</li><li><code>gen_sfx.py</code> uses its own seeded generator, so a seed always writes the same file.</li></ul></article>
-      <article class="card cut"><p class="eye">Rule 02</p><h3>Independent oracles</h3><ul class="dots"><li>OpenStrut checks against UNESP worked examples and the 1991 binary in DOSBox-X.</li><li>Dawnbringer art tests check backdrops against <code>palette.json</code>.</li></ul></article>
-      <article class="card cut"><p class="eye">Rule 03</p><h3>Explicit byte budgets</h3><ul class="dots"><li>The IFC4 writer is 25.0 KB where web-ifc ships a 1.6 MB <code>.wasm</code>.</li><li><code>gen_sfx.py</code> cites a 12 MB budget for the web build.</li></ul></article>
-      <article class="card cut"><p class="eye">Rule 04</p><h3>Generated assets</h3><ul class="dots"><li><code>gerar_praisetc_svg.mjs</code> rebuilds 14 SVGs and 23 PNGs from <code>tokens.json</code>.</li><li>Dawnbringer sprites come from Python generators, drawn at 2x and never upscaled.</li></ul></article>
+      <article class="card cut"><p class="eye">Rule 01</p><h3>Deterministic cores</h3><ul class="dots"><li>Battles use an integer clock and no random calls, so a fight replays identically on any device.</li><li>Sound effects use a seeded generator, so a seed always rebuilds the same file.</li></ul></article>
+      <article class="card cut"><p class="eye">Rule 02</p><h3>Independent oracles</h3><ul class="dots"><li>OpenStrut checks against UNESP worked examples and the 1991 binary, so a wrong formula cannot pass.</li><li>Dawnbringer art tests fail any backdrop colour outside the locked palette.</li></ul></article>
+      <article class="card cut"><p class="eye">Rule 03</p><h3>Explicit byte budgets</h3><ul class="dots"><li>IFC export adds 25 KB, fetched on demand, where web-ifc needs a 1.6 MB download.</li><li>Sound is synthesized, not sampled, to halve its share of the 12 MB web budget.</li></ul></article>
+      <article class="card cut"><p class="eye">Rule 04</p><h3>Generated assets</h3><ul class="dots"><li>Brand SVGs and PNGs rebuild from the colour tokens, so one edit updates the set.</li><li>Dawnbringer sprites are redrawn at 2x by generators, never upscaled, so pixels stay crisp.</li></ul></article>
     </div>
   </div>
 </section>

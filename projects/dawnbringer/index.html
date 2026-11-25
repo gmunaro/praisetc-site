@@ -104,36 +104,34 @@
       <figcaption><b>Godot 4.5 captures //</b> The curtain plays the same 2.2 s with lighting off and on high, kept in sync. The full loop runs 3.3 s on high.</figcaption>
     </figure>
     <div class="cards c4" style="margin-top:20px">
-      <article class="card"><p class="eye">dynamic_light_rig.gd</p><h3>Light budget</h3><p>Up to 6 lights on high and 2 on low. Off stops processing, so it costs nothing.</p></article>
-      <article class="card"><p class="eye">backdrop_wet + fog_scatter</p><h3>Wet floor and mist</h3><p>The floor reflects each light and the mist scatters it, both synced every frame.</p></article>
-      <article class="card"><p class="eye">ThorVG // Godot 4.5</p><h3>SVG rigs</h3><p>Heroes and the Charnel Maw are vector rigs under 500 KB, with no filter or image tags.</p></article>
-      <article class="card"><p class="eye">≤ 3 Hz flicker // Reduce motion</p><h3>Safe flicker</h3><p>Flicker stays under 3 Hz, and Reduce motion freezes flicker, ripples, mist and shock rings.</p></article>
+      <article class="card"><p class="eye">Performance</p><h3>Light budget</h3><p>Up to 6 lights on high and 2 on low. Off stops processing, so it costs nothing.</p></article>
+      <article class="card"><p class="eye">Materials</p><h3>Wet floor and mist</h3><p>The floor reflects each light and the mist scatters it, both synced every frame.</p></article>
+      <article class="card"><p class="eye">Vector art</p><h3>SVG rigs</h3><p>Heroes and the Charnel Maw are vector rigs capped at 500 KB, so they stay sharp from phone to 4K.</p></article>
+      <article class="card"><p class="eye">Accessibility</p><h3>Safe flicker</h3><p>Flicker stays under 3 Hz, and Reduce motion freezes flicker, ripples, mist and shock rings.</p></article>
     </div>
   </div>
 </section>
 
 <section class="sec cv" id="stack" aria-labelledby="h-stack">
   <div class="wrap">
-    <div class="sh"><p class="num">02 // Stack</p><h2 id="h-stack">Seven languages around one core</h2><p class="lead">File counts measured on disk across the game and its tools. Select a node to read its role.</p></div>
+    <div class="sh"><p class="num">02 // Stack</p><h2 id="h-stack">Five languages around one core</h2><p class="lead">What each language does for the game. Select a node to read it.</p></div>
     <div class="orbit" data-orbit>
       <div class="orbit-wrap"><div class="orbit-stage">
         <div class="orb-ring r1">
-          <span class="orb-arm" style="--a:-120deg"><button class="orb" type="button" data-k="02" data-icon="prism" data-name="GLSL" data-sub="13 shaders" data-d="11 .gdshader and 2 .gdshaderinc files. hit_flash.gdshader and afterlife_sprite.gdshader drive combat feedback.">02</button></span>
-          <span class="orb-arm" style="--a:-8deg"><button class="orb" type="button" data-k="03" data-icon="hooks" data-name="Python" data-sub="589 files" data-d="529 in tools/: the 2x art generators, the seeded SFX synthesizer gen_sfx.py and the headless PvP verifier.">03</button></span>
-          <span class="orb-arm" style="--a:130deg"><button class="orb" type="button" data-k="04" data-icon="braces" data-name="JSON · CSV" data-sub="Data + 14 i18n" data-d="game/content/ holds only JSON, no .gd file. game/i18n/ holds CSV catalogs for 14 shipped locales.">04</button></span>
+          <span class="orb-arm" style="--a:-120deg"><button class="orb" type="button" data-k="02" data-icon="prism" data-name="GLSL" data-sub="Crisp pixels" data-d="2x pixel art at 1080p or on a phone gets uneven texels. A sharp-bilinear shader keeps each texel the same size.">02</button></span>
+          <span class="orb-arm" style="--a:-8deg"><button class="orb" type="button" data-k="03" data-icon="hooks" data-name="Python" data-sub="Art + sound gen" data-d="Sprites are redrawn at 2x by scripts, never upscaled, and every sound is synthesized from a seed, with no samples.">03</button></span>
+          <span class="orb-arm" style="--a:130deg"><button class="orb" type="button" data-k="04" data-icon="braces" data-name="JSON · CSV" data-sub="14 locales" data-d="Content is pure data, and every string ships in 14 locales.">04</button></span>
         </div>
         <div class="orb-ring r2">
-          <span class="orb-arm" style="--a:-35deg"><button class="orb" type="button" data-k="05" data-icon="ts" data-name="TypeScript" data-sub="42 files" data-d="Cloudflare Workers for bug reports, the Android licence check, opt-in telemetry and the weekly PvP queue.">05</button></span>
-          <span class="orb-arm" style="--a:22deg"><button class="orb" type="button" data-k="06" data-icon="db" data-name="SQL" data-sub="7 D1 migrations" data-d="Seven D1 migrations for the two Workers. The client IP keys the rate limiter and is never stored.">06</button></span>
-          <span class="orb-arm" style="--a:160deg"><button class="orb" type="button" data-k="07" data-icon="shell" data-name="Shell" data-sub="55 scripts" data-d="tools/test/run_tests.sh runs the test layers with --fast and --ui. The other scripts drive CI and exports.">07</button></span>
+          <span class="orb-arm" style="--a:-35deg"><button class="orb" type="button" data-k="05" data-icon="ts" data-name="TypeScript" data-sub="Async PvP" data-d="A lab bot replays each weekly challenge before it reaches the board, so PvP needs no game server. Off in v0.7.2.">05</button></span>
         </div>
-        <button class="orb-hub" type="button" data-k="01" data-icon="cube" data-name="GDScript" data-sub="1,068 files" data-d="1,051 files in game/ and 17 in tools/, including 517 GUT test files, plus 81 .tscn scenes.">01 GDScript</button>
+        <button class="orb-hub" type="button" data-k="01" data-icon="cube" data-name="GDScript" data-sub="Battle engine" data-d="Integer math and no randomness: the same inputs always give the same fight, so forecasts match and any run can be replayed.">01 GDScript</button>
         <button class="orb-tog" type="button" aria-pressed="false" aria-label="Pause the orbit">Pause</button>
       </div></div>
       <div class="orbit-panel">
-        <p class="eye">Dawnbringer stack <b>//</b> 7 languages</p>
-        <div class="orb-chips" role="group" aria-label="Dawnbringer stack nodes" style="--rows:4"></div>
-        <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // 1,068 files</b><span data-o="d">1,051 files in game/ and 17 in tools/, including 517 GUT test files, plus 81 .tscn scenes.</span></p>
+        <p class="eye">Dawnbringer stack <b>//</b> 5 languages</p>
+        <div class="orb-chips" role="group" aria-label="Dawnbringer stack nodes" style="--rows:3"></div>
+        <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // Battle engine</b><span data-o="d">Integer math and no randomness: the same inputs always give the same fight, so forecasts match and any run can be replayed.</span></p>
       </div>
     </div>
   </div>
@@ -150,10 +148,10 @@
       <figcaption><b>Fig. 01 //</b> Godot 4.5 architecture. Select the diagram to enlarge it.</figcaption>
     </figure>
     <div class="cards c4" style="margin-top:20px">
-      <article class="card"><p class="eye">battle_sim.gd // 1,398 lines</p><h3>Integer clock</h3><p>No randi, randf or RandomNumberGenerator in the battle folder. Ties go to time left, then to the hero.</p></article>
-      <article class="card"><p class="eye">docs/TESTING.md // 4,671 GUT</p><h3>Six-layer test ladder</h3><p>L0 checks rules in under 2 minutes. L5 bots play from screenshots on 12 screen formats.</p></article>
-      <article class="card"><p class="eye">game/content + game/i18n</p><h3>JSON and 14 locales</h3><p>Content is JSON only, with 105 items, 19 Landlords and 6 biomes, in 14 shipped locales.</p></article>
-      <article class="card"><p class="eye">tools/*-worker</p><h3>Edge Workers, PvP gated</h3><p>Workers take bug reports and opt-in telemetry. PvP answers 503 unless enabled, and v0.7.2 ships it off.</p></article>
+      <article class="card"><p class="eye">Deterministic core</p><h3>Integer clock</h3><p>No random calls in battle code. Same inputs give the same result, so the forecast always matches the fight.</p></article>
+      <article class="card"><p class="eye">Verification</p><h3>Six-layer test ladder</h3><p>L0 checks rules in under 2 minutes on every push. L5 bots play from screenshots on 12 screen formats.</p></article>
+      <article class="card"><p class="eye">Data + i18n</p><h3>JSON and 14 locales</h3><p>105 items, 19 Landlords and 6 biomes are data, so they change without code, in 14 locales.</p></article>
+      <article class="card"><p class="eye">Edge services</p><h3>Async PvP, gated</h3><p>A lab bot replays each PvP run before it is ranked, so there is no game server. v0.7.2 ships it off.</p></article>
     </div>
   </div>
 </section>
@@ -217,7 +215,7 @@
           <button type="button" style="--w:110"><b>F1</b><span>110 ms</span></button><button type="button" style="--w:160"><b>F2</b><span>160 ms</span></button><button type="button" style="--w:40"><b>F3</b><span>40 ms</span></button><button type="button" style="--w:90"><b>F4</b><span>90 ms</span></button><button type="button" style="--w:100"><b>F5</b><span>100 ms</span></button><button type="button" style="--w:120"><b>F6</b><span>120 ms</span></button>
         </div>
         <p class="alab-out" aria-live="polite"><b>Frame 1 of 6, anticipation.</b> 110 ms at 1x. The hit lands at 310 of 620 ms.</p>
-        <p class="note">Peak hold 160 ms and impact 90 ms never drop (<code>ANIMATION_DIRECTION.md:32-34</code>). Every sprite is generated from design-space rigs at 2x and sampled sharp-bilinear by <code>hd_sharp.gdshaderinc</code>.</p>
+        <p class="note">Peak hold 160 ms and impact 90 ms never drop, so a hit still reads at 4x. Sprites are drawn at 2x and sampled sharp-bilinear, so texels stay even.</p>
       </div>
     </div>
   </div>
