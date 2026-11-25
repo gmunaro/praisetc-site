@@ -62,10 +62,10 @@ button{font:inherit;color:inherit}
 .brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font:600 12px/1 var(--sans);letter-spacing:.19em;text-transform:uppercase;white-space:nowrap}
 .brand img{width:32px;height:32px;border:1px solid var(--ln)}
 .links{display:flex;gap:4px;margin-left:auto;font:13px/1 var(--mono)}
-.links a{color:var(--mu);text-decoration:none;padding:10px;position:relative}
+.links a{color:var(--mu);text-decoration:none;padding:10px;position:relative;outline-offset:-2px}
 .links a:hover,.links a[aria-current]{color:var(--fg)}
 .links a[aria-current]::after{content:"";position:absolute;left:10px;right:10px;bottom:2px;height:2px;background:var(--bar)}
-.world-pill{display:inline-flex;align-items:center;gap:7px;width:calc(11ch + 32px);padding:7px 9px;border:1px solid var(--ln);background:var(--sf);font:10.5px/1 var(--mono);letter-spacing:.09em;color:var(--fg);white-space:nowrap;cursor:default}
+.world-pill{display:inline-flex;align-items:center;gap:7px;width:calc(11ch + 46px);padding:7px 9px;border:1px solid var(--ln);background:var(--sf);font:10.5px/1 var(--mono);letter-spacing:.09em;color:var(--fg);white-space:nowrap;cursor:default}
 button.world-pill{cursor:pointer}
 .world-pill i{flex:none;width:8px;height:8px;background:var(--ac);box-shadow:0 0 0 3px var(--tint);transform:rotate(45deg);transition:background-color .45s}
 .tog{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--ln);padding:7px 10px;font:12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mu);cursor:pointer}
@@ -148,7 +148,7 @@ a.ext:not(.btn)::after{content:" \2197"}
 .tele small{display:block;font:11px/1.3 var(--mono);color:var(--ac);letter-spacing:.08em;text-transform:uppercase;margin-top:5px}
 @media (min-width:980px){.tele{grid-template-columns:repeat(5,minmax(0,1fr))}.tele li:last-child{grid-column:auto}}
 .spec{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;margin:0;font-size:.93rem}
-.spec dt,.kv dt,.rows span,.cmp tbody th{font:400 12px/1.8 var(--mono);color:var(--mu);letter-spacing:.06em;text-transform:uppercase}
+.spec dt,.kv dt,.rows li>span:first-child,.cmp tbody th{font:400 12px/1.8 var(--mono);color:var(--mu);letter-spacing:.06em;text-transform:uppercase}
 .spec dd{margin:0;min-width:0;overflow-wrap:anywhere}
 .mark{width:72px;height:72px;border:1px solid var(--ln);margin-bottom:18px}
 .proj-h{display:flex;align-items:flex-end;gap:clamp(14px,3vw,26px);margin-bottom:clamp(22px,3.5vw,36px);flex-wrap:wrap}
@@ -200,6 +200,8 @@ a.ext:not(.btn)::after{content:" \2197"}
 .cur-line::after{content:"";position:absolute;left:-15px;top:50%;width:30px;height:30px;margin-top:-15px;background:#0B0710 linear-gradient(90deg,#0000 11px,#F5C05C 11px 13px,#0000 13px 17px,#F5C05C 17px 19px,#0000 19px);border:2px solid #F5C05C;transform:rotate(45deg)}
 .cur-lab{position:absolute;bottom:10px;z-index:2;font:600 11px/1 var(--mono);letter-spacing:.1em;padding:6px 8px;background:rgb(11 7 16/.82);color:#F2E3C6;border:1px solid #2D1E3A;pointer-events:none}
 .cur-lab.l{left:10px;color:#F5C05C}.cur-lab.r{right:10px}
+.cur-lab{transition:opacity .2s}.cur.no-l .cur-lab.l,.cur.no-r .cur-lab.r{opacity:0}
+.cur-line::after{margin-left:var(--hx,0px)}
 .cur-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:10px}
 .cur-bar input{flex:1 1 220px;accent-color:var(--ac);min-width:0}
 .cur-bar button{border-color:var(--ln);background:var(--sf);color:var(--fg)}
@@ -234,9 +236,9 @@ a.ext:not(.btn)::after{content:" \2197"}
 .orb[aria-pressed=true] .oc,.orb:focus-visible .oc{stroke:var(--ac);stroke-width:2.5}
 .orb[aria-pressed=true] .ic,.orb:hover .ic{stroke:var(--ac)}
 .orb[aria-pressed=true] .ic .f,.orb:hover .ic .f{fill:var(--ac)}
-.orb:focus-visible .orb-u{outline:2px solid var(--ac);outline-offset:4px}
+.orb:focus-visible .orb-u{outline:2px solid var(--ac);outline-offset:1px}
 .orb-hub{position:absolute;left:50%;top:50%;width:31cqi;height:31cqi;margin:-15.5cqi 0 0 -15.5cqi;padding:0;border:0;background:none;cursor:pointer;display:grid;place-content:center;justify-items:center;gap:.6cqi;text-align:center;z-index:1}
-.orb-hub::before{content:"";position:absolute;inset:-22%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 26%,#0000),#0000);animation:pulse 3.6s ease-in-out infinite;z-index:-1}
+.orb-hub::before{content:"";position:absolute;inset:-22%;pointer-events:none;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 26%,#0000),#0000);animation:pulse 3.6s ease-in-out infinite;z-index:-1}
 .orb-hub .oc{stroke:var(--ac);stroke-width:2}
 .orb-hub[aria-pressed=true] .oc{fill:color-mix(in srgb,var(--ac) 12%,var(--sf))}
 .orb-hub>*{position:relative}
@@ -307,7 +309,7 @@ blockquote cite{display:block;font:normal 400 12px/1.4 var(--mono);color:var(--m
 .alab-c button:hover{transform:translateY(-1px)}
 .alab-c button[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:var(--on)}
 .alab-tl{display:flex;gap:3px;margin:0 0 10px}
-.alab-tl button{flex:var(--w) 1 0;min-width:0;padding:8px 4px;border:1px solid var(--ln);background:var(--sf);font:11px/1.25 var(--mono);color:var(--mu);cursor:pointer;text-align:left;overflow:hidden;transition:flex-grow .4s var(--spring),background-color .2s,border-color .2s}
+.alab-tl button{flex:var(--w) 1 0;min-width:44px;height:48px;white-space:nowrap;padding:8px 4px;border:1px solid var(--ln);background:var(--sf);font:11px/1.25 var(--mono);color:var(--mu);cursor:pointer;text-align:left;overflow:hidden;transition:flex-grow .4s var(--spring),background-color .2s,border-color .2s}
 .alab-tl button b{display:block;color:var(--fg);font-weight:600}
 .alab-tl button[aria-current=true]{border-color:var(--ac);background:var(--tint);box-shadow:inset 0 -3px 0 var(--bar)}
 .alab-tl button.drop{opacity:.6;background:repeating-linear-gradient(135deg,var(--sf) 0 6px,var(--tint) 6px 12px)}
@@ -368,7 +370,7 @@ blockquote cite{display:block;font:normal 400 12px/1.4 var(--mono);color:var(--m
 .cmp thead .on{color:var(--ac);box-shadow:inset 0 3px 0 var(--bar)}
 @media (min-width:760px){.cmp [data-m]:not(.on){opacity:.5}}
 @media (max-width:759px){.cmp [data-m]:not(.on){display:none}.cmp tbody th{width:34%}}
-.perf{table-layout:auto}.perf th,.perf td{padding:9px 10px}.perf tbody th{width:auto}
+.perf{table-layout:auto;min-width:520px}.perf th,.perf td{padding:9px 10px;overflow-wrap:normal}.perf tbody th{width:auto}
 .bars{display:grid;gap:14px}
 .bars li{display:grid;gap:6px;min-width:0}
 .bars .lb{display:flex;justify-content:space-between;gap:12px;font:12.5px/1.4 var(--mono);color:var(--mu);flex-wrap:wrap}
@@ -411,7 +413,7 @@ blockquote cite{display:block;font:normal 400 12px/1.4 var(--mono);color:var(--m
 @media (min-width:980px){.contact{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .contact h2{font-size:clamp(1.6rem,3.2vw,2.4rem);margin-bottom:20px}
 .rows li{display:grid;grid-template-columns:100px minmax(0,1fr);gap:14px;padding:11px 0;border-bottom:1px solid var(--ln);align-items:baseline}
-@media (max-width:599px){.rows li{grid-template-columns:76px minmax(0,1fr);gap:12px}}
+@media (max-width:599px){.rows li{grid-template-columns:96px minmax(0,1fr);gap:12px}}
 .rows li:first-child{border-top:1px solid var(--ln)}
 .rows a{overflow-wrap:anywhere}
 .rows .v{color:var(--fg)}
@@ -428,3 +430,32 @@ dialog.lb figcaption{font:13px/1.5 var(--mono);color:#8E95A2;max-width:90ch}
 dialog.lb .x{position:fixed;top:12px;right:12px;font:12px/1 var(--mono);padding:10px 12px;background:#1A1C20;color:#F3F4F6;border:1px solid #2C3038;cursor:pointer}
 @keyframes lbin{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.lantern>img{transform:none}.orb-tog{display:none}}
+
+/* Touch targets: 40 px everywhere, 44 px on touch screens. Enlarge shows the diagram at full size on phones. */
+.tabs button,.vid-ctl button,.cur-bar button,.orb-tog,.pal-f button,.alab-c button,.app-bar button,.tog,dialog.lb .x{min-height:40px}
+.app-bar a,.links a{min-height:40px;display:inline-flex;align-items:center}
+.orb-chips{grid-auto-rows:40px;min-height:calc(var(--rows,4)*46px - 6px)}
+@media (pointer:coarse){
+  .tabs button,.vid-ctl button,.cur-bar button,.orb-tog,.pal-f button,.alab-c button,.app-bar button,.app-bar a,.tog,.links a,dialog.lb .x{min-height:44px}
+  .orb-chips{grid-auto-rows:44px;min-height:calc(var(--rows,4)*50px - 6px)}
+  .cur-bar input,.sbx-c input{height:32px}
+}
+@media (max-width:759px){
+  dialog.lb[open]{place-items:start}
+  dialog.lb figure{max-width:none}
+  dialog.lb img{width:auto;max-width:none;max-height:none;height:min(78vh,540px)}
+}
+.world-pill,.wc-c button,[data-w],[data-md]{min-height:40px}
+.crumbs a,.next .eye{display:inline-flex;align-items:center;min-height:40px}
+@media (pointer:coarse){.world-pill,[data-w],[data-md]{min-height:44px}.crumbs a,.next .eye{min-height:44px}}
+@media (max-width:759px){.const-out{min-height:8.6em}}
+/* Phones: a square sandbox gives the plan room under the HUD; remaining small targets reach 44 px. */
+@media (max-width:599px){.sbx canvas{aspect-ratio:1}}
+@media (pointer:coarse){
+  .alab-c button{min-width:44px}
+  .brand{min-height:44px}
+  .recipes button,.btn,.next .big,.rows a{display:inline-flex;align-items:center;min-height:44px}
+  .cur-bar input,.sbx-c input{height:44px}
+}
+dialog.lb figcaption{position:sticky;left:0;max-width:min(90ch,calc(100vw - 24px))}
+@media (pointer:coarse){.foot .co a{display:inline-block;padding-block:15px;margin-block:-15px}}
