@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400" width="560" height="400" role="img" aria-labelledby="c-db-d-title c-db-d-desc" font-family="'Cascadia Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,'Courier New',monospace">
+  <title id="c-db-d-title">Stack constellation: Dawnbringer</title>
+  <desc id="c-db-d-desc">Hub: 01 GDScript, 1,068 files. Inner ring (core, runtime): 02 GLSL, 13 shaders; 03 Python, 589 files; 04 JSON · CSV, Data + 14 i18n. Outer ring (backend, formats, tooling): 05 TypeScript, 42 files; 06 SQL, 7 D1 mig.; 07 Shell, 55 scripts.</desc>
+  <defs>
+    <pattern id="c-db-d-grid" x="-.6" y="5.4" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="1.2" height="1.2" fill="#2C3038"/></pattern>
+    <radialGradient id="c-db-d-glow" cx="280" cy="206" r="112" gradientUnits="userSpaceOnUse"><stop offset=".45" stop-color="#FF5A1F" stop-opacity=".17"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="560" height="400" fill="#111214"/>
+  <rect width="560" height="400" fill="url(#c-db-d-grid)"/>
+  <g id="c-db-d-frame" fill="none">
+    <path d="M555 230.06h-2.5M555 254.49h-2.5M555 306.09h-2.5M555 334.23h-2.5M549.92 395v-2.5M505.24 395v-2.5M438.59 395v-2.5M412.34 395v-2.5M368.13 395v-2.5M348.79 395v-2.5M313.33 395v-2.5M296.54 395v-2.5M263.46 395v-2.5M246.67 395v-2.5M211.21 395v-2.5M191.87 395v-2.5M147.66 395v-2.5M121.41 395v-2.5M54.76 395v-2.5M10.08 395v-2.5M5 334.23h2.5M5 306.09h2.5M5 254.49h2.5M5 230.06h2.5M5 181.94h2.5M5 157.51h2.5M5 105.91h2.5M5 77.77h2.5M5 13.44h2.5M40.46 5v2.5M111.34 5v2.5M139.26 5v2.5M186.27 5v2.5M206.84 5v2.5M244.56 5v2.5M262.41 5v2.5M297.59 5v2.5M315.44 5v2.5M353.16 5v2.5M373.73 5v2.5M420.74 5v2.5M448.66 5v2.5M519.54 5v2.5M555 13.44h-2.5M555 77.77h-2.5M555 105.91h-2.5M555 157.51h-2.5M555 181.94h-2.5" stroke="#2C3038"/>
+    <path d="M555 206h-7M555 279.69h-4.5M555 364.77h-4.5M469 395v-7M389.12 395v-4.5M330.64 395v-4.5M280 395v-7M229.36 395v-4.5M170.88 395v-4.5M91 395v-7M5 364.77h4.5M5 279.69h4.5M5 206h7M5 132.31h4.5M5 47.23h4.5M79 5v7M163.95 5v4.5M226.14 5v4.5M280 5v7M333.86 5v4.5M396.05 5v4.5M481 5v7M555 47.23h-4.5M555 132.31h-4.5" stroke="#444B58"/>
+    <path d="M16 38V26L26 16H38M522 16H534L544 26V38M544 362V374L534 384H522M38 384H26L16 374V362" stroke="#444B58" stroke-width="1.25"/>
+  </g>
+  <g id="c-db-d-orbits" fill="none" stroke="#444B58" stroke-dasharray="1.5 5.5">
+    <circle cx="280" cy="206" r="124"/>
+    <path d="M400 46A200 200 0 0 1 400 366M160 366A200 200 0 0 1 160 46"/>
+  </g>
+  <circle cx="280" cy="206" r="112" fill="url(#c-db-d-glow)"/>
+  <path id="c-db-d-field" d="M97 126h6M100 123v6M137 186h6M140 183v6M317 66h6M320 63v6M517 166h6M520 163v6M417 346h6M420 343v6M297 346h6M300 343v6M37 206h6M40 203v6" stroke="#8E95A2" stroke-opacity=".7"/>
+  <g id="c-db-d-links" fill="none">
+    <path d="M414.97 160.39L432.03 119.61M447.2 119.97L461.8 252.03M171.15 293.79L120.85 281.21" stroke="#444B58" stroke-width="1.25"/>
+    <path d="M245.21 145.96L234.41 127.33M340.95 197.58L374.05 193M236.55 257.6L220.59 276.55" stroke="#FF5A1F" stroke-width="1.5"/>
+  </g>
+  <g id="c-db-d-vertices">
+    <path d="M423.5 137l3 3l-3 3l-3 -3zM454.5 183l3 3l-3 3l-3 -3zM146 284.5l3 3l-3 3l-3 -3z" fill="#8E95A2"/>
+    <path d="M239.81 133.14l3.5 3.5l-3.5 3.5l-3.5 -3.5zM357.5 191.79l3.5 3.5l-3.5 3.5l-3.5 -3.5zM228.57 263.57l3.5 3.5l-3.5 3.5l-3.5 -3.5z" fill="#FF5A1F"/>
+  </g>
+  <g id="c-db-d-nodes">
+    <g data-node="01" id="c-db-d-n01">
+      <path d="M248 150H312L336 174V238L312 262H248L224 238V174Z" fill="#1A1C20" stroke="#FF5A1F" stroke-width="1.5"/>
+      <path d="M250.07 155H309.93L331 176.07V235.93L309.93 257H250.07L229 235.93V176.07Z" fill="none" stroke="#444B58"/>
+      <path d="M268 179.5H284.5V196H268ZM268 179.5L275.5 172H292L284.5 179.5M292 172V188.5L284.5 196" fill="none" stroke="#F3F4F6" stroke-width="2"/>
+      <path d="M273.85 185.35H278.65V190.15H273.85Z" fill="#F3F4F6"/>
+      <path d="M267 141H293L297 145V155L293 159H267L263 155V145Z" fill="#FF5A1F"/>
+      <text x="280" y="154.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#111214">01</text>
+      <text x="280" y="226" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#F3F4F6">GDScript</text>
+      <text x="280" y="242" font-size="10.5" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2">1,068 files</text>
+    </g>
+    <g data-node="02" id="c-db-d-n02">
+      <path d="M228.5 75H232L242 85V113L232 123H204L194 113V85L204 75H207.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M216 92L224 106H208ZM205 102.4L211.1 100.5M219.4 98L229.5 95.2M220.9 100.5H229.5M222.3 103L229.5 105.8" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="218" y="79.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">02</text>
+      <text x="184" y="97" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="end" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">GLSL</text>
+      <text x="184" y="111" font-size="10" letter-spacing="0.2" text-anchor="end" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">13 shaders</text>
+    </g>
+    <g data-node="03" id="c-db-d-n03">
+      <path d="M413.5 165H417L427 175V203L417 213H389L379 203V175L389 165H392.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M394.5 195V186.5L399.5 181.5H405L407.5 184V189M411.5 185V193.5L406.5 198.5H401L398.5 196V191" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <path d="M400.7 184.5H402.5V186.3H400.7ZM403.5 193.7H405.3V195.5H403.5Z" fill="#F3F4F6"/>
+      <text x="403" y="169.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">03</text>
+      <text x="403" y="231" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Python</text>
+      <text x="403" y="245" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">589 files</text>
+    </g>
+    <g data-node="04" id="c-db-d-n04">
+      <path d="M210.5 277H214L224 287V315L214 325H186L176 315V287L186 277H189.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M197.5 293.5H196.5L194.5 295.5V299.5L192 302L194.5 304.5V308.5L196.5 310.5H197.5M202.5 293.5H203.5L205.5 295.5V299.5L208 302L205.5 304.5V308.5L203.5 310.5H202.5M200 302.6V305L198.8 306.8" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="200" y="281.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">04</text>
+      <text x="200" y="343" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">JSON · CSV</text>
+      <text x="200" y="357" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Data + 14 i18n</text>
+    </g>
+    <g data-node="05" id="c-db-d-n05">
+      <path d="M454.5 67H458L468 77V105L458 115H430L420 105V77L430 67H433.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M439.5 86.5L434 92L439.5 97.5M448.5 86.5L454 92L448.5 97.5M441 88.5H447M444 88.5V96" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="444" y="71.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">05</text>
+      <text x="410" y="89" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="end" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">TypeScript</text>
+      <text x="410" y="103" font-size="10" letter-spacing="0.2" text-anchor="end" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">42 files</text>
+    </g>
+    <g data-node="06" id="c-db-d-n06">
+      <path d="M475.5 257H479L489 267V295L479 305H451L441 295V267L451 257H454.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M458 276.5L460.5 274H469.5L472 276.5L469.5 279H460.5ZM458 276.5V287.5L460.5 290H469.5L472 287.5V276.5M458 282L460.5 284.5H469.5L472 282" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="465" y="261.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">06</text>
+      <text x="465" y="323" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">SQL</text>
+      <text x="465" y="337" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">7 D1 mig.</text>
+    </g>
+    <g data-node="07" id="c-db-d-n07">
+      <path d="M102.5 250H106L116 260V288L106 298H78L68 288V260L78 250H81.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M85 269.5L90.5 275L85 280.5M92.5 280.5H99.5" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="92" y="254.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">07</text>
+      <text x="92" y="316" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Shell</text>
+      <text x="92" y="330" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">55 scripts</text>
+    </g>
+  </g>
+  <g id="c-db-d-legend">
+    <text x="30" y="33" font-size="9" letter-spacing="1.1" fill="#8E95A2">STACK CONSTELLATION<tspan dx="6" fill="#FF5A1F">//</tspan><tspan dx="6" font-weight="700" fill="#F3F4F6">DAWNBRINGER</tspan></text>
+    <text x="530" y="33" font-size="9" letter-spacing="1.1" text-anchor="end" fill="#8E95A2">7 NODES · 2 RINGS</text>
+    <text x="30" y="374" font-size="7.5" letter-spacing="0.9" fill="#8E95A2"><tspan fill="#F3F4F6">INNER RING</tspan><tspan dx="5">CORE · RUNTIME</tspan><tspan dx="14" fill="#F3F4F6">OUTER RING</tspan><tspan dx="5">BACKEND · FORMATS · TOOLING</tspan></text>
+  </g>
+</svg>

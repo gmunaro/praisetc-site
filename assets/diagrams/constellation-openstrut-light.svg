@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400" width="560" height="400" role="img" aria-labelledby="c-os-l-title c-os-l-desc" font-family="'Cascadia Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,'Courier New',monospace">
+  <title id="c-os-l-title">Stack constellation: OpenStrut V2</title>
+  <desc id="c-os-l-desc">Hub: 01 TypeScript, 412 files. Inner ring (core, runtime): 02 React TSX, 103 UI; 03 WebGL · 3D, Three.js; 04 SVG CAD, 2D Plan. Outer ring (backend, formats, tooling): 05 IFC4 STEP, 25 KB writer; 06 DXF R12, CAD export; 07 QuickBASIC, 1991 oracle; 08 Python · Sh, 24 verifiers.</desc>
+  <defs>
+    <pattern id="c-os-l-grid" x="-.6" y="5.4" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="1.2" height="1.2" fill="#CFCFC7"/></pattern>
+  </defs>
+  <rect width="560" height="400" fill="#F3F3F0"/>
+  <rect width="560" height="400" fill="url(#c-os-l-grid)"/>
+  <g id="c-os-l-frame" fill="none">
+    <path d="M555 230.06h-2.5M555 254.49h-2.5M555 306.09h-2.5M555 334.23h-2.5M549.92 395v-2.5M505.24 395v-2.5M438.59 395v-2.5M412.34 395v-2.5M368.13 395v-2.5M348.79 395v-2.5M313.33 395v-2.5M296.54 395v-2.5M263.46 395v-2.5M246.67 395v-2.5M211.21 395v-2.5M191.87 395v-2.5M147.66 395v-2.5M121.41 395v-2.5M54.76 395v-2.5M10.08 395v-2.5M5 334.23h2.5M5 306.09h2.5M5 254.49h2.5M5 230.06h2.5M5 181.94h2.5M5 157.51h2.5M5 105.91h2.5M5 77.77h2.5M5 13.44h2.5M40.46 5v2.5M111.34 5v2.5M139.26 5v2.5M186.27 5v2.5M206.84 5v2.5M244.56 5v2.5M262.41 5v2.5M297.59 5v2.5M315.44 5v2.5M353.16 5v2.5M373.73 5v2.5M420.74 5v2.5M448.66 5v2.5M519.54 5v2.5M555 13.44h-2.5M555 77.77h-2.5M555 105.91h-2.5M555 157.51h-2.5M555 181.94h-2.5" stroke="#CFCFC7"/>
+    <path d="M555 206h-7M555 279.69h-4.5M555 364.77h-4.5M469 395v-7M389.12 395v-4.5M330.64 395v-4.5M280 395v-7M229.36 395v-4.5M170.88 395v-4.5M91 395v-7M5 364.77h4.5M5 279.69h4.5M5 206h7M5 132.31h4.5M5 47.23h4.5M79 5v7M163.95 5v4.5M226.14 5v4.5M280 5v7M333.86 5v4.5M396.05 5v4.5M481 5v7M555 47.23h-4.5M555 132.31h-4.5" stroke="#B5B5AC"/>
+    <path d="M16 38V26L26 16H38M522 16H534L544 26V38M544 362V374L534 384H522M38 384H26L16 374V362" stroke="#B5B5AC" stroke-width="1.25"/>
+  </g>
+  <g id="c-os-l-orbits" fill="none" stroke="#B5B5AC" stroke-dasharray="1.5 5.5">
+    <circle cx="280" cy="206" r="124"/>
+    <path d="M400 46A200 200 0 0 1 400 366M160 366A200 200 0 0 1 160 46"/>
+  </g>
+  <path id="c-os-l-field" d="M337 66h6M340 63v6M157 166h6M160 163v6M517 206h6M520 203v6M37 206h6M40 203v6M197 346h6M200 343v6M377 346h6M380 343v6" stroke="#5E636E" stroke-opacity=".7"/>
+  <g id="c-os-l-links" fill="none">
+    <path d="M457.84 144L457.16 271" stroke="#B5B5AC" stroke-dasharray="3 3"/>
+    <path d="M422.11 168.17L439.89 141.83M340.92 320.81L428.08 305.19M219.58 238.09L131.42 284.91M102.35 271L99.65 150" stroke="#B5B5AC" stroke-width="1.25"/>
+    <path d="M263.78 145.17L255.69 114.83M340.98 200.59L375.02 197.57M296.22 266.83L304.31 297.17" stroke="#C43A0A" stroke-width="1.5"/>
+  </g>
+  <g id="c-os-l-vertices">
+    <path d="M431 152l3 3l-3 3l-3 -3zM384.5 310l3 3l-3 3l-3 -3zM175.5 258.5l3 3l-3 3l-3 -3zM101 207.5l3 3l-3 3l-3 -3zM457.5 204.5l3 3l-3 3l-3 -3z" fill="#5E636E"/>
+    <path d="M259.73 126.5l3.5 3.5l-3.5 3.5l-3.5 -3.5zM358 195.58l3.5 3.5l-3.5 3.5l-3.5 -3.5zM300.27 278.5l3.5 3.5l-3.5 3.5l-3.5 -3.5z" fill="#C43A0A"/>
+  </g>
+  <g id="c-os-l-nodes">
+    <g data-node="01" id="c-os-l-n01">
+      <path d="M248 150H312L336 174V238L312 262H248L224 238V174Z" fill="#FFFFFF" stroke="#C43A0A" stroke-width="1.5"/>
+      <path d="M250.07 155H309.93L331 176.07V235.93L309.93 257H250.07L229 235.93V176.07Z" fill="none" stroke="#B5B5AC"/>
+      <path d="M273.25 175.75L265 184L273.25 192.25M286.75 175.75L295 184L286.75 192.25M275.5 178.75H284.5M280 178.75V190" fill="none" stroke="#141518" stroke-width="2"/>
+      <path d="M267 141H293L297 145V155L293 159H267L263 155V145Z" fill="#C43A0A"/>
+      <text x="280" y="154.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">01</text>
+      <text x="280" y="226" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#141518">TypeScript</text>
+      <text x="280" y="242" font-size="10.5" letter-spacing="0.2" text-anchor="middle" fill="#5E636E">412 files</text>
+    </g>
+    <g data-node="02" id="c-os-l-n02">
+      <path d="M258.5 62H262L272 72V100L262 110H234L224 100V72L234 62H237.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M239.5 85.5H246.5L249.5 88.5V95.5H239.5ZM243 85.5V82H250L253 85V92H249.5M246.5 82V78.5H253.5L256.5 81.5V88.5H253" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <text x="248" y="66.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">02</text>
+      <text x="282" y="84" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">React TSX</text>
+      <text x="282" y="98" font-size="10" letter-spacing="0.2" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">103 UI</text>
+    </g>
+    <g data-node="03" id="c-os-l-n03">
+      <path d="M414.5 171H418L428 181V209L418 219H390L380 209V181L390 171H393.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M401.5 187.5V198.5H412.5M401.5 198.5L395.5 204.5M399.3 189.7L401.5 187.5L403.7 189.7M410.3 196.3L412.5 198.5L410.3 200.7M395.5 201.4V204.5H398.6" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <text x="404" y="175.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">03</text>
+      <text x="404" y="237" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">WebGL · 3D</text>
+      <text x="404" y="251" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Three.js</text>
+    </g>
+    <g data-node="04" id="c-os-l-n04">
+      <path d="M322.5 302H326L336 312V340L326 350H298L288 340V312L298 302H301.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M304 335H320L304 319ZM307.5 331.5H312L307.5 327Z" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <path d="M314.1 319.6H315.9V321.4H314.1ZM318.6 319.6H320.4V321.4H318.6ZM318.6 324.1H320.4V325.9H318.6Z" fill="#141518"/>
+      <text x="312" y="306.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">04</text>
+      <text x="278" y="324" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="end" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">SVG CAD</text>
+      <text x="278" y="338" font-size="10" letter-spacing="0.2" text-anchor="end" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">2D Plan</text>
+    </g>
+    <g data-node="05" id="c-os-l-n05">
+      <path d="M468.5 91H472L482 101V129L472 139H444L434 129V101L444 91H447.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M451.5 113H459.5V124.5H451.5ZM451.5 113L456.5 108H464.5L459.5 113M464.5 108V119.5L459.5 124.5M451.5 118.75H459.5L464.5 113.75" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <text x="458" y="95.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">05</text>
+      <text x="458" y="64" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">IFC4 STEP</text>
+      <text x="458" y="78" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">25 KB writer</text>
+    </g>
+    <g data-node="06" id="c-os-l-n06">
+      <path d="M467.5 276H471L481 286V314L471 324H443L433 314V286L443 276H446.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M453.5 292.5V309.5M460.5 292.5V309.5M448.5 297.5H465.5M448.5 304.5H465.5" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <path d="M451.8 295.8H455.2V299.2H451.8ZM458.8 295.8H462.2V299.2H458.8ZM451.8 302.8H455.2V306.2H451.8ZM458.8 302.8H462.2V306.2H458.8Z" fill="#141518"/>
+      <text x="457" y="280.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">06</text>
+      <text x="457" y="342" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">DXF R12</text>
+      <text x="457" y="356" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">CAD export</text>
+    </g>
+    <g data-node="07" id="c-os-l-n07">
+      <path d="M113.5 276H117L127 286V314L117 324H89L79 314V286L89 276H92.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M95 293H107.5L111 296.5V309H95ZM99 293V298H106V293M98.5 309V303H107.5V309" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <text x="103" y="280.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">07</text>
+      <text x="103" y="342" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">QuickBASIC</text>
+      <text x="103" y="356" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">1991 oracle</text>
+    </g>
+    <g data-node="08" id="c-os-l-n08">
+      <path d="M109.5 97H113L123 107V135L113 145H85L75 135V107L85 97H88.5" fill="#FFFFFF" stroke="#B5B5AC" stroke-width="1.25"/>
+      <path d="M107.5 121.5V125.5L102.5 130.5H95.5L90.5 125.5V118.5L95.5 113.5H103M100.5 111L103 113.5L100.5 116M95 122.5L97.75 125.25L103.25 119.75" fill="none" stroke="#141518" stroke-width="1.6"/>
+      <text x="99" y="101.3" font-size="12" font-weight="700" text-anchor="middle" fill="#C43A0A">08</text>
+      <text x="99" y="70" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#141518" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Python · Sh</text>
+      <text x="99" y="84" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#5E636E" stroke="#F3F3F0" stroke-width="3" stroke-linejoin="round" paint-order="stroke">24 verifiers</text>
+    </g>
+  </g>
+  <g id="c-os-l-legend">
+    <text x="30" y="33" font-size="9" letter-spacing="1.1" fill="#5E636E">STACK CONSTELLATION<tspan dx="6" fill="#C43A0A">//</tspan><tspan dx="6" font-weight="700" fill="#141518">OPENSTRUT V2</tspan></text>
+    <text x="530" y="33" font-size="9" letter-spacing="1.1" text-anchor="end" fill="#5E636E">8 NODES · 2 RINGS</text>
+    <text x="30" y="374" font-size="7.5" letter-spacing="0.9" fill="#5E636E"><tspan fill="#141518">INNER RING</tspan><tspan dx="5">CORE · RUNTIME</tspan><tspan dx="14" fill="#141518">OUTER RING</tspan><tspan dx="5">BACKEND · FORMATS · TOOLING</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400" width="560" height="400" role="img" aria-labelledby="c-st-d-title c-st-d-desc" font-family="'Cascadia Mono','JetBrains Mono',ui-monospace,Menlo,Consolas,'Courier New',monospace">
+  <title id="c-st-d-title">Stack constellation: Praise The Code Studio</title>
+  <desc id="c-st-d-desc">Hub: 01 HTML · CSS, Zero-dep UI. Inner ring (core, runtime): 02 SVG, 45° grid; 03 Node ESM, Asset gen. Outer ring (backend, formats, tooling): 04 Python, Visual QA; 05 JSON, WCAG tokens; 06 Actions CI, Tests + checks.</desc>
+  <defs>
+    <pattern id="c-st-d-grid" x="-.6" y="5.4" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="1.2" height="1.2" fill="#2C3038"/></pattern>
+    <radialGradient id="c-st-d-glow" cx="280" cy="206" r="112" gradientUnits="userSpaceOnUse"><stop offset=".45" stop-color="#FF5A1F" stop-opacity=".17"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="560" height="400" fill="#111214"/>
+  <rect width="560" height="400" fill="url(#c-st-d-grid)"/>
+  <g id="c-st-d-frame" fill="none">
+    <path d="M555 230.06h-2.5M555 254.49h-2.5M555 306.09h-2.5M555 334.23h-2.5M549.92 395v-2.5M505.24 395v-2.5M438.59 395v-2.5M412.34 395v-2.5M368.13 395v-2.5M348.79 395v-2.5M313.33 395v-2.5M296.54 395v-2.5M263.46 395v-2.5M246.67 395v-2.5M211.21 395v-2.5M191.87 395v-2.5M147.66 395v-2.5M121.41 395v-2.5M54.76 395v-2.5M10.08 395v-2.5M5 334.23h2.5M5 306.09h2.5M5 254.49h2.5M5 230.06h2.5M5 181.94h2.5M5 157.51h2.5M5 105.91h2.5M5 77.77h2.5M5 13.44h2.5M40.46 5v2.5M111.34 5v2.5M139.26 5v2.5M186.27 5v2.5M206.84 5v2.5M244.56 5v2.5M262.41 5v2.5M297.59 5v2.5M315.44 5v2.5M353.16 5v2.5M373.73 5v2.5M420.74 5v2.5M448.66 5v2.5M519.54 5v2.5M555 13.44h-2.5M555 77.77h-2.5M555 105.91h-2.5M555 157.51h-2.5M555 181.94h-2.5" stroke="#2C3038"/>
+    <path d="M555 206h-7M555 279.69h-4.5M555 364.77h-4.5M469 395v-7M389.12 395v-4.5M330.64 395v-4.5M280 395v-7M229.36 395v-4.5M170.88 395v-4.5M91 395v-7M5 364.77h4.5M5 279.69h4.5M5 206h7M5 132.31h4.5M5 47.23h4.5M79 5v7M163.95 5v4.5M226.14 5v4.5M280 5v7M333.86 5v4.5M396.05 5v4.5M481 5v7M555 47.23h-4.5M555 132.31h-4.5" stroke="#444B58"/>
+    <path d="M16 38V26L26 16H38M522 16H534L544 26V38M544 362V374L534 384H522M38 384H26L16 374V362" stroke="#444B58" stroke-width="1.25"/>
+  </g>
+  <g id="c-st-d-orbits" fill="none" stroke="#444B58" stroke-dasharray="1.5 5.5">
+    <circle cx="280" cy="206" r="124"/>
+    <path d="M400 46A200 200 0 0 1 400 366M160 366A200 200 0 0 1 160 46"/>
+  </g>
+  <circle cx="280" cy="206" r="112" fill="url(#c-st-d-glow)"/>
+  <path id="c-st-d-field" d="M197 86h6M200 83v6M397 186h6M400 183v6M517 226h6M520 223v6M337 346h6M340 343v6M37 266h6M40 263v6M257 346h6M260 343v6M137 86h6M140 83v6" stroke="#8E95A2" stroke-opacity=".7"/>
+  <g id="c-st-d-links" fill="none">
+    <path d="M370.78 107.91L439.22 129.09M466.03 166.99L458.97 271.01M340.42 238.09L428.58 284.91M150.34 245.59L104.66 200.41" stroke="#444B58" stroke-width="1.25"/>
+    <path d="M314.79 145.96L325.59 127.33M219.96 240.79L201.33 251.59" stroke="#FF5A1F" stroke-width="1.5"/>
+  </g>
+  <g id="c-st-d-vertices">
+    <path d="M405 115.5l3 3l-3 3l-3 -3zM462.5 216l3 3l-3 3l-3 -3zM384.5 258.5l3 3l-3 3l-3 -3zM127.5 220l3 3l-3 3l-3 -3z" fill="#8E95A2"/>
+    <path d="M320.19 133.14l3.5 3.5l-3.5 3.5l-3.5 -3.5zM210.64 242.69l3.5 3.5l-3.5 3.5l-3.5 -3.5z" fill="#FF5A1F"/>
+  </g>
+  <g id="c-st-d-nodes">
+    <g data-node="01" id="c-st-d-n01">
+      <path d="M248 150H312L336 174V238L312 262H248L224 238V174Z" fill="#1A1C20" stroke="#FF5A1F" stroke-width="1.5"/>
+      <path d="M250.07 155H309.93L331 176.07V235.93L309.93 257H250.07L229 235.93V176.07Z" fill="none" stroke="#444B58"/>
+      <path d="M273.25 175.75L265 184L273.25 192.25M286.75 175.75L295 184L286.75 192.25M283 173.5L277 194.5" fill="none" stroke="#F3F4F6" stroke-width="2"/>
+      <path d="M267 141H293L297 145V155L293 159H267L263 155V145Z" fill="#FF5A1F"/>
+      <text x="280" y="154.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#111214">01</text>
+      <text x="280" y="226" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#F3F4F6">HTML · CSS</text>
+      <text x="280" y="242" font-size="10.5" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2">Zero-dep UI</text>
+    </g>
+    <g data-node="02" id="c-st-d-n02">
+      <path d="M352.5 75H356L366 85V113L356 123H328L318 113V85L328 75H331.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M335 107.5V98L340 93H349.5V107.5Z" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <path d="M333.2 96.2H336.8V99.8H333.2ZM338.2 91.2H341.8V94.8H338.2Z" fill="#F3F4F6"/>
+      <text x="342" y="79.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">02</text>
+      <text x="308" y="97" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="end" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">SVG</text>
+      <text x="308" y="111" font-size="10" letter-spacing="0.2" text-anchor="end" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">45° grid</text>
+    </g>
+    <g data-node="03" id="c-st-d-n03">
+      <path d="M183.5 244H187L197 254V282L187 292H159L149 282V254L159 244H162.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M173 260L180.79 264.5V273.5L173 278L165.21 273.5V264.5ZM169.5 269H176.5M173.7 266.2L176.5 269L173.7 271.8" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="173" y="248.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">03</text>
+      <text x="173" y="310" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Node ESM</text>
+      <text x="173" y="324" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Asset gen</text>
+    </g>
+    <g data-node="04" id="c-st-d-n04">
+      <path d="M478.5 114H482L492 124V152L482 162H454L444 152V124L454 114H457.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M465.5 133H470.5L474 136.5V141.5L470.5 145H465.5L462 141.5V136.5ZM468 129.5V135.5M468 142.5V148.5M458.5 139H464.5M471.5 139H477.5" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <path d="M467 138H469V140H467Z" fill="#F3F4F6"/>
+      <text x="468" y="118.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">04</text>
+      <text x="468" y="87" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Python</text>
+      <text x="468" y="101" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Visual QA</text>
+    </g>
+    <g data-node="05" id="c-st-d-n05">
+      <path d="M467.5 276H471L481 286V314L471 324H443L433 314V286L443 276H446.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M449 296H454M458.5 296H465M449 301H452.5M458.5 301H462.5M449 306H454M458.5 306H465" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <path d="M455.4 294H456.6V295.2H455.4ZM455.4 296.8H456.6V298H455.4ZM455.4 299H456.6V300.2H455.4ZM455.4 301.8H456.6V303H455.4ZM455.4 304H456.6V305.2H455.4ZM455.4 306.8H456.6V308H455.4Z" fill="#F3F4F6"/>
+      <text x="457" y="280.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">05</text>
+      <text x="457" y="342" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">JSON</text>
+      <text x="457" y="356" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">WCAG tokens</text>
+    </g>
+    <g data-node="06" id="c-st-d-n06">
+      <path d="M92.5 154H96L106 164V192L96 202H68L58 192V164L68 154H71.5" fill="#1A1C20" stroke="#444B58" stroke-width="1.25"/>
+      <path d="M72.5 176.5H77.5V181.5H72.5ZM86.5 170.5H91.5V175.5H86.5ZM86.5 182.5H91.5V187.5H86.5ZM77.5 179H79.5L85.5 173H86.5M79.5 179L85.5 185H86.5" fill="none" stroke="#F3F4F6" stroke-width="1.6"/>
+      <text x="82" y="158.3" font-size="12" font-weight="700" text-anchor="middle" fill="#FF5A1F">06</text>
+      <text x="82" y="127" font-family="'Segoe UI',Inter,system-ui,'Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#F3F4F6" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Actions CI</text>
+      <text x="82" y="141" font-size="10" letter-spacing="0.2" text-anchor="middle" fill="#8E95A2" stroke="#111214" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Tests + checks</text>
+    </g>
+  </g>
+  <g id="c-st-d-legend">
+    <text x="30" y="33" font-size="9" letter-spacing="1.1" fill="#8E95A2">STACK CONSTELLATION<tspan dx="6" fill="#FF5A1F">//</tspan><tspan dx="6" font-weight="700" fill="#F3F4F6">STUDIO &amp; BRAND</tspan></text>
+    <text x="530" y="33" font-size="9" letter-spacing="1.1" text-anchor="end" fill="#8E95A2">6 NODES · 2 RINGS</text>
+    <text x="30" y="374" font-size="7.5" letter-spacing="0.9" fill="#8E95A2"><tspan fill="#F3F4F6">INNER RING</tspan><tspan dx="5">CORE · RUNTIME</tspan><tspan dx="14" fill="#F3F4F6">OUTER RING</tspan><tspan dx="5">BACKEND · FORMATS · TOOLING</tspan></text>
+  </g>
+</svg>

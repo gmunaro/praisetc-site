@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>OpenStrut V2 case study: dual-code structural engine and 25 KB IFC4 writer | Praise The Code</title>
+<meta name="description" content="How OpenStrut V2 is built: a pure TypeScript engine for NBR 6118:2023 and NB-1/78, Float32 parity with a 1991 MS-DOS binary, a zero-dependency IFC4 writer and tests against independent oracles.">
+<link rel="canonical" href="https://praisetc.com/projects/openstrut/">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F3F0" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Praise The Code">
+<meta property="og:title" content="OpenStrut V2 case study">
+<meta property="og:description" content="Dual-code structural engine, Float32 parity with SISTRUT 4.0 (1991), a 25 KB IFC4 writer and tests against independent oracles.">
+<meta property="og:url" content="https://praisetc.com/projects/openstrut/">
+<meta property="og:image" content="https://praisetc.com/assets/showcase/openstrut-explodido-nk.webp">
+<meta property="og:image:width" content="1366">
+<meta property="og:image:height" content="768">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="../../" aria-label="Praise The Code, overview"><img class="theme-dark" src="../../assets/mark-dark.svg" width="32" height="32" alt="ptc_ mark"><img class="theme-light" src="../../assets/mark-light.svg" width="32" height="32" alt="ptc_ mark"><span>Praise The Code</span></a>
+  <nav class="links" aria-label="Main"><a href="../../">Overview</a><a href="../dawnbringer/">Dawnbringer</a><a href="./" aria-current="page">OpenStrut</a><a href="../engineering/">Engineering</a></nav>
+  <button class="tog" type="button" aria-pressed="false"><i aria-hidden="true"></i>Dark</button>
+</div></header>
+
+<main id="main">
+<section class="hero grid-bg">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="../../">praisetc.com</a></li><li>Projects</li><li aria-current="page">OpenStrut V2</li></ol></nav>
+    <div class="hero-g">
+      <div class="rule">
+        <p class="eye">Case study 02 <b>//</b> structural engineering <b>//</b> TypeScript</p>
+        <h1>OpenStrut V2<span>_</span></h1>
+        <p class="lead">A free, offline-first web app for reinforced-concrete design of simple buildings: slabs, beams and columns, floor by floor. It runs in the browser with no server, under two design codes, and exports IFC4, DXF R12 and glTF.</p>
+        <ul class="chips" aria-label="Technical profile"><li>TypeScript 7</li><li>React 19</li><li>Vite 8</li><li>Three.js</li><li>PWA</li><li>Bun 1.4.2</li><li>GPL-3.0-or-later</li></ul>
+      </div>
+      <div class="card cut">
+        <p class="eye">Official links</p>
+        <ul class="rows">
+          <li><span>Live app</span><a class="ext" href="https://gmunaro.github.io/openstrut/">gmunaro.github.io/openstrut</a></li>
+          <li><span>Source</span><a class="ext" href="https://github.com/gmunaro/openstrut">github.com/gmunaro/openstrut</a></li>
+          <li><span>License</span><span class="v">GPL-3.0-or-later</span></li>
+          <li><span>Origin</span><span class="v">Independent reverse-engineered rebuild of SISTRUT 4.0 (MS-DOS, 1991), with no link to its authors</span></li>
+        </ul>
+      </div>
+    </div>
+    <figure class="frame" style="margin-top:clamp(36px,5vw,60px)">
+      <button class="zoom" type="button" data-zoom data-cap="Exploded 3D view in NB-1/78 mode: columns coloured by normal force Nk from 20.79 to 517.3 kN. The (!) badges mark parts affected by a defect of the original 1991 program."><img src="../../assets/showcase/openstrut-explodido-nk.webp" width="1366" height="768" fetchpriority="high" decoding="async" alt="OpenStrut 3D viewer: exploded view of a three-floor building with columns coloured by normal force Nk, from 20.79 to 517.3 kN."></button>
+      <figcaption><b>Plate 00 //</b> Exploded view by normal force <code>Nk</code>. The (!) badges mark parts affected by a defect of the 1991 program.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec cv" id="stack" aria-labelledby="h-stack">
+  <div class="wrap">
+    <div class="sh"><p class="num">01 // Stack</p><h2 id="h-stack">Language and runtime constellation</h2><p class="lead">Counted on disk with <code>os.walk</code>, skipping <code>.git</code>, <code>node_modules</code>, <code>dist</code> and <code>build</code>. Select a node to read its role.</p></div>
+    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
+      <ul class="leg leg-a" aria-label="OpenStrut stack, nodes 01 to 04">
+        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // TypeScript // 412 files" data-d="352 in src/. The structural engine for both codes, domain geometry, the 182-line IFC4 STEP writer, the DXF R12 exporter, the SISTRUT 1991 parser, 187 Vitest suites and 40 Playwright tests."><b>01</b><span>TypeScript</span><small>412 files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="02" data-at="248,86" data-t="02 // React TSX // 103 files" data-d="The offline-first PWA interface: the 2D SVG CAD editor, the 3D, 4D and AR viewer with the path tracer, force tables and printable reports."><b>02</b><span>React TSX</span><small>103 UI files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="03" data-at="404,195" data-t="03 // WebGL // Three.js" data-d="src/telas/obra3d/: exploded view coloured by normal force Nk, cut per floor, transparent reinforcement, a 4D construction sequence and GPU path tracing with three-gpu-pathtracer."><b>03</b><span>WebGL · 3D</span><small>Three.js</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="04" data-at="312,326" data-t="04 // SVG CAD // 2D plan" data-d="src/planta/: vector plan editor with a configurable grid, edge snapping, undo and redo, and status colours for no warnings, warnings and failure."><b>04</b><span>SVG CAD</span><small>2D plan editor</small></button></li>
+      </ul>
+      <figure class="const-fig">
+        <img class="theme-dark" src="../../assets/diagrams/constellation-openstrut-dark.svg" width="560" height="400" decoding="async" alt="OpenStrut stack constellation: TypeScript at the hub, React TSX, WebGL and SVG CAD on the inner ring, IFC4 STEP, DXF R12, QuickBASIC and Python with Shell on the outer ring.">
+        <img class="theme-light" src="../../assets/diagrams/constellation-openstrut-light.svg" width="560" height="400" decoding="async" alt="OpenStrut stack constellation: TypeScript at the hub, React TSX, WebGL and SVG CAD on the inner ring, IFC4 STEP, DXF R12, QuickBASIC and Python with Shell on the outer ring.">
+        <span class="ring" aria-hidden="true"><i></i></span>
+      </figure>
+      <ul class="leg leg-b" aria-label="OpenStrut stack, nodes 05 to 08">
+        <li><button type="button" aria-pressed="false" data-k="05" data-at="458,115" data-t="05 // IFC4 STEP // 25 KB writer" data-d="src/exportacao/ifc/ writes ISO 10303-21 directly: 25.0 KB, 10.0 KB gzip, loaded on demand. It exports IfcColumn, IfcBeam, IfcSlab and IfcReinforcingBar."><b>05</b><span>IFC4 STEP</span><small>25 KB writer</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="06" data-at="457,300" data-t="06 // DXF R12 // CAD export" data-d="Formwork plans and beam reinforcement drawings export as DXF R12, which any CAD program opens."><b>06</b><span>DXF R12</span><small>CAD export</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="07" data-at="103,300" data-t="07 // QuickBASIC 4.5 // 1991 oracle" data-d="3 .bas sources and more than 100 real SISTRUT 4.0 files (.LAJ, .VIG, .COL, .SEC, .FOR, .TAB, .PRN, .REP) are the Float32 parity oracle against DOSBox-X."><b>07</b><span>QuickBASIC</span><small>1991 oracle</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="08" data-at="99,121" data-t="08 // Python + Shell // 24 verifiers" data-d="12 Python and 12 shell scripts check IFC roundtrips in IfcOpenShell and cross-check results against the DOSBox-X oracle."><b>08</b><span>Python · Sh</span><small>24 verifiers</small></button></li>
+      </ul>
+      <p class="const-out" aria-live="polite"><b data-o="t">01 // TypeScript // 412 files</b><span data-o="d">352 in src/. The structural engine for both codes, domain geometry, the 182-line IFC4 STEP writer, the DXF R12 exporter, the SISTRUT 1991 parser, 187 Vitest suites and 40 Playwright tests.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="architecture" aria-labelledby="h-arch">
+  <div class="wrap">
+    <div class="sh"><p class="num">02 // Architecture</p><h2 id="h-arch">Software and structural architecture blueprint</h2><p class="lead">Four stages, all in the browser: local-first input and importers, a pure calculation engine, detailing with code checks, and client-side outputs. No server sits on the path.</p></div>
+    <figure class="frame">
+      <button class="zoom" type="button" data-zoom data-cap="OpenStrut V2 architecture: 01 input and importers, 02 pure calculation engine in src/calculo with both codes, 03 detailing and oracles, 04 client-side outputs. The verification bar lists 187 Vitest files, 40 Playwright files and the independent oracles.">
+        <img class="theme-dark" src="../../assets/diagrams/openstrut-arch-dark.svg" width="960" height="460" decoding="async" alt="OpenStrut architecture diagram: input, pure calculation engine with NBR 6118:2023 and NB-1/78, detailing and oracles, client-side outputs, and a verification bar.">
+        <img class="theme-light" src="../../assets/diagrams/openstrut-arch-light.svg" width="960" height="460" decoding="async" alt="OpenStrut architecture diagram: input, pure calculation engine with NBR 6118:2023 and NB-1/78, detailing and oracles, client-side outputs, and a verification bar.">
+      </button>
+      <figcaption><b>Fig. 01 //</b> From plan to IFC in four stages. Select the diagram to enlarge it.</figcaption>
+    </figure>
+    <div class="cards c4" style="margin-top:clamp(28px,4vw,44px)">
+      <article class="card"><p class="eye">src/dominio/</p><h3>Domain</h3><p class="small" style="margin:0">The project model. It places beams on slab edges and columns at their crossings automatically.</p></article>
+      <article class="card"><p class="eye">src/calculo/</p><h3>Engine</h3><p class="small" style="margin:0">Pure TypeScript with no React import: <code>normas/</code>, <code>lajes/</code>, <code>vigas/</code>, <code>pilares/</code>, <code>detalhamento/</code>, <code>fluxo.ts</code>.</p></article>
+      <article class="card"><p class="eye">src/planta/ + obra3d/</p><h3>Interface</h3><p class="small" style="margin:0">The SVG plan editor and the Three.js viewer sit on top of the engine. The engine imports neither.</p></article>
+      <article class="card"><p class="eye">src/armazenamento/</p><h3>Storage</h3><p class="small" style="margin:0"><code>.openstrut.json</code> files, an IndexedDB draft through <code>idb-keyval</code>, Google Drive import and the SISTRUT 1991 importer.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="engine" aria-labelledby="h-engine">
+  <div class="wrap">
+    <div class="sh"><p class="num">03 // Engine</p><h2 id="h-engine">One pure TypeScript engine, two design codes</h2><p class="lead">The engine implements two codes. NB-1/78 has two modes: one reproduces the 1991 program bit for bit, the other runs the same algorithms with its catalogued defects fixed. Select a mode to compare.</p></div>
+    <div class="cmp-w" data-picker data-active="nbr">
+      <div class="tabs" role="group" aria-label="Calculation mode">
+        <button type="button" aria-pressed="true" data-k="nbr" data-t="NBR 6118:2023" data-d="Current Brazilian code. Slabs by the Bares/Pinheiro elastic tables with Branson immediate deflection and long-term deflection; columns up to slenderness 140 with the M-N-1/r diagram and creep.">NBR 6118:2023</button>
+        <button type="button" aria-pressed="false" data-k="nb1c" data-t="NB-1/78 corrigido (Float64)" data-d="The SISTRUT algorithms in Float64 and SI units, with 500 MPa steel and 25 kN/m³ concrete, and each catalogued defect of the legacy program fixed. The 3D view has an Original × Corrigido comparison layer.">NB-1/78 Corrigido (Float64)</button>
+        <button type="button" aria-pressed="false" data-k="nb1o" data-t="NB-1/78 original (QuickBASIC Float32)" data-d="Reproduces SISTRUT 4.0 number for number in its original units (t, m, cm, t/cm²), rounding to Float32 at every assignment as QuickBASIC 4.5 does. Checked against the 1991 binary running in DOSBox-X.">NB-1/78 Original (QuickBASIC Float32)</button>
+      </div>
+      <table class="cmp">
+        <caption class="sr">Comparison of the three calculation modes</caption>
+        <thead><tr><th scope="col"><span class="sr">Property</span></th><th scope="col" data-m="nbr" class="on">NBR 6118:2023</th><th scope="col" data-m="nb1c">NB-1/78 corrigido</th><th scope="col" data-m="nb1o">NB-1/78 original</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Units</th><td data-m="nbr" class="on">SI</td><td data-m="nb1c">SI, 500 MPa steel, 25 kN/m³</td><td data-m="nb1o">t, m, cm, t/cm²</td></tr>
+          <tr><th scope="row">Arithmetic</th><td data-m="nbr" class="on">Float64</td><td data-m="nb1c">Float64</td><td data-m="nb1o">Float32 (SINGLE), rounded at every assignment</td></tr>
+          <tr><th scope="row">Goal</th><td data-m="nbr" class="on">Design to the current code</td><td data-m="nb1c">Legacy algorithms with catalogued defects fixed</td><td data-m="nb1o">Match SISTRUT 4.0 number for number</td></tr>
+          <tr><th scope="row">Checked against</th><td data-m="nbr" class="on">Bastos (UNESP) worked examples, hand calculations, numerical integration</td><td data-m="nb1c">Shares the algorithms checked in the original mode</td><td data-m="nb1o">The 1991 binary in DOSBox-X</td></tr>
+        </tbody>
+      </table>
+      <p class="const-out" aria-live="polite" style="border-width:1px 0 0 4px;margin:0"><b data-o="t">NBR 6118:2023</b><span data-o="d">Current Brazilian code. Slabs by the Bares/Pinheiro elastic tables with Branson immediate deflection and long-term deflection; columns up to slenderness 140 with the M-N-1/r diagram and creep.</span></p>
+    </div>
+
+    <div class="cards c2" style="margin-top:clamp(28px,4vw,44px)">
+      <article class="card"><p class="eye">NBR 6118:2023 <b>//</b> slabs and beams</p><h3>Slabs and beams</h3><ul class="dots small"><li>Solid slabs by the Bares/Pinheiro elastic tables.</li><li>Immediate deflection by Branson, plus long-term deflection.</li><li>Continuous beams with a live-load envelope, single and double reinforcement in bending, and shear.</li></ul></article>
+      <article class="card"><p class="eye">NBR 6118:2023 <b>//</b> columns</p><h3>Columns</h3><ul class="dots small"><li>Load accumulated floor by floor, with minimum moments.</li><li>Beam-column joint by item 14.6.6.1.</li><li>Second order by the standard-column method. For slender columns with 90 &lt; λ ≤ 140, the standard column is coupled to the M-N-1/r diagram with creep.</li><li>Normal and oblique combined bending by the parabola-rectangle diagram.</li></ul></article>
+      <article class="card" style="grid-column:1/-1"><p class="eye">src/calculo/detalhamento/</p><h3>Full detailing</h3><p class="small" style="margin:0">Good and poor bond zones, anchorage lengths <code>lb</code> and <code>lb,nec</code>, shift of the moment diagram, 90°, 135° and semicircular hooks, lap splices, ties and the steel schedule by bar diameter.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="ifc" aria-labelledby="h-ifc">
+  <div class="wrap">
+    <div class="sh"><p class="num">04 // Formats</p><h2 id="h-ifc">A 25 KB IFC4 writer instead of a 1.6 MB WebAssembly binary</h2><p class="lead">OpenStrut writes ISO 10303-21 STEP text directly. <code>step.ts</code> is 182 lines with no dependency, and the export chunk loads only when the user exports.</p></div>
+    <div class="proj-g">
+      <div class="card">
+        <p class="eye">Bytes downloaded for IFC export</p>
+        <ul class="bars">
+          <li><div class="lb"><span><b>OpenStrut IFC4 chunk</b></span><span>25.0 KB</span></div><div class="tr"><i style="--v:1.5625%"></i></div></li>
+          <li><div class="lb"><span><b>Same chunk, gzip</b></span><span>10.0 KB</span></div><div class="tr"><i style="--v:.625%"></i></div></li>
+          <li><div class="lb"><span><b>web-ifc, .wasm file alone</b></span><span>1,600 KB</span></div><div class="tr mu"><i style="--v:100%"></i></div></li>
+        </ul>
+        <p class="small mu" style="margin:16px 0 0">Bars share one scale. The writer is 1/64 of the size of the web-ifc WebAssembly file.</p>
+      </div>
+      <div>
+        <ul class="dots">
+          <li>Exports <code>IfcColumn</code>, <code>IfcBeam</code>, <code>IfcSlab</code> and <code>IfcReinforcingBar</code>, with bars as <code>IfcSweptDiskSolid</code> through <code>IfcMappedItem</code>.</li>
+          <li>Each element gets a deterministic 128-bit GlobalId, so BCF comments in BIMcollab stay attached when the model is exported again.</li>
+          <li>Roundtrip checked in IfcOpenShell, web-ifc and <code>@ifc-lite/parser</code>.</li>
+          <li>DXF R12 export of the formwork plan and of beam reinforcement.</li>
+          <li>Multi-file importer for SISTRUT 1991 projects: <code>.LAJ</code>, <code>.VIG</code>, <code>.COL</code>, <code>.SEC</code>, <code>.FOR</code>, <code>.TAB</code>, <code>.EDV</code> and more, in Windows-1252 with the <code>^Z</code> end-of-file mark.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="verification" aria-labelledby="h-ver">
+  <div class="wrap">
+    <div class="sh"><p class="num">05 // Verification</p><h2 id="h-ver">Tests that never grade their own output</h2><p class="lead">An expected value in OpenStrut never comes from the function under test. It comes from a source the code did not produce.</p></div>
+    <div class="proj-g">
+      <div>
+        <ul class="stats" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0">
+          <li><b>187</b><span>Vitest unit and UI test files</span></li>
+          <li><b>40</b><span>Playwright E2E files</span></li>
+        </ul>
+        <pre class="code"><span class="c"># .github/workflows/ci.yml</span>
+<span class="k">bun run</span> check
+  tsr generate &amp;&amp; tsc -b --noEmit
+  &amp;&amp; oxlint &amp;&amp; oxfmt --check
+  &amp;&amp; vitest run
+<span class="c"># then the Playwright E2E suite, which checks</span>
+<span class="c"># the printed PDF report with pdftotext</span></pre>
+      </div>
+      <ol class="ladder" style="margin-top:0">
+        <li><b>01</b><span>Published worked examples by Prof. Paulo Bastos (UNESP): slabs E02 and E03, beams E04 to E10, columns E11 to E13.</span></li>
+        <li><b>02</b><span>Hand calculations.</span></li>
+        <li><b>03</b><span>Independent numerical integration.</span></li>
+        <li><b>04</b><span>The SISTRUT 4.0 binary from 1991 running in DOSBox-X, for the original NB-1/78 mode.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="plates" aria-labelledby="h-plates">
+  <div class="wrap">
+    <div class="sh"><p class="num">06 // Interface</p><h2 id="h-plates">2D and 3D engineering plates</h2><p class="lead">Captures of the live app. Pick a plate; select the large view to enlarge it.</p></div>
+    <figure class="frame plates" data-picker data-active="1">
+      <button class="zoom stage" type="button" data-zoom><img data-stage src="../../assets/showcase/openstrut-planta.webp" width="1440" height="855" loading="lazy" decoding="async" alt="Plan editor in NBR 6118:2023 mode: roof floor with 5 slabs, 7 beams and 11 columns, all marked without warnings."></button>
+      <div class="thumbs" role="group" aria-label="Plates">
+        <button type="button" aria-pressed="true" data-k="1" data-src="../../assets/showcase/openstrut-planta.webp" data-w="1440" data-h="855" data-alt="Plan editor in NBR 6118:2023 mode: roof floor with 5 slabs, 7 beams and 11 columns, all marked without warnings." data-d="2D plan editor in NBR 6118:2023 mode. Roof floor of the two-storey example: 5 slabs, 7 beams, 11 columns, all green."><img src="../../assets/showcase/openstrut-planta.webp" width="1440" height="855" loading="lazy" decoding="async" alt="Thumbnail of the 2D plan editor"><span><b>01</b> Plan CAD</span></button>
+        <button type="button" aria-pressed="false" data-k="2" data-src="../../assets/showcase/openstrut-3d.webp" data-w="1366" data-h="768" data-alt="3D view in NB-1/78 mode coloured by calculation status: 30 elements without warnings, 23 with warnings." data-d="3D view in NB-1/78 mode, coloured by calculation status: 30 elements without warnings, 23 with warnings. (!) marks parts affected by a defect of the original program."><img src="../../assets/showcase/openstrut-3d.webp" width="1366" height="768" loading="lazy" decoding="async" alt="Thumbnail of the 3D status view"><span><b>02</b> 3D status</span></button>
+        <button type="button" aria-pressed="false" data-k="3" data-src="../../assets/showcase/openstrut-explodido-nk.webp" data-w="1366" data-h="768" data-alt="Exploded 3D view with columns coloured by normal force Nk from 20.79 to 517.3 kN." data-d="Exploded view with the columns coloured by normal force Nk, from 20.79 to 517.3 kN."><img src="../../assets/showcase/openstrut-explodido-nk.webp" width="1366" height="768" loading="lazy" decoding="async" alt="Thumbnail of the exploded Nk view"><span><b>03</b> Exploded Nk</span></button>
+        <button type="button" aria-pressed="false" data-k="4" data-src="../../assets/showcase/openstrut-viga.webp" data-w="1366" data-h="768" data-alt="Beam V2 isolated with neighbours in transparency; inspector shows section 12 by 40 cm and As max 2.97 square centimetres." data-d="Beam V2 isolated with its neighbours in transparency. Inspector: section 12 × 40 cm, As max 2.97 cm², ρ = 0.62 % of bw·h."><img src="../../assets/showcase/openstrut-viga.webp" width="1366" height="768" loading="lazy" decoding="async" alt="Thumbnail of beam V2 isolated"><span><b>04</b> Beam V2</span></button>
+        <button type="button" aria-pressed="false" data-k="5" data-src="../../assets/showcase/openstrut-armadura-3d.webp" data-w="1440" data-h="855" data-alt="3D viewer in NBR 6118:2023 mode: two-storey example with 46 elements calculated without warnings, and the layer panel." data-d="Two-storey example under NBR 6118:2023: 46 elements without warnings. The layer panel switches cut per floor, reinforcement, 4D sequence, Original × Corrigido, AR, realistic render and tour."><img src="../../assets/showcase/openstrut-armadura-3d.webp" width="1440" height="855" loading="lazy" decoding="async" alt="Thumbnail of the 3D layer panel view"><span><b>05</b> 3D layers</span></button>
+        <button type="button" aria-pressed="false" data-k="6" data-src="../../assets/showcase/openstrut-resultados.webp" data-w="1440" data-h="855" data-alt="Results tab: warnings grouped by type and the slab force table." data-d="Results tab: warnings grouped by type, the calculation memory behind each row, and the slab force table."><img src="../../assets/showcase/openstrut-resultados.webp" width="1440" height="855" loading="lazy" decoding="async" alt="Thumbnail of the results tab"><span><b>06</b> Results</span></button>
+      </div>
+      <figcaption aria-live="polite" style="min-height:4.6em"><b>Plate //</b> <span data-o="d">2D plan editor in NBR 6118:2023 mode. Roof floor of the two-storey example: 5 slabs, 7 beams, 11 columns, all green.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec cv" id="notice" aria-labelledby="h-warn">
+  <div class="wrap">
+    <div class="warn">
+      <p class="eye" style="color:var(--ac)">Engineering notice</p>
+      <h3 id="h-warn">A licensed engineer must check every result</h3>
+      <p>OpenStrut results require review by the responsible structural engineer before any use. ABNT standards are paid documents, so the NBR 6118:2023 coefficients come from public university course notes cited in the code and in <code>docs/norma/</code>. Points not yet confirmed carry the marker <code>[VERIFICAR]</code>.</p>
+      <p style="margin:0">OpenStrut is an independent rebuild of SISTRUT 4.0 by reverse engineering, with no link to the original authors.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-label="Next project" style="padding:0">
+  <div class="wrap next"><span class="eye" style="margin:0">Case study 03</span><a class="big" href="../engineering/">Next: Engineering craft <span aria-hidden="true">&#8594;</span></a></div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <span lang="pt-BR">PRAISE THE CODE, estúdio independente de software e jogos em São Paulo. CNPJ 58.830.051/0001-20.</span>
+  <span class="co"><a href="mailto:contato@praisetc.com">contato@praisetc.com</a> · 23°33'S 46°38'W</span>
+</div></footer>
+</body>
+</html>

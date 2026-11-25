@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1128 191" width="1128" height="191" role="img" aria-labelledby="fa-b-titulo fa-b-descricao">
+  <title id="fa-b-titulo">Praise The Code: praise.tc_</title>
+  <desc id="fa-b-descricao">Capa do LinkedIn: régua Signal Orange, assinatura modular praise.tc_ com o cursor em laranja, linha Praise The Code / Software · Tools · Games · São Paulo e o metadado Est. 2025 // praisetc.com.</desc>
+  <defs>
+    <pattern id="fa-b-reticula" x="335.5" y="35.5" width="25" height="25" patternUnits="userSpaceOnUse">
+      <rect x="11.75" y="11.75" width="1.5" height="1.5" fill="#2C3038"/>
+    </pattern>
+    <linearGradient id="fa-b-some" x1="0" y1="0" x2="1128" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#111214" stop-opacity="0"/>
+      <stop offset="0.2" stop-color="#111214" stop-opacity="0.15"/>
+      <stop offset="0.28" stop-color="#111214" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="fa-b-brilho" cx="728" cy="93" r="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF5A1F" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1128" height="191" fill="#111214"/>
+  <!-- zona do avatar (x 0..290): retícula, linhas de projeção da altura-x e da base, e a coordenada de São Paulo -->
+  <rect width="320" height="191" fill="url(#fa-b-reticula)"/>
+  <rect width="320" height="191" fill="url(#fa-b-some)"/>
+  <path fill="none" stroke="#1A1C20" stroke-width="1" shape-rendering="crispEdges" d="M0 48.5H320M0 98.5H320"/>
+  <path fill="#8E95A2" fill-opacity="0.45" d="M18 22.5h10v1h-10zM22.5 18h1v10h-1z"/>
+  <text x="35" y="26" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="9" letter-spacing="1.2" fill="#8E95A2" fill-opacity="0.6">23°33'S 46°38'W</text>
+  <!-- régua de corte: fecha a prancha e abre o bloco da assinatura -->
+  <rect id="fa-b-regua" x="320" y="0" width="4" height="191" fill="#FF5A1F"/>
+  <rect width="1128" height="191" fill="url(#fa-b-brilho)"/>
+  <!-- assinatura praise.tc_ em geometria pura, módulo de 10 px -->
+  <path id="fa-b-praise" fill="#8E95A2" d="M348 48L378 48L388 58L388 88L378 98L358 98L358 118L348 118ZM358 88L374 88L378 84L378 62L374 58L358 58ZM398 48L418 48L428 58L408 58L408 98L398 98ZM438 48L468 48L478 58L478 98L448 98L438 88L438 78L448 68L468 68L468 62L464 58L438 58ZM448 82L448 84L452 88L468 88L468 78L452 78ZM498 28L508 28L508 38L498 38ZM488 58L498 58L498 88L488 88L488 98L518 98L518 88L508 88L508 48L488 48ZM538 48L558 48L558 58L542 58L538 62L538 64L542 68L548 68L558 78L558 88L548 98L528 98L528 88L544 88L548 84L548 82L544 78L538 78L528 68L528 58ZM578 48L598 48L608 58L608 78L578 78L578 84L582 88L608 88L608 98L578 98L568 88L568 58ZM578 62L578 68L598 68L598 62L594 58L582 58ZM618 88L628 88L628 98L618 98Z"/>
+  <path id="fa-b-tc" fill="#F3F4F6" d="M648 38L658 38L658 48L668 48L668 58L658 58L658 84L662 88L668 88L668 98L658 98L648 88L648 58L638 58L638 48L648 48ZM688 48L708 48L708 58L692 58L688 62L688 84L692 88L708 88L708 98L688 98L678 88L678 58Z"/>
+  <path id="fa-b-cursor" fill="#FF5A1F" d="M718 88H738V98H718Z"/>
+  <!-- linha editorial e metadado -->
+  <path fill="none" stroke="#2C3038" stroke-width="1" shape-rendering="crispEdges" d="M348 137.5H1060"/>
+  <g text-rendering="geometricPrecision">
+    <text x="348" y="160" font-family="'Segoe UI', Inter, 'Helvetica Neue', Arial, sans-serif" font-size="12" letter-spacing="2.3" fill="#8E95A2"><tspan font-weight="600" fill="#F3F4F6">PRAISE THE CODE</tspan> <tspan dx="4" fill="#FF5A1F">/</tspan> <tspan dx="4">SOFTWARE · TOOLS · GAMES · SÃO PAULO</tspan></text>
+    <text x="1061.3" y="56" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11" letter-spacing="1.32" fill="#8E95A2">EST. 2025 <tspan fill="#FF5A1F">//</tspan> PRAISETC.COM</text>
+  </g>
+  <!-- régua na borda direita, nas mesmas linhas de projeção -->
+  <path fill="none" stroke="#2C3038" stroke-width="1" shape-rendering="crispEdges" d="M1122 10.5H1128M1116 23.5H1128M1122 35.5H1128M1116 48.5H1128M1122 60.5H1128M1116 73.5H1128M1122 85.5H1128M1116 98.5H1128M1122 110.5H1128M1116 123.5H1128M1122 135.5H1128M1116 148.5H1128M1122 160.5H1128M1116 173.5H1128M1122 185.5H1128"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-labelledby="fa-tl-titulo fa-tl-descricao">
+  <title id="fa-tl-titulo">Praise The Code: ptc_</title>
+  <desc id="fa-tl-descricao">Símbolo ptc_ em grid modular chanfrado a 45° (módulo de 18,75 px, 3 px em 64), com o cursor em Deep Signal.</desc>
+  <g id="fa-tl-ptc" fill="#141518">
+    <path id="fa-tl-p" d="M62.5 150L118.75 150L137.5 168.75L137.5 225L118.75 243.75L81.25 243.75L81.25 281.25L62.5 281.25ZM81.25 225L111.25 225L118.75 217.5L118.75 176.25L111.25 168.75L81.25 168.75Z"/>
+    <path id="fa-tl-t" d="M175 131.25L193.75 131.25L193.75 150L212.5 150L212.5 168.75L193.75 168.75L193.75 217.5L201.25 225L212.5 225L212.5 243.75L193.75 243.75L175 225L175 168.75L156.25 168.75L156.25 150L175 150Z"/>
+    <path id="fa-tl-c" d="M250 150L287.5 150L287.5 168.75L257.5 168.75L250 176.25L250 217.5L257.5 225L287.5 225L287.5 243.75L250 243.75L231.25 225L231.25 168.75Z"/>
+  </g>
+  <path id="fa-tl-cursor" fill="#C43A0A" d="M306.25 225H343.75V243.75H306.25Z"/>
+</svg>

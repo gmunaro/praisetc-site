@@ -3,54 +3,217 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Praise The Code</title>
-<meta name="description" content="Praise The Code is an independent game and software studio in São Paulo, Brazil. It makes Dawnbringer, a dark-fantasy roguelike auto-battler.">
+<script>try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Praise The Code (PTC): software and game engineering studio</title>
+<meta name="description" content="Praise The Code is an independent software and game engineering studio in São Paulo, Brazil. Makers of Dawnbringer, a deterministic roguelike, and OpenStrut V2, a structural engineering web app.">
 <link rel="canonical" href="https://praisetc.com/">
-<style>
-  :root { --bg: #f7f5f0; --fg: #1d1b18; --muted: #5d574e; --line: #d9d3c7; --link: #8a3b12; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #15130f; --fg: #ece7dd; --muted: #a9a194; --line: #36312a; --link: #f0a36b; }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 56px 16px 40px; }
-  h1 { font-size: 2rem; margin: 0 0 4px; letter-spacing: -0.01em; }
-  h2 { font-size: 1.15rem; margin: 40px 0 8px; }
-  p { margin: 0 0 12px; }
-  .lead { color: var(--muted); margin-bottom: 32px; }
-  a { color: var(--link); }
-  .product { border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
-  .product h3 { margin: 0 0 6px; font-size: 1.1rem; }
-  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 0; }
-  dt { color: var(--muted); }
-  dd { margin: 0; }
-  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
-</style>
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F3F0" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Praise The Code">
+<meta property="og:title" content="Praise The Code">
+<meta property="og:description" content="Independent software and game engineering studio in São Paulo, Brazil. Makers of Dawnbringer and OpenStrut V2.">
+<meta property="og:url" content="https://praisetc.com/">
+<meta property="og:image" content="https://praisetc.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"PRAISE THE CODE","alternateName":["PTC","PraiseTC"],"url":"https://praisetc.com/","logo":"https://praisetc.com/assets/apple-touch-icon.png","email":"contato@praisetc.com","foundingDate":"2025-01","taxID":"58.830.051/0001-20","address":{"@type":"PostalAddress","addressLocality":"São Paulo","addressRegion":"SP","addressCountry":"BR"},"sameAs":["https://www.linkedin.com/company/praisetc","https://github.com/praisetcdev","https://www.youtube.com/@praisetc","https://bsky.app/profile/praisetc.bsky.social"]}</script>
 </head>
 <body>
-<main>
-  <h1>Praise The Code</h1>
-  <p class="lead">Independent game and software studio in São Paulo, Brazil.</p>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="./" aria-label="Praise The Code, overview"><img class="theme-dark" src="assets/mark-dark.svg" width="32" height="32" alt="ptc_ mark"><img class="theme-light" src="assets/mark-light.svg" width="32" height="32" alt="ptc_ mark"><span>Praise The Code</span></a>
+  <nav class="links" aria-label="Main"><a href="./" aria-current="page">Overview</a><a href="projects/dawnbringer/">Dawnbringer</a><a href="projects/openstrut/">OpenStrut</a><a href="projects/engineering/">Engineering</a></nav>
+  <button class="tog" type="button" aria-pressed="false"><i aria-hidden="true"></i>Dark</button>
+</div></header>
 
-  <h2>What we make</h2>
-  <div class="product">
-    <h3><a href="https://dawnbringergame.com/">Dawnbringer</a></h3>
-    <p>A dark-fantasy roguelike auto-battler. Build a hunter, read each foe's gear, then pay the Landlord or fight.</p>
-    <p>Made in Godot for Windows, macOS, Linux, Android and iOS, in 14 languages. A free desktop demo is out; the Android version is in closed testing on Google Play.</p>
+<main id="main">
+<section class="hero grid-bg">
+  <div class="wrap hero-g">
+    <div class="rule">
+      <p class="eye">23°33'S 46°38'W <b>//</b> Est. 2025 <b>//</b> praisetc.com</p>
+      <h1>Praise The Code<span>_</span></h1>
+      <p class="lead">Independent software and game engineering studio in São Paulo, Brazil. We build a deterministic roguelike in Godot and a structural engineering web app whose legacy NB-1/78 mode is checked against a 1991 MS-DOS binary.</p>
+      <div class="acts">
+        <a class="btn p" href="#work">Selected work <span class="ar" aria-hidden="true">&#8595;</span></a>
+        <a class="btn" href="mailto:contato@praisetc.com">contato@praisetc.com</a>
+      </div>
+    </div>
+    <aside class="card cut" aria-label="Studio sheet">
+      <img class="mark theme-dark" src="assets/mark-dark.svg" width="88" height="88" alt="ptc_ mark on Carbon Zinc">
+      <img class="mark theme-light" src="assets/mark-light.svg" width="88" height="88" alt="ptc_ mark on Warm Concrete">
+      <dl class="spec">
+        <dt>Company</dt><dd>PRAISE THE CODE</dd>
+        <dt>Location</dt><dd>São Paulo, SP, Brazil</dd>
+        <dt>Founded</dt><dd>January 2025</dd>
+        <dt>Products</dt><dd>Dawnbringer (Godot 4.5, v0.7.2: demo on Windows, macOS and Linux, Android alpha) and OpenStrut V2 (offline-first web app, GPL-3.0-or-later)</dd>
+        <dt>This page</dt><dd>1 CSS file, 1 deferred script, 0 webfonts, 0 third-party requests</dd>
+      </dl>
+    </aside>
   </div>
+  <div class="wrap" style="margin-top:clamp(40px,6vw,72px)">
+    <ul class="tele" aria-label="Measured numbers">
+      <li><b>4,671</b><span>GUT test functions in 517 files</span><small>Dawnbringer</small></li>
+      <li><b>227</b><span>Vitest and Playwright E2E files</span><small>OpenStrut V2</small></li>
+      <li><b>25 KB</b><span>zero-dependency IFC4 writer</span><small>OpenStrut V2</small></li>
+      <li><b>14</b><span>shipped locales plus a pseudo-locale</span><small>Dawnbringer</small></li>
+      <li><b>0 KB</b><span>JavaScript framework code on this page</span><small>praisetc.com</small></li>
+    </ul>
+  </div>
+</section>
 
-  <h2>Contact</h2>
-  <p><a href="mailto:contato@praisetc.com">contato@praisetc.com</a></p>
+<section class="sec" id="work" aria-labelledby="p1">
+  <div class="wrap">
+    <p class="eye">Selected work <b>//</b> engineering and art direction</p>
+    <div class="proj-h"><span class="idx" aria-hidden="true">01</span><div><p class="eye">Game <b>//</b> Godot 4.5 <b>//</b> GDScript</p><h2 id="p1">Dawnbringer</h2></div></div>
+    <div class="proj-g">
+      <figure class="frame"><a href="projects/dawnbringer/"><img src="assets/showcase/dawnbringer-hero.webp" width="1280" height="720" decoding="async" alt="Dawnbringer key art: a red-haired hunter faces a Landlord with a branch crown under a red moon."></a></figure>
+      <div>
+        <p>A dark-fantasy roguelike auto-battler built for Windows, macOS, Linux, Android and iOS, with a live desktop demo and an Android alpha. Build a hunter, read each foe's gear, then pay the Landlord or fight.</p>
+        <p>Fights run in an integer-only simulation with no random numbers, so the same inputs produce the same fight on every device. The art follows a written direction, Votive Gothic, with a locked 32-colour palette and five pillars that each come with a test.</p>
+        <dl class="kv">
+          <dt>Engine</dt><dd>Godot 4.5, GL Compatibility renderer</dd>
+          <dt>Battle core</dt><dd><code>battle_sim.gd</code>, integer clock, zero RNG</dd>
+          <dt>Tests</dt><dd>4,671 GUT functions in 517 files, six layers</dd>
+          <dt>Content</dt><dd>JSON only: 105 items, 19 Landlords, 6 biomes</dd>
+        </dl>
+        <div class="acts"><a class="btn p" href="projects/dawnbringer/">Read the case study <span class="ar" aria-hidden="true">&#8594;</span></a><a class="btn ext" href="https://dawnbringergame.com/">dawnbringergame.com</a></div>
+      </div>
+    </div>
+    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
+      <ul class="leg leg-a" aria-label="Dawnbringer stack, nodes 01 to 04">
+        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // GDScript // 1,068 files" data-d="1,051 files in game/ and 17 in tools/. 517 are GUT test files; the rest run the battle engine, run flow, HUD and HdTexture. Plus 81 .tscn scenes."><b>01</b><span>GDScript</span><small>1,068 files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="02" data-at="218,99" data-t="02 // GLSL // 13 shaders" data-d="11 .gdshader and 2 .gdshaderinc files. hd_sharp.gdshaderinc samples the 2x art sharp-bilinear; hit_flash and afterlife_sprite drive combat feedback."><b>02</b><span>GLSL</span><small>13 shaders</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="03" data-at="403,189" data-t="03 // Python // 589 files" data-d="529 in tools/. 2x art generators (hd.py, gen_chars.py, gen_bosses.py), the seeded SFX synthesizer gen_sfx.py, the headless PvP verifier and art validators."><b>03</b><span>Python</span><small>589 files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="04" data-at="200,301" data-t="04 // JSON + CSV // data and i18n" data-d="game/content/ holds only JSON, no .gd file. game/i18n/ holds the Godot CSV catalogs ui.csv and content.csv: 14 shipped locales plus the eo pseudo-locale."><b>04</b><span>JSON · CSV</span><small>Data + 14 locales</small></button></li>
+      </ul>
+      <figure class="const-fig">
+        <img class="theme-dark" src="assets/diagrams/constellation-dawnbringer-dark.svg" width="560" height="400" decoding="async" alt="Dawnbringer stack constellation: GDScript at the hub, GLSL, Python and JSON with CSV on the inner ring, TypeScript, SQL and Shell on the outer ring.">
+        <img class="theme-light" src="assets/diagrams/constellation-dawnbringer-light.svg" width="560" height="400" decoding="async" alt="Dawnbringer stack constellation: GDScript at the hub, GLSL, Python and JSON with CSV on the inner ring, TypeScript, SQL and Shell on the outer ring.">
+        <span class="ring" aria-hidden="true"><i></i></span>
+      </figure>
+      <ul class="leg leg-b" aria-label="Dawnbringer stack, nodes 05 to 07">
+        <li><button type="button" aria-pressed="false" data-k="05" data-at="444,91" data-t="05 // TypeScript // 42 files" data-d="Cloudflare Workers in tools/bugreport-worker and tools/pvp-worker: bug reports, the Android licence check, opt-in telemetry and the weekly challenge queue."><b>05</b><span>TypeScript</span><small>42 Worker files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="06" data-at="465,281" data-t="06 // SQL // 7 D1 migrations" data-d="Migrations 0001 to 0006 for the bug-report Worker, plus 0001_pvp.sql for the PvP Worker. The client IP keys the rate limiter and is never stored."><b>06</b><span>SQL</span><small>7 D1 migrations</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="07" data-at="92,274" data-t="07 // Shell // 55 scripts" data-d="tools/test/run_tests.sh runs the test layers with --fast, --ui, --dir and --godot. The other scripts drive CI and exports."><b>07</b><span>Shell</span><small>55 scripts</small></button></li>
+      </ul>
+      <p class="const-out" aria-live="polite"><b data-o="t">01 // GDScript // 1,068 files</b><span data-o="d">1,051 files in game/ and 17 in tools/. 517 are GUT test files; the rest run the battle engine, run flow, HUD and HdTexture. Plus 81 .tscn scenes.</span></p>
+    </div>
+  </div>
+</section>
 
-  <h2>Company</h2>
-  <dl>
-    <dt>Name</dt><dd>PRAISE THE CODE</dd>
-    <dt>CNPJ</dt><dd>58.830.051/0001-20</dd>
-    <dt>Location</dt><dd>São Paulo, SP, Brazil</dd>
-    <dt>Founded</dt><dd>January 2025</dd>
-  </dl>
+<section class="sec cv" aria-labelledby="p2">
+  <div class="wrap">
+    <div class="proj-h"><span class="idx" aria-hidden="true">02</span><div><p class="eye">Engineering <b>//</b> TypeScript <b>//</b> GPL-3.0-or-later</p><h2 id="p2">OpenStrut V2</h2></div></div>
+    <div class="proj-g">
+      <figure class="frame"><a href="projects/openstrut/"><img src="assets/showcase/openstrut-explodido-nk.webp" width="1366" height="768" loading="lazy" decoding="async" alt="OpenStrut 3D viewer: exploded view of a three-floor building with columns coloured by normal force Nk, from 20.79 to 517.3 kN."></a></figure>
+      <div>
+        <p>A free, offline-first web app for reinforced-concrete design of simple buildings: slabs, beams and columns, floor by floor. It runs in the browser with no server and saves each project as a local <code>.openstrut.json</code> file.</p>
+        <p>One pure TypeScript engine runs two codes, NBR 6118:2023 and NB-1/78. The NB-1/78 original mode reproduces SISTRUT 4.0 (MS-DOS, 1991) number for number with Float32 rounding, checked against that binary running in DOSBox-X. Results require review by a licensed structural engineer.</p>
+        <dl class="kv">
+          <dt>Engine</dt><dd><code>src/calculo/</code>, pure TypeScript, no React</dd>
+          <dt>IFC4 export</dt><dd>182-line writer, 25.0 KB chunk, no dependencies</dd>
+          <dt>Tests</dt><dd>187 Vitest files and 40 Playwright E2E files</dd>
+          <dt>Formats</dt><dd>IFC4, DXF R12, glTF, SISTRUT 1991 import</dd>
+        </dl>
+        <div class="acts"><a class="btn p" href="projects/openstrut/">Read the case study <span class="ar" aria-hidden="true">&#8594;</span></a><a class="btn ext" href="https://gmunaro.github.io/openstrut/">Live app</a><a class="btn ext" href="https://github.com/gmunaro/openstrut">GitHub</a></div>
+      </div>
+    </div>
+    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
+      <ul class="leg leg-a" aria-label="OpenStrut stack, nodes 01 to 04">
+        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // TypeScript // 412 files" data-d="352 in src/. The structural engine for both codes, domain geometry, the IFC4 STEP writer, the DXF R12 exporter, the SISTRUT 1991 parser and the test suites."><b>01</b><span>TypeScript</span><small>412 files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="02" data-at="248,86" data-t="02 // React TSX // 103 files" data-d="The offline-first PWA interface: the 2D SVG CAD editor, the 3D, 4D and AR viewer, force tables and printable reports."><b>02</b><span>React TSX</span><small>103 UI files</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="03" data-at="404,195" data-t="03 // WebGL // Three.js" data-d="src/telas/obra3d/: exploded view coloured by normal force Nk, cut per floor, 3D reinforcement, a 4D construction sequence and GPU path tracing."><b>03</b><span>WebGL · 3D</span><small>Three.js</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="04" data-at="312,326" data-t="04 // SVG CAD // 2D plan" data-d="src/planta/: vector plan editor with a configurable grid, edge snapping, undo and redo, and status colours for no warnings, warnings and failure."><b>04</b><span>SVG CAD</span><small>2D plan editor</small></button></li>
+      </ul>
+      <figure class="const-fig">
+        <img class="theme-dark" src="assets/diagrams/constellation-openstrut-dark.svg" width="560" height="400" decoding="async" alt="OpenStrut stack constellation: TypeScript at the hub, React TSX, WebGL and SVG CAD on the inner ring, IFC4 STEP, DXF R12, QuickBASIC and Python with Shell on the outer ring.">
+        <img class="theme-light" src="assets/diagrams/constellation-openstrut-light.svg" width="560" height="400" decoding="async" alt="OpenStrut stack constellation: TypeScript at the hub, React TSX, WebGL and SVG CAD on the inner ring, IFC4 STEP, DXF R12, QuickBASIC and Python with Shell on the outer ring.">
+        <span class="ring" aria-hidden="true"><i></i></span>
+      </figure>
+      <ul class="leg leg-b" aria-label="OpenStrut stack, nodes 05 to 08">
+        <li><button type="button" aria-pressed="false" data-k="05" data-at="458,115" data-t="05 // IFC4 STEP // 25 KB writer" data-d="src/exportacao/ifc/ writes ISO 10303-21 directly: 25.0 KB, 10.0 KB gzip, loaded on demand. It exports IfcColumn, IfcBeam, IfcSlab and IfcReinforcingBar."><b>05</b><span>IFC4 STEP</span><small>25 KB writer</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="06" data-at="457,300" data-t="06 // DXF R12 // CAD export" data-d="Formwork plans and beam reinforcement drawings export as DXF R12, which any CAD program opens."><b>06</b><span>DXF R12</span><small>CAD export</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="07" data-at="103,300" data-t="07 // QuickBASIC 4.5 // 1991 oracle" data-d="3 .bas sources and more than 100 real SISTRUT 4.0 files (.LAJ, .VIG, .COL and others) are the Float32 parity oracle against DOSBox-X."><b>07</b><span>QuickBASIC</span><small>1991 oracle</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="08" data-at="99,121" data-t="08 // Python + Shell // 24 verifiers" data-d="12 Python and 12 shell scripts check IFC roundtrips in IfcOpenShell and cross-check results against the DOSBox-X oracle."><b>08</b><span>Python · Sh</span><small>24 verifiers</small></button></li>
+      </ul>
+      <p class="const-out" aria-live="polite"><b data-o="t">01 // TypeScript // 412 files</b><span data-o="d">352 in src/. The structural engine for both codes, domain geometry, the IFC4 STEP writer, the DXF R12 exporter, the SISTRUT 1991 parser and the test suites.</span></p>
+    </div>
+  </div>
+</section>
 
-  <footer lang="pt-BR">PRAISE THE CODE, estúdio independente de jogos e software em São Paulo. CNPJ 58.830.051/0001-20. Contato: contato@praisetc.com.</footer>
+<section class="sec cv" aria-labelledby="p3">
+  <div class="wrap">
+    <div class="proj-h"><span class="idx" aria-hidden="true">03</span><div><p class="eye">Studio <b>//</b> verification <b>//</b> visual system</p><h2 id="p3">Engineering craft and visual system</h2></div></div>
+    <figure class="frame"><a href="projects/engineering/"><img src="assets/banner-ptc.svg" width="1128" height="191" loading="lazy" decoding="async" alt="Praise The Code banner: orange rule, the modular praise.tc_ signature and the line Software, Tools, Games, São Paulo."></a></figure>
+    <div class="proj-g" style="margin-top:clamp(24px,4vw,40px)">
+      <div class="prose">
+        <p>Both products follow the same rules. Cores are deterministic. Tests compare against something the code did not produce: a published worked example, a hand calculation, a 1991 binary. Every format has a byte budget. Assets come from generators that rebuild them from source.</p>
+        <p>This site follows them too: hand-written HTML, one stylesheet, one deferred script, no framework, no webfont, no third-party request, and explicit image sizes so nothing moves while it loads.</p>
+      </div>
+      <div>
+        <p class="small mu"><b class="mono" style="color:var(--ac);font-weight:400">Experiments //</b> JEV-Factorio is an experimental agent that plays Factorio 2.0. It stays an experiment here, with no case study until it has results we can measure.</p>
+        <div class="acts"><a class="btn p" href="projects/engineering/">Read the case study <span class="ar" aria-hidden="true">&#8594;</span></a></div>
+      </div>
+    </div>
+    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
+      <ul class="leg leg-a" aria-label="Studio tooling, nodes 01 to 03">
+        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // HTML + CSS // zero-dependency UI" data-d="Each page of praisetc.com is hand-written HTML with one shared stylesheet and one deferred script. No framework, no bundler, no webfont."><b>01</b><span>HTML · CSS</span><small>Zero-dep UI</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="02" data-at="342,99" data-t="02 // SVG // 45 degree grid" data-d="The ptc_ mark and every diagram here are SVG. The mark uses an 18.75 px module in a 400 px canvas, a 1-module stroke and a 45° chamfer at each bend."><b>02</b><span>SVG</span><small>45° grid</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="03" data-at="173,268" data-t="03 // Node ESM // asset generator" data-d="gerar_praisetc_svg.mjs builds 14 brand SVGs from tokens.json and renders 23 PNGs in headless Chrome, with no npm package. It exits with code 1 if a size or safe-area check fails."><b>03</b><span>Node ESM</span><small>Asset gen</small></button></li>
+      </ul>
+      <figure class="const-fig">
+        <img class="theme-dark" src="assets/diagrams/constellation-studio-dark.svg" width="560" height="400" decoding="async" alt="Studio tooling constellation: HTML and CSS at the hub, SVG and Node ESM on the inner ring, Python, JSON tokens and Actions CI on the outer ring.">
+        <img class="theme-light" src="assets/diagrams/constellation-studio-light.svg" width="560" height="400" decoding="async" alt="Studio tooling constellation: HTML and CSS at the hub, SVG and Node ESM on the inner ring, Python, JSON tokens and Actions CI on the outer ring.">
+        <span class="ring" aria-hidden="true"><i></i></span>
+      </figure>
+      <ul class="leg leg-b" aria-label="Studio tooling, nodes 04 to 06">
+        <li><button type="button" aria-pressed="false" data-k="04" data-at="468,138" data-t="04 // Python // visual QA" data-d="A Playwright audit opens every page in dark and light at 1280 and 390 px. It fails on console errors, broken images, missing image sizes, horizontal overflow, third-party requests or CLS above 0.01."><b>04</b><span>Python</span><small>Visual QA</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="05" data-at="457,300" data-t="05 // JSON // WCAG tokens" data-d="tokens.json stores each colour with its measured contrast, such as 17.03:1 for Bright Aluminium on Carbon Zinc and 4.77:1 for Deep Signal on Warm Concrete."><b>05</b><span>JSON</span><small>WCAG tokens</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="06" data-at="82,178" data-t="06 // GitHub Actions // tests and checks" data-d="Dawnbringer's test workflow pins Godot 4.5-stable by SHA-512 and runs the fast and UI test matrix. OpenStrut runs bun run check and Playwright E2E."><b>06</b><span>Actions CI</span><small>Tests + checks</small></button></li>
+      </ul>
+      <p class="const-out" aria-live="polite"><b data-o="t">01 // HTML + CSS // zero-dependency UI</b><span data-o="d">Each page of praisetc.com is hand-written HTML with one shared stylesheet and one deferred script. No framework, no bundler, no webfont.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="contact" aria-labelledby="c1">
+  <div class="wrap contact">
+    <div>
+      <p class="eye">Contact <b>//</b> profiles</p>
+      <h2 id="c1" style="font-size:clamp(1.75rem,3.6vw,2.75rem);margin-bottom:28px">Talk to the studio</h2>
+      <ul class="rows">
+        <li><span>Email</span><a href="mailto:contato@praisetc.com">contato@praisetc.com</a></li>
+        <li><span>LinkedIn</span><a href="https://www.linkedin.com/company/praisetc">linkedin.com/company/praisetc</a></li>
+        <li><span>GitHub</span><a href="https://github.com/praisetcdev">github.com/praisetcdev</a></li>
+        <li><span>YouTube</span><a href="https://www.youtube.com/@praisetc">youtube.com/@praisetc</a></li>
+        <li><span>Bluesky</span><a href="https://bsky.app/profile/praisetc.bsky.social">praisetc.bsky.social</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eye">Company <b>//</b> registration</p>
+      <h2 style="font-size:clamp(1.75rem,3.6vw,2.75rem);margin-bottom:28px">Company</h2>
+      <ul class="rows">
+        <li><span>Name</span><span class="v">PRAISE THE CODE</span></li>
+        <li><span>Brand</span><span class="v">PTC / PraiseTC</span></li>
+        <li><span>CNPJ</span><span class="v mono">58.830.051/0001-20</span></li>
+        <li><span>Location</span><span class="v">São Paulo, SP, Brazil</span></li>
+        <li><span>Founded</span><span class="v">January 2025</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
 </main>
+
+<footer class="foot"><div class="wrap">
+  <span lang="pt-BR">PRAISE THE CODE, estúdio independente de software e jogos em São Paulo. CNPJ 58.830.051/0001-20.</span>
+  <span class="co">23°33'S 46°38'W</span>
+</div></footer>
 </body>
 </html>

@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" role="img" aria-labelledby="os-d-title os-d-desc" font-family="'Segoe UI', Inter, system-ui, sans-serif">
+  <title id="os-d-title">OpenStrut V2: software architecture and structural calculation pipeline</title>
+  <desc id="os-d-desc">Four connected stages. 01 Input and importers, local-first: SVG floor plan editor, .openstrut.json project file with IndexedDB draft, SISTRUT 1991 parser, optional Google Drive import. 02 Pure calculation engine in src/calculo with zero React: domain geometry from slabs to beams to columns, then one of two design codes, NBR 6118:2023 or NB-1/78 in dual mode (original with QuickBASIC Float32 parity, corrigido in Float64 and SI units). 03 Detailing and oracles: rebar detailing, equilibrium and code warnings. 04 Client-side outputs with no server: 3D, 4D, AR and pathtracer viewer, zero-dependency IFC4 STEP writer, DXF R12 export, calculation memory and report. A verification bar lists 268 TS/TSX application files, 187 Vitest unit and UI test files, 40 Playwright end-to-end files and the independent oracles Bastos (UNESP), DOSBox-X running the 1991 binary, and IfcOpenShell.</desc>
+  <rect id="os-d-bg" width="960" height="460" fill="#111214"/>
+  <g id="os-d-sheet">
+    <path d="M5 9.5h10v1h-10zM9.5 5h1v10h-1zM945 9.5h10v1h-10zM949.5 5h1v10h-1zM5 449.5h10v1h-10zM9.5 445h1v10h-1zM945 449.5h10v1h-10zM949.5 445h1v10h-1z" fill="#8E95A2" fill-opacity="0.45"/>
+    <path d="M20 42.5H940" stroke="#2C3038"/>
+    <path d="M20.5 43V48M40.5 43V46M60.5 43V46M80.5 43V46M100.5 43V46M120.5 43V48M140.5 43V46M160.5 43V46M180.5 43V46M200.5 43V46M220.5 43V48M240.5 43V46M260.5 43V46M280.5 43V46M300.5 43V46M320.5 43V48M340.5 43V46M360.5 43V46M380.5 43V46M400.5 43V46M420.5 43V48M440.5 43V46M460.5 43V46M480.5 43V46M500.5 43V46M520.5 43V48M540.5 43V46M560.5 43V46M580.5 43V46M600.5 43V46M620.5 43V48M640.5 43V46M660.5 43V46M680.5 43V46M700.5 43V46M720.5 43V48M740.5 43V46M760.5 43V46M780.5 43V46M800.5 43V46M820.5 43V48M840.5 43V46M860.5 43V46M880.5 43V46M900.5 43V46M920.5 43V48M940.5 43V46" stroke="#2C3038"/>
+    <path d="M20 41h20v3h-20zM236 41h20v3h-20zM524 41h20v3h-20zM722 41h20v3h-20z" fill="#FF5A1F"/>
+  </g>
+  <g id="os-d-header">
+    <text x="20" y="29" font-size="10.5" letter-spacing="1.6" fill="#8E95A2"><tspan font-weight="600" fill="#F3F4F6">OPENSTRUT V2</tspan><tspan dx="6" fill="#FF5A1F">/</tspan><tspan dx="6">SOFTWARE ARCHITECTURE &amp; STRUCTURAL CALCULATION PIPELINE</tspan></text>
+    <text x="940" y="29" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" letter-spacing="0.7" text-anchor="end" fill="#8E95A2">TYPESCRIPT 7 · REACT 19 · VITE 8 · BUN</text>
+  </g>
+  <g id="os-d-stages">
+    <text x="20" y="61" font-family="'Cascadia Mono', Consolas, monospace" font-size="10" font-weight="600" letter-spacing="0.6" fill="#F3F4F6"><tspan fill="#8E95A2">01</tspan><tspan dx="5" fill="#FF5A1F">/</tspan><tspan dx="5">INPUT &amp; IMPORTERS</tspan></text>
+    <text x="20" y="75" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" letter-spacing="0.3" fill="#8E95A2">LOCAL-FIRST</text>
+    <text x="236" y="61" font-family="'Cascadia Mono', Consolas, monospace" font-size="10" font-weight="600" letter-spacing="0.6" fill="#F3F4F6"><tspan fill="#8E95A2">02</tspan><tspan dx="5" fill="#FF5A1F">/</tspan><tspan dx="5">PURE CALCULATION ENGINE</tspan></text>
+    <text x="236" y="75" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" letter-spacing="0.3" fill="#8E95A2">src/calculo/ · ZERO REACT</text>
+    <text x="524" y="61" font-family="'Cascadia Mono', Consolas, monospace" font-size="10" font-weight="600" letter-spacing="0.6" fill="#F3F4F6"><tspan fill="#8E95A2">03</tspan><tspan dx="5" fill="#FF5A1F">/</tspan><tspan dx="5">DETAILING &amp; ORACLES</tspan></text>
+    <text x="524" y="75" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" letter-spacing="0.3" fill="#8E95A2">detalhamento/ · fluxo.ts</text>
+    <text x="722" y="61" font-family="'Cascadia Mono', Consolas, monospace" font-size="10" font-weight="600" letter-spacing="0.6" fill="#F3F4F6"><tspan fill="#8E95A2">04</tspan><tspan dx="5" fill="#FF5A1F">/</tspan><tspan dx="5">CLIENT-SIDE OUTPUTS</tspan></text>
+    <text x="722" y="75" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" letter-spacing="0.3" fill="#8E95A2">PWA · NO SERVER</text>
+  </g>
+  <g id="os-d-input">
+    <path d="M20.5 84.5H201.5L211.5 94.5V371.5H20.5Z" fill="#1A1C20" stroke="#2C3038"/>
+    <text x="34" y="115" font-size="12.5" font-weight="600" fill="#F3F4F6">SVG Floor Plan Editor</text>
+    <text x="34" y="131" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">src/planta/ · 2D vector CAD</text>
+    <path d="M21 156.5H211" stroke="#2C3038"/>
+    <text x="34" y="187" font-family="'Cascadia Mono', Consolas, monospace" font-size="11.5" font-weight="600" fill="#F3F4F6">.openstrut.json</text>
+    <text x="34" y="203" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">+ IndexedDB draft autosave</text>
+    <path d="M21 228.5H211" stroke="#2C3038"/>
+    <text x="34" y="259" font-size="12.5" font-weight="600" fill="#F3F4F6">SISTRUT 1991 Parser</text>
+    <text x="34" y="275" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">.LAJ .VIG .COL .SEC .FOR .EDV</text>
+    <path d="M21 300.5H211" stroke="#2C3038"/>
+    <text x="34" y="331" font-size="12.5" font-weight="600" fill="#F3F4F6">Google Drive</text>
+    <text x="34" y="347" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">optional import</text>
+  </g>
+  <g id="os-d-engine">
+    <path d="M236.5 84.5H489.5L499.5 94.5V371.5H236.5Z" fill="#1A1C20" stroke="#2C3038"/>
+    <text x="250" y="107" font-size="12.5" font-weight="600" fill="#F3F4F6">Domain Geometry</text>
+    <text x="486" y="107" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">src/dominio/</text>
+    <text x="250" y="125" font-family="'Cascadia Mono', Consolas, monospace" font-size="10" fill="#F3F4F6">slabs<tspan dx="5" fill="#FF5A1F">→</tspan><tspan dx="5">beams</tspan><tspan dx="5" fill="#FF5A1F">→</tspan><tspan dx="5">columns</tspan></text>
+    <text x="250" y="141" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">beams on slab edges · columns at crossings</text>
+    <path d="M237 156.5H499" stroke="#2C3038"/>
+    <text x="264" y="172" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">normas/ · design code set per project</text>
+    <rect x="264.5" y="180.5" width="225" height="99" fill="#111214" stroke="#2C3038"/>
+    <rect x="265" y="181" width="224" height="98" fill="#FF5A1F" fill-opacity="0.06"/>
+    <rect x="264" y="180" width="2" height="100" fill="#FF5A1F"/>
+    <g id="os-d-nbr6118">
+      <text x="276" y="199" font-size="12.5" font-weight="600" fill="#F3F4F6">NBR 6118:2023</text>
+      <text x="480" y="199" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">nbr6118-2023/</text>
+      <text x="276" y="218" font-size="10.5" fill="#F3F4F6">Bares/Pinheiro slabs</text>
+      <text x="480" y="218" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">elastic tables</text>
+      <text x="276" y="234" font-size="10.5" fill="#F3F4F6">Branson deflection</text>
+      <text x="480" y="234" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">+ long-term creep</text>
+      <text x="276" y="250" font-size="10.5" fill="#F3F4F6">M-N-1/r slender columns</text>
+      <text x="480" y="250" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">90 &lt; λ ≤ 140</text>
+      <text x="276" y="266" font-size="10.5" fill="#F3F4F6">Beam-column joint transfer</text>
+      <text x="480" y="266" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">14.6.6.1</text>
+    </g>
+    <rect x="264.5" y="288.5" width="225" height="71" fill="#111214" stroke="#2C3038"/>
+    <rect x="265" y="289" width="224" height="70" fill="#60A5FA" fill-opacity="0.06"/>
+    <rect x="264" y="288" width="2" height="72" fill="#60A5FA"/>
+    <g id="os-d-nb178">
+      <text x="276" y="307" font-size="12.5" font-weight="600" fill="#F3F4F6">NB-1/78 · Dual Mode</text>
+      <text x="480" y="307" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">nb1-78/</text>
+      <text x="276" y="327" font-family="'Cascadia Mono', Consolas, monospace" font-size="9.5" fill="#60A5FA">original</text>
+      <text x="338" y="327" font-size="10.5" fill="#F3F4F6">QuickBASIC Float32 parity</text>
+      <text x="276" y="343" font-family="'Cascadia Mono', Consolas, monospace" font-size="9.5" fill="#60A5FA">corrigido</text>
+      <text x="338" y="343" font-size="10.5" fill="#F3F4F6">Float64 · SI units</text>
+    </g>
+    <g id="os-d-fork" fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M250 195V300q0 3 3 3H264" stroke="#60A5FA" stroke-opacity="0.85"/>
+      <path d="M250 157V192q0 3 3 3H264" stroke="#FF5A1F"/>
+    </g>
+    <circle cx="250" cy="156.5" r="2" fill="#FF5A1F"/>
+  </g>
+  <g id="os-d-detailing">
+    <path d="M524.5 84.5H687.5L697.5 94.5V371.5H524.5Z" fill="#1A1C20" stroke="#2C3038"/>
+    <text x="538" y="116" font-size="12.5" font-weight="600" fill="#F3F4F6">Rebar Detailing</text>
+    <text x="538" y="138" font-size="10.5" fill="#F3F4F6">Anchorage</text>
+    <text x="684" y="138" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">l<tspan dy="2" font-size="6.5">b</tspan><tspan dy="-2"> · l</tspan><tspan dy="2" font-size="6.5">b,nec</tspan></text>
+    <text x="538" y="154" font-size="10.5" fill="#F3F4F6">Shear shift</text>
+    <text x="684" y="154" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">moment diagram</text>
+    <text x="538" y="170" font-size="10.5" fill="#F3F4F6">Hooks</text>
+    <text x="684" y="170" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">bar + stirrup</text>
+    <text x="538" y="186" font-size="10.5" fill="#F3F4F6">Lap splices</text>
+    <text x="684" y="186" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">+ crossties</text>
+    <text x="538" y="202" font-size="10.5" fill="#F3F4F6">Steel schedule</text>
+    <text x="684" y="202" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">by bar Ø</text>
+    <path d="M525 228.5H697" stroke="#2C3038"/>
+    <text x="538" y="260" font-size="12.5" font-weight="600" fill="#F3F4F6">Equilibrium &amp;</text>
+    <text x="538" y="276" font-size="12.5" font-weight="600" fill="#F3F4F6">Code Warnings</text>
+    <text x="538" y="298" font-size="10.5" fill="#F3F4F6">Load sums</text>
+    <text x="684" y="298" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">per storey</text>
+    <text x="538" y="314" font-size="10.5" fill="#F3F4F6">Code limits</text>
+    <text x="684" y="314" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">all checked</text>
+    <text x="538" y="330" font-size="10.5" fill="#F3F4F6">Out of range</text>
+    <text x="684" y="330" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">never hidden</text>
+    <text x="538" y="346" font-size="10.5" fill="#F3F4F6">Code item refs</text>
+    <text x="684" y="346" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" text-anchor="end" fill="#8E95A2">per step</text>
+  </g>
+  <g id="os-d-outputs">
+    <path d="M722.5 84.5H929.5L939.5 94.5V371.5H722.5Z" fill="#1A1C20" stroke="#2C3038"/>
+    <text x="736" y="115" font-size="12.5" font-weight="600" fill="#F3F4F6">3D / 4D / AR / Pathtracer</text>
+    <text x="736" y="131" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">Three.js + BVH + GLB export</text>
+    <path d="M723 156.5H939" stroke="#2C3038"/>
+    <text x="736" y="187" font-size="12.5" font-weight="600" fill="#F3F4F6">Zero-Dep IFC4 STEP Writer</text>
+    <text x="736" y="203" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">182 LOC · 25 KB lazy chunk</text>
+    <path d="M723 228.5H939" stroke="#2C3038"/>
+    <text x="736" y="259" font-size="12.5" font-weight="600" fill="#F3F4F6">DXF R12 Export</text>
+    <text x="736" y="275" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">formwork plan + beam rebar</text>
+    <path d="M723 300.5H939" stroke="#2C3038"/>
+    <text x="736" y="331" font-size="12.5" font-weight="600" fill="#F3F4F6">Calculation Memory &amp; Report</text>
+    <text x="736" y="347" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">code item per step · printable</text>
+  </g>
+  <g id="os-d-flow">
+    <g fill="none" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M212 336H218q3 0 3 -3V264" stroke="#FF5A1F" stroke-dasharray="2.5 3"/>
+      <path d="M212 120H229.5M212 192H221M212 264H221M221 120V264" stroke="#FF5A1F"/>
+      <path d="M490 303H506q3 0 3 -3V195" stroke="#60A5FA" stroke-opacity="0.85"/>
+      <path d="M490 195H509V123q0 -3 3 -3H517.5" stroke="#FF5A1F"/>
+      <path d="M698 120H715.5M707 120V333q0 3 3 3H715.5M707 192H715.5M707 264H715.5" stroke="#FF5A1F"/>
+    </g>
+    <path d="M235.5 120l-6 -3.25v6.5z" fill="#FF5A1F"/>
+    <path d="M523.5 120l-6 -3.25v6.5z" fill="#FF5A1F"/>
+    <path d="M721.5 120l-6 -3.25v6.5z" fill="#FF5A1F"/><path d="M721.5 192l-6 -3.25v6.5z" fill="#FF5A1F"/><path d="M721.5 264l-6 -3.25v6.5z" fill="#FF5A1F"/><path d="M721.5 336l-6 -3.25v6.5z" fill="#FF5A1F"/>
+    <circle cx="221" cy="120" r="2" fill="#FF5A1F"/><circle cx="509" cy="195" r="2" fill="#FF5A1F"/><circle cx="707" cy="120" r="2" fill="#FF5A1F"/>
+  </g>
+  <g id="os-d-verification">
+    <path d="M20.5 388.5H929.5L939.5 398.5V437.5H20.5Z" fill="#1A1C20" stroke="#2C3038"/>
+    <text x="34" y="410" font-family="'Cascadia Mono', Consolas, monospace" font-size="10" font-weight="600" letter-spacing="0.6" fill="#F3F4F6"><tspan fill="#FF5A1F">//</tspan><tspan dx="5">VERIFICATION GATES</tspan></text>
+    <text x="34" y="424" font-family="'Cascadia Mono', Consolas, monospace" font-size="9" fill="#8E95A2">GitHub Actions CI</text>
+    <path d="M196.5 398V428" stroke="#2C3038"/><path d="M322.5 398V428" stroke="#2C3038"/><path d="M460.5 398V428" stroke="#2C3038"/><path d="M578.5 398V428" stroke="#2C3038"/>
+    <text x="210" y="420" font-size="20" font-weight="600" fill="#F3F4F6">268</text>
+    <text x="256" y="409" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">TS/TSX</text>
+    <text x="256" y="422" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">APP FILES</text>
+    <text x="336" y="420" font-size="20" font-weight="600" fill="#F3F4F6">187</text>
+    <text x="382" y="409" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">VITEST UNIT</text>
+    <text x="382" y="422" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">+ UI FILES</text>
+    <text x="474" y="420" font-size="20" font-weight="600" fill="#F3F4F6">40</text>
+    <text x="509" y="409" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">PLAYWRIGHT</text>
+    <text x="509" y="422" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">E2E FILES</text>
+    <text x="592" y="409" font-family="'Cascadia Mono', Consolas, monospace" font-size="8.5" letter-spacing="0.4" fill="#8E95A2">INDEPENDENT ORACLES<tspan dx="6" fill="#FF5A1F">//</tspan><tspan dx="6">NEVER THE CODE'S OWN OUTPUT</tspan></text>
+    <text x="592" y="424" font-size="10.5" font-weight="600" fill="#F3F4F6">Bastos (UNESP)<tspan dx="7" fill="#8E95A2">·</tspan><tspan dx="7">DOSBox-X (1991 binary)</tspan><tspan dx="7" fill="#8E95A2">·</tspan><tspan dx="7">IfcOpenShell</tspan></text>
+  </g>
+</svg>

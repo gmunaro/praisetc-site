@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('ptc-theme');if(t=='dark'||t=='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Engineering craft and the Terminal PTC visual system | Praise The Code</title>
+<meta name="description" content="The rules behind Praise The Code's software: determinism, independent oracles, byte budgets and reproducible automation, plus the performance architecture of this site and the Terminal PTC identity.">
+<link rel="canonical" href="https://praisetc.com/projects/engineering/">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F3F0" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Praise The Code">
+<meta property="og:title" content="Engineering craft and visual system">
+<meta property="og:description" content="Determinism, independent oracles, byte budgets, reproducible automation and the Terminal PTC identity.">
+<meta property="og:url" content="https://praisetc.com/projects/engineering/">
+<meta property="og:image" content="https://praisetc.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="../../" aria-label="Praise The Code, overview"><img class="theme-dark" src="../../assets/mark-dark.svg" width="32" height="32" alt="ptc_ mark"><img class="theme-light" src="../../assets/mark-light.svg" width="32" height="32" alt="ptc_ mark"><span>Praise The Code</span></a>
+  <nav class="links" aria-label="Main"><a href="../../">Overview</a><a href="../dawnbringer/">Dawnbringer</a><a href="../openstrut/">OpenStrut</a><a href="./" aria-current="page">Engineering</a></nav>
+  <button class="tog" type="button" aria-pressed="false"><i aria-hidden="true"></i>Dark</button>
+</div></header>
+
+<main id="main">
+<section class="hero grid-bg">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="../../">praisetc.com</a></li><li>Projects</li><li aria-current="page">Engineering</li></ol></nav>
+    <div class="rule">
+      <p class="eye">Case study 03 <b>//</b> verification <b>//</b> performance <b>//</b> identity</p>
+      <h1>Engineering craft<span>_</span></h1>
+      <p class="lead">Four rules run through both products and this site: deterministic cores, tests against independent oracles, byte budgets and assets rebuilt from source. This page shows the evidence for each, then takes apart the page you are reading.</p>
+    </div>
+    <figure class="frame" style="margin-top:clamp(36px,5vw,60px)">
+      <img src="../../assets/banner-ptc.svg" width="1128" height="191" fetchpriority="high" decoding="async" alt="Praise The Code banner: orange rule, the modular praise.tc_ signature and the line Software, Tools, Games, São Paulo.">
+      <figcaption><b>Banner //</b> 1128×191 SVG generated from <code>tokens.json</code>, 4.3 KB.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec cv" id="stack" aria-labelledby="h-stack">
+  <div class="wrap">
+    <div class="sh"><p class="num">01 // Tooling</p><h2 id="h-stack">Language and studio tooling constellation</h2><p class="lead">The tools behind the brand, this site and the release checks. Select a node to read its role.</p></div>
+    <div class="const" data-picker data-active="01" style="--x:50;--y:51.5;--k:1.9">
+      <ul class="leg leg-a" aria-label="Studio tooling, nodes 01 to 03">
+        <li><button type="button" aria-pressed="true" data-k="01" data-at="280,206,1.9" data-t="01 // HTML + CSS // zero-dependency UI" data-d="Each page of praisetc.com is hand-written HTML with one shared stylesheet and one deferred script. No framework, no bundler, no webfont."><b>01</b><span>HTML · CSS</span><small>Zero-dep UI</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="02" data-at="342,99" data-t="02 // SVG // 45 degree grid" data-d="The ptc_ mark and every diagram here are SVG. The mark uses an 18.75 px module in a 400 px canvas, a 1-module stroke and a 45° chamfer at each bend."><b>02</b><span>SVG</span><small>45° grid</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="03" data-at="173,268" data-t="03 // Node ESM // asset generator" data-d="gerar_praisetc_svg.mjs builds 14 brand SVGs from tokens.json and renders 23 PNGs in headless Chrome, with no npm package. It exits with code 1 if a size or safe-area check fails."><b>03</b><span>Node ESM</span><small>Asset gen</small></button></li>
+      </ul>
+      <figure class="const-fig">
+        <img class="theme-dark" src="../../assets/diagrams/constellation-studio-dark.svg" width="560" height="400" decoding="async" alt="Studio tooling constellation: HTML and CSS at the hub, SVG and Node ESM on the inner ring, Python, JSON tokens and Actions CI on the outer ring.">
+        <img class="theme-light" src="../../assets/diagrams/constellation-studio-light.svg" width="560" height="400" decoding="async" alt="Studio tooling constellation: HTML and CSS at the hub, SVG and Node ESM on the inner ring, Python, JSON tokens and Actions CI on the outer ring.">
+        <span class="ring" aria-hidden="true"><i></i></span>
+      </figure>
+      <ul class="leg leg-b" aria-label="Studio tooling, nodes 04 to 06">
+        <li><button type="button" aria-pressed="false" data-k="04" data-at="468,138" data-t="04 // Python // visual QA" data-d="A Playwright audit opens every page in dark and light at 1280 and 390 px. It fails on console errors, broken images, missing image sizes, horizontal overflow, third-party requests or CLS above 0.01."><b>04</b><span>Python</span><small>Visual QA</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="05" data-at="457,300" data-t="05 // JSON // WCAG tokens" data-d="tokens.json stores each colour with its measured contrast, such as 17.03:1 for Bright Aluminium on Carbon Zinc and 4.77:1 for Deep Signal on Warm Concrete."><b>05</b><span>JSON</span><small>WCAG tokens</small></button></li>
+        <li><button type="button" aria-pressed="false" data-k="06" data-at="82,178" data-t="06 // GitHub Actions // tests and checks" data-d="Dawnbringer's test workflow pins Godot 4.5-stable by SHA-512 and runs the fast and UI test matrix. OpenStrut runs bun run check and Playwright E2E."><b>06</b><span>Actions CI</span><small>Tests + checks</small></button></li>
+      </ul>
+      <p class="const-out" aria-live="polite"><b data-o="t">01 // HTML + CSS // zero-dependency UI</b><span data-o="d">Each page of praisetc.com is hand-written HTML with one shared stylesheet and one deferred script. No framework, no bundler, no webfont.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="principles" aria-labelledby="h-pr">
+  <div class="wrap">
+    <div class="sh"><p class="num">02 // Principles</p><h2 id="h-pr">Four rules, with evidence</h2></div>
+    <div class="cards c2">
+      <article class="card"><p class="eye">Rule 01</p><h3>Same input, same output</h3><ul class="dots small"><li>Dawnbringer's battle simulation runs on an integer clock (<code>TICKS = 5342931457063200</code>) with no random number generator in <code>game/core/battle/</code>.</li><li><code>gen_sfx.py</code> uses its own seeded generator, never the system RNG, so a seed always writes the same sound.</li><li>OpenStrut gives each IFC element a deterministic 128-bit GlobalId, so a re-export keeps BCF comments attached.</li></ul></article>
+      <article class="card"><p class="eye">Rule 02</p><h3>Test against an oracle the code did not produce</h3><ul class="dots small"><li>OpenStrut's expected values come from Prof. Paulo Bastos' published examples (UNESP), hand calculations, numerical integration or the 1991 SISTRUT binary in DOSBox-X.</li><li>Its IFC files roundtrip through IfcOpenShell, web-ifc and <code>@ifc-lite/parser</code>.</li><li>Dawnbringer's art tests check backdrops against <code>palette.json</code>, the written 32-colour spec.</li></ul></article>
+      <article class="card"><p class="eye">Rule 03</p><h3>Every format has a byte budget</h3><ul class="dots small"><li>OpenStrut's IFC4 writer is 25.0 KB (10.0 KB gzip) where <code>web-ifc</code> ships a 1.6 MB <code>.wasm</code>.</li><li><code>gen_sfx.py</code> cites a 12 MB budget for the web build.</li><li>This site: one stylesheet, one script, no webfont. The numbers are in the next section.</li></ul></article>
+      <article class="card"><p class="eye">Rule 04</p><h3>Rebuild from source, pin what you cannot rebuild</h3><ul class="dots small"><li>Dawnbringer's CI pins Godot <code>4.5-stable</code> and checks its SHA-512 before any test runs.</li><li><code>gerar_praisetc_svg.mjs</code> regenerates the brand's 14 SVGs and 23 PNGs from <code>tokens.json</code> and fails on a wrong size or a text outside the safe area.</li><li>OpenStrut's <code>bun run check</code> chains route generation, <code>tsc</code>, <code>oxlint</code>, <code>oxfmt</code> and Vitest.</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="performance" aria-labelledby="h-perf">
+  <div class="wrap">
+    <div class="sh"><p class="num">03 // This site</p><h2 id="h-perf">Performance architecture of praisetc.com</h2><p class="lead">The page you are reading is the test case. Each decision below has a reason you can check in the page source.</p></div>
+    <div class="proj-g">
+      <dl class="kv" style="margin-top:0">
+        <dt>Frameworks</dt><dd>0. Hand-written HTML, one <code>site.css</code> and one deferred <code>site.js</code> with no dependency.</dd>
+        <dt>Fonts</dt><dd>0 webfonts. Segoe UI, Inter or the system sans; Cascadia Mono, JetBrains Mono or the system mono.</dd>
+        <dt>Third parties</dt><dd>0 requests. No analytics, no CDN, no embed, no tracking pixel.</dd>
+        <dt>Navigation</dt><dd>Speculation Rules with <code>prerender</code> and <code>moderate</code> eagerness: hovering a link starts rendering the next page.</dd>
+        <dt>Layout</dt><dd>Every <code>&lt;img&gt;</code> declares its width and height, so the browser reserves space before the file arrives.</dd>
+        <dt>Rendering</dt><dd><code>content-visibility: auto</code> skips sections below the fold on first paint. Animations touch only <code>transform</code> and <code>opacity</code> and stop under <code>prefers-reduced-motion</code>.</dd>
+        <dt>Theme</dt><dd>A 120-byte inline script applies the saved theme before first paint. Diagrams ship as dark and light SVG pairs, so a switch makes no request.</dd>
+      </dl>
+      <div>
+        <div class="card">
+          <p class="eye">Measured on this build</p>
+          <table class="cmp perf" style="font-size:.88rem">
+            <thead><tr><th scope="col">Page</th><th scope="col">Transfer</th><th scope="col">3rd-party</th><th scope="col">CLS</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Overview</th><td>327.4 KB</td><td>0</td><td>0.000</td></tr>
+              <tr><th scope="row">Dawnbringer</th><td>519.1 KB</td><td>0</td><td>0.000</td></tr>
+              <tr><th scope="row">OpenStrut</th><td>533.9 KB</td><td>0</td><td>0.000</td></tr>
+              <tr><th scope="row">Engineering</th><td>77.3 KB</td><td>0</td><td>0.000</td></tr>
+            </tbody>
+          </table>
+          <p class="small mu" style="margin:14px 0 0">Headless Chrome audit across 1280×900 and 390×844 in both themes on a local server (warm local LCP under 360 ms; local timings leave out network latency). Transfer counts every response after scrolling the full page, lazy images included. <code>site.css</code> is 22.7 KB and <code>site.js</code> 7.2 KB before compression.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="identity" aria-labelledby="h-id">
+  <div class="wrap">
+    <div class="sh"><p class="num">04 // Identity</p><h2 id="h-id">Terminal PTC visual system</h2><p class="lead">The three letters of Praise The Code on one modular grid, followed by a cursor. The cursor is the only colour in the mark.</p></div>
+    <div class="proj-g">
+      <div>
+        <div class="marks">
+          <figure><img src="../../assets/mark-dark.svg" width="400" height="400" loading="lazy" decoding="async" alt="ptc_ mark on Carbon Zinc with a Signal Orange cursor and a fading dot grid."><figcaption class="cap"><b>Dark //</b> Signal Orange #FF5A1F</figcaption></figure>
+          <figure><img src="../../assets/mark-light.svg" width="400" height="400" loading="lazy" decoding="async" alt="ptc_ mark on Warm Concrete with a Deep Signal cursor and a Formwork Grey dot grid."><figcaption class="cap"><b>Light //</b> Deep Signal #C43A0A</figcaption></figure>
+        </div>
+      </div>
+      <dl class="kv" style="margin-top:0">
+        <dt>Canvas</dt><dd>400 px</dd>
+        <dt>Module</dt><dd>18.75 px: exactly 3 px at 64, 6 px at 128 and 12 px at 256</dd>
+        <dt>Stroke</dt><dd>1 module; x-height of 5 modules</dd>
+        <dt>Widths</dt><dd>p 4, t 3, c 3, cursor 2, with 1-module gaps: 15 modules, 70.3% of the canvas</dd>
+        <dt>Chamfer</dt><dd>45° at every bend: 1 module outside, 0.4 inside</dd>
+        <dt>Generator</dt><dd><code>gerar_praisetc_svg.mjs</code>: 14 SVGs and 23 PNGs from <code>tokens.json</code>, rendered in headless Chrome with no npm package</dd>
+      </dl>
+    </div>
+
+    <h3 style="font-size:1.3rem;margin:clamp(40px,6vw,64px) 0 8px">Contrast pairs from tokens.json</h3>
+    <p class="mu" style="margin:0 0 20px">Select a pair to preview it. Ratios are the values stored in the token file.</p>
+    <div data-picker data-active="1">
+      <div class="wc" role="group" aria-label="Contrast pairs">
+        <button type="button" aria-pressed="true" data-k="1" data-b="#111214" data-f="#F3F4F6" data-d="17.03:1 // AAA // Bright Aluminium #F3F4F6 on Carbon Zinc #111214. Body text on dark."><i style="--b:#111214;--f:#F3F4F6">Aa</i><span><b>Bright Aluminium on Carbon Zinc</b>#F3F4F6 / #111214</span><em>17.03:1<small>AAA</small></em></button>
+        <button type="button" aria-pressed="false" data-k="2" data-b="#F3F3F0" data-f="#141518" data-d="16.42:1 // AAA // Ink Black #141518 on Warm Concrete #F3F3F0. Body text on light."><i style="--b:#F3F3F0;--f:#141518">Aa</i><span><b>Ink Black on Warm Concrete</b>#141518 / #F3F3F0</span><em>16.42:1<small>AAA</small></em></button>
+        <button type="button" aria-pressed="false" data-k="3" data-b="#111214" data-f="#8E95A2" data-d="6.22:1 // AA // Brushed Steel #8E95A2 on Carbon Zinc #111214. Muted text and metadata on dark."><i style="--b:#111214;--f:#8E95A2">Aa</i><span><b>Brushed Steel on Carbon Zinc</b>#8E95A2 / #111214</span><em>6.22:1<small>AA</small></em></button>
+        <button type="button" aria-pressed="false" data-k="4" data-b="#F3F3F0" data-f="#5E636E" data-d="5.42:1 // AA // Slate #5E636E on Warm Concrete #F3F3F0. Muted text and metadata on light."><i style="--b:#F3F3F0;--f:#5E636E">Aa</i><span><b>Slate on Warm Concrete</b>#5E636E / #F3F3F0</span><em>5.42:1<small>AA</small></em></button>
+        <button type="button" aria-pressed="false" data-k="5" data-b="#111214" data-f="#FF5A1F" data-d="6.01:1 // AA // Signal Orange #FF5A1F on Carbon Zinc #111214. Cursor, rule and links on dark."><i style="--b:#111214;--f:#FF5A1F">Aa</i><span><b>Signal Orange on Carbon Zinc</b>#FF5A1F / #111214</span><em>6.01:1<small>AA</small></em></button>
+        <button type="button" aria-pressed="false" data-k="6" data-b="#F3F3F0" data-f="#C43A0A" data-d="4.77:1 // AA // Deep Signal #C43A0A on Warm Concrete #F3F3F0. Cursor and links on light."><i style="--b:#F3F3F0;--f:#C43A0A">Aa</i><span><b>Deep Signal on Warm Concrete</b>#C43A0A / #F3F3F0</span><em>4.77:1<small>AA</small></em></button>
+        <button type="button" aria-pressed="false" data-k="7" data-b="#FFFFFF" data-f="#C43A0A" data-d="5.31:1 // AA // Deep Signal #C43A0A on Paper White #FFFFFF. Links inside light cards."><i style="--b:#FFFFFF;--f:#C43A0A">Aa</i><span><b>Deep Signal on Paper White</b>#C43A0A / #FFFFFF</span><em>5.31:1<small>AA</small></em></button>
+      </div>
+      <div class="wc-out" data-out aria-live="polite" style="--b:#111214;--f:#F3F4F6"><strong>Praise The Code_</strong><span data-o="d">17.03:1 // AAA // Bright Aluminium #F3F4F6 on Carbon Zinc #111214. Body text on dark.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cv" id="experiments" aria-labelledby="h-ex">
+  <div class="wrap">
+    <div class="sh"><p class="num">05 // Experiments</p><h2 id="h-ex">Experiments</h2></div>
+    <div class="card prose"><h3>JEV-Factorio</h3><p style="margin:0">An experimental agent that plays Factorio 2.0. It stays an experiment: no case study and no architecture claims until it has results we can measure.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-label="Next project" style="padding:0">
+  <div class="wrap next"><span class="eye" style="margin:0">Case study 01</span><a class="big" href="../dawnbringer/">Next: Dawnbringer <span aria-hidden="true">&#8594;</span></a></div>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <span lang="pt-BR">PRAISE THE CODE, estúdio independente de software e jogos em São Paulo. CNPJ 58.830.051/0001-20.</span>
+  <span class="co"><a href="mailto:contato@praisetc.com">contato@praisetc.com</a> · 23°33'S 46°38'W</span>
+</div></footer>
+</body>
+</html>

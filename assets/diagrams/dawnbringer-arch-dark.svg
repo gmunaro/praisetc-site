@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" role="img" aria-labelledby="db-dark-title db-dark-desc">
+<title id="db-dark-title">Dawnbringer: Godot 4.5 architecture</title>
+<desc id="db-dark-desc">Four zones, left to right: data and localization (JSON content and CSV catalogs), a pure deterministic core with no scene tree, the Votive Gothic 2x renderer with procedural audio, and edge services with five shipping platforms. A six-layer verification pipeline runs underneath all four.</desc>
+<defs>
+<pattern id="db-dark-grid" x="1.5" y="9.5" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="1.5" height="1.5" fill="#2C3038"/></pattern>
+</defs>
+<rect width="960" height="460" fill="#111214"/>
+<rect width="960" height="460" fill="url(#db-dark-grid)"/>
+<g id="db-dark-header">
+<rect x="24" y="20" width="4" height="24" fill="#FF5A1F"/>
+<text x="38" y="37" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="2.4" fill="#F3F4F6">DAWNBRINGER <tspan fill="#FF5A1F">//</tspan> GODOT 4.5 ARCHITECTURE</text>
+<text x="936" y="36" text-anchor="end" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="9.5" letter-spacing="1.1" fill="#8E95A2">v0.7.2 · 640×360 DESIGN · 2× HD</text>
+</g>
+<g id="db-dark-panels" fill="none" stroke="#2C3038">
+<path d="M24 54.5H936"/>
+<path fill="#1A1C20" d="M34.5 70.5H199.5V327.5L189.5 337.5H24.5V80.5ZM230.5 70.5H431.5V327.5L421.5 337.5H220.5V80.5ZM462.5 70.5H683.5V327.5L673.5 337.5H452.5V80.5ZM714.5 70.5H935.5V327.5L925.5 337.5H704.5V80.5ZM34.5 366.5H935.5V429.5L925.5 439.5H24.5V376.5Z"/>
+<path d="M38 132.5H186M38 257.5H186M238 132.5H418M238 256.5H418M466 132.5H670M466 194.5H670M466 270.5H670M718 132.5H922M718 203.5H922M718 262.5H922M190.5 378V428M668.5 378V428"/>
+<path fill="#111214" d="M79.5 63.5H186.5V74.5L183.5 77.5H76.5V66.5ZM557.5 63.5H670.5V74.5L667.5 77.5H554.5V66.5ZM844.5 63.5H922.5V74.5L919.5 77.5H841.5V66.5Z"/>
+</g>
+<path id="db-dark-core-rule" fill="#FF5A1F" d="M220 81L225 76V338H220Z"/>
+<path id="db-dark-core-tab" fill="#FF5A1F" d="M311 63H418V75L415 78H308V66Z"/>
+<g id="db-dark-flow" fill="#FF5A1F">
+<path fill="none" stroke="#FF5A1F" stroke-width="1.5" d="M200 204H214M432 204H446M684 204H698"/>
+<path d="M198 202h4v4h-4zM430 202h4v4h-4zM682 202h4v4h-4zM213 200.5L219.5 204L213 207.5ZM445 200.5L451.5 204L445 207.5ZM697 200.5L703.5 204L697 207.5Z"/>
+</g>
+<g id="db-dark-replay" fill="#8E95A2">
+<path fill="none" stroke="#8E95A2" stroke-dasharray="3 3" d="M820.5 340V352.5H326.5V345"/>
+<path d="M818.5 336h4v4h-4zM323 346L326.5 339.5L330 346Z"/>
+<rect x="471" y="344" width="194" height="16" fill="#111214"/>
+<text x="568" y="355.5" text-anchor="middle" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="8.5" letter-spacing="1">PVP-VERIFIER · HEADLESS REPLAY</text>
+</g>
+<g id="db-dark-glyphs" fill="none">
+<path stroke="#8E95A2" stroke-opacity=".5" stroke-dasharray="1 3" d="M161 162.5H73M169 175.5H97M169 188.5H73M173 201.5H85M173 214.5H73M173 227.5H77M169 240.5H77"/>
+<path stroke="#8E95A2" stroke-width="7" stroke-dasharray="8 2" d="M38 285.5H176"/>
+<rect x="178.5" y="282.5" width="7" height="6" stroke="#FF5A1F"/>
+<path stroke="#8E95A2" stroke-width="4" stroke-dasharray="1 9" d="M238 179H419"/>
+<path stroke="#8E95A2" d="M238 181.5H419"/>
+<path stroke="#FF5A1F" stroke-width="5" stroke-dasharray="5 25" d="M238 189.5H417"/>
+<path stroke="#8E95A2" stroke-width="5" stroke-dasharray="5 35" d="M238 198.5H417"/>
+<path stroke="#8E95A2" stroke-opacity=".42" stroke-width="7" stroke-dasharray="4 1" d="M466 237.5H485M491 237.5H520M526 237.5H545M551 237.5H565M571 237.5H585M591 237.5H605M611 237.5H625M631 237.5H645M651 237.5H665"/>
+<path fill="#D66A51" d="M561 234h4v11h-4z"/>
+<path fill="#FFE9A8" d="M601 234h4v11h-4z"/>
+<path fill="#C39BE8" d="M641 234h4v11h-4z"/>
+<path stroke="#8E95A2" d="M215 382.5H304M319 382.5H432M447 382.5H528"/>
+<path fill="#8E95A2" d="M304 379.5L310 382.5L304 385.5ZM432 379.5L438 382.5L432 385.5ZM528 379.5L534 382.5L528 385.5Z"/>
+<path fill="#1A1C20" stroke="#F3F4F6" d="M208.5 379.5h6v6h-6zM312.5 379.5h6v6h-6zM440.5 379.5h6v6h-6zM536.5 379.5h6v6h-6z"/>
+<path fill="#111214" stroke="#2C3038" d="M238.5 226.5h55v15h-55zM308.5 226.5h71v15h-71zM238.5 282.5h49v15h-49zM292.5 282.5h55v15h-55zM352.5 282.5h65v15h-65zM718.5 288.5h45v15h-45zM767.5 288.5h35v15h-35zM806.5 288.5h35v15h-35zM845.5 288.5h45v15h-45zM894.5 288.5h25v15h-25z"/>
+</g>
+<g id="db-dark-titles" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="11" font-weight="600" letter-spacing=".9" fill="#F3F4F6">
+<text x="38" y="107">DATA &amp;</text>
+<text x="38" y="121">LOCALIZATION</text>
+<text x="238" y="107">PURE DETERMINISTIC</text>
+<text x="238" y="121">CORE</text>
+<text x="466" y="107">VOTIVE GOTHIC 2× RENDERER</text>
+<text x="466" y="121">&amp; PROCEDURAL AUDIO</text>
+<text x="718" y="107">EDGE SERVICES</text>
+<text x="718" y="121">&amp; SHIPPING</text>
+<text x="38" y="400">6-LAYER VERIFICATION</text>
+<text x="38" y="414">PIPELINE</text>
+</g>
+<g id="db-dark-meta" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" fill="#8E95A2">
+<g font-size="9">
+<text x="38" y="90"><tspan font-weight="600" fill="#FF5A1F">01</tspan><tspan dx="7">JSON · CSV</tspan></text>
+<text x="238" y="90"><tspan font-weight="600" fill="#FF5A1F">02</tspan><tspan dx="7">game/core/</tspan></text>
+<text x="466" y="90"><tspan font-weight="600" fill="#FF5A1F">03</tspan><tspan dx="7">game/scenes/ · ui/ · autoload/</tspan></text>
+<text x="718" y="90"><tspan font-weight="600" fill="#FF5A1F">04</tspan><tspan dx="7">tools/</tspan></text>
+<text x="38" y="386"><tspan font-weight="600" fill="#FF5A1F">05</tspan><tspan dx="7">L0 to L5</tspan></text>
+<text x="718" y="162">Cloudflare Workers + D1</text>
+<text x="418" y="149" text-anchor="end" letter-spacing=".8" fill="#FF5A1F">ZERO RNG</text>
+<text x="670" y="287" text-anchor="end">44.1 kHz</text>
+</g>
+<g font-size="8.5" letter-spacing=".8" text-anchor="middle">
+<text x="131.5" y="73.5">100% DATA-DRIVEN</text>
+<text x="363" y="73.5" font-weight="600" fill="#111214">REFCOUNTED RULES</text>
+<text x="612.5" y="73.5">SHARP-BILINEAR 2×</text>
+<text x="882" y="73.5">5 PLATFORMS</text>
+</g>
+<g font-size="8.5" letter-spacing=".8">
+<text x="238" y="216" letter-spacing="0">act every <tspan fill="#F3F4F6">TICKS / pace</tspan></text>
+<text x="686" y="418">GUT TESTS</text>
+<text x="770" y="418">SUITES</text>
+<text x="842" y="418">PYTHON TOOLS</text>
+</g>
+<g font-size="8" text-anchor="middle">
+<text x="563" y="257">#D66A51</text>
+<text x="603" y="257">#FFE9A8</text>
+<text x="643" y="257">#C39BE8</text>
+</g>
+</g>
+<g id="db-dark-code" font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" fill="#F3F4F6">
+<g font-size="10">
+<text x="38" y="149">game/content/*.json</text>
+<text x="38" y="274">game/i18n/*.csv</text>
+<text x="238" y="149">battle_sim.gd</text>
+<text x="238" y="273">run/ · economy/ · meta/</text>
+<text x="466" y="149">HdTexture + hd_sharp.gdshaderinc</text>
+<text x="466" y="211">Dark Fantasy 32</text>
+<text x="466" y="287">audio.gd + gen_sfx.py</text>
+<text x="718" y="149">bugreport-worker</text>
+<text x="718" y="220">pvp-worker + pvp-verifier</text>
+<text x="718" y="279">Targets</text>
+<text x="301" y="237.5" text-anchor="middle" fill="#FF5A1F">/</text>
+</g>
+<g font-size="10.5" text-anchor="end">
+<text x="186" y="166">105</text>
+<text x="186" y="179">19</text>
+<text x="186" y="192">19</text>
+<text x="186" y="205">6</text>
+<text x="186" y="218">9</text>
+<text x="186" y="231">4</text>
+<text x="186" y="244">31</text>
+</g>
+<g font-size="9" text-anchor="middle">
+<text x="266" y="237.5">simulate</text>
+<text x="344" y="237.5">fingerprint</text>
+<text x="263" y="293.5">RunFlow</text>
+<text x="320" y="293.5">RunTrace</text>
+<text x="385" y="293.5">RunSummary</text>
+</g>
+<g font-size="8.5" text-anchor="middle">
+<text x="741" y="299">Windows</text>
+<text x="785" y="299">macOS</text>
+<text x="824" y="299">Linux</text>
+<text x="868" y="299">Android</text>
+<text x="907" y="299">iOS</text>
+</g>
+<g font-size="9.5" font-weight="600" fill="#FF5A1F">
+<text x="208" y="400">L0</text>
+<text x="312" y="400">L1</text>
+<text x="440" y="400">L2-L3</text>
+<text x="536" y="400">L4-L5</text>
+</g>
+<g font-size="17" font-weight="600">
+<text x="686" y="402">4,671</text>
+<text x="770" y="402">517</text>
+<text x="842" y="402">589</text>
+</g>
+</g>
+<g id="db-dark-copy" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="10.5" fill="#8E95A2">
+<text x="38" y="166">items</text>
+<text x="38" y="179">Landlords</text>
+<text x="38" y="192">cards</text>
+<text x="38" y="205">biomes</text>
+<text x="38" y="218">vows</text>
+<text x="38" y="231">guilds</text>
+<text x="38" y="244">events</text>
+<text x="38" y="305"><tspan font-weight="600" fill="#F3F4F6">14</tspan> shipped locales</text>
+<text x="38" y="319">+ <tspan font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="10" fill="#FF5A1F">eo</tspan> pseudo-locale</text>
+<text x="238" y="164">Integer-only clock (<tspan font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="9.5" fill="#F3F4F6">TICKS</tspan>)</text>
+<text x="238" y="314">Gear &amp; guild rules</text>
+<text x="466" y="164">Sharp-bilinear 2× rendering at</text>
+<text x="466" y="177">uneven scales (1080p, mobile)</text>
+<text x="466" y="226"><tspan font-weight="600" fill="#F3F4F6">32</tspan> locked colours · <tspan font-weight="600" fill="#F3F4F6">9</tspan> ramps</text>
+<text x="466" y="257" font-size="10"><tspan font-weight="600" fill="#F3F4F6">3</tspan> reserved roles</text>
+<text x="466" y="302">Deterministic procedural SFX</text>
+<text x="466" y="315">Adaptive Landlord night layer</text>
+<text x="718" y="177">Bug reports · Play license check</text>
+<text x="718" y="190">Opt-in <tspan font-family="'Cascadia Mono', 'JetBrains Mono', Consolas, monospace" font-size="9.5" fill="#F3F4F6">RunTrace</tspan> telemetry</text>
+<text x="718" y="235">Headless replay architecture</text>
+<text x="718" y="248">Gated offline in v0.7.2</text>
+<text x="718" y="320"><tspan font-weight="600" fill="#F3F4F6">14</tspan> export presets</text>
+<g fill="#F3F4F6">
+<text x="208" y="414">Fast GUT (&lt;2m)</text>
+<text x="312" y="414">UI &amp; Run Flow</text>
+<text x="440" y="414">Balance Bots</text>
+<text x="536" y="414">Automated Playtests</text>
+<text x="536" y="427">&amp; 12 Screen Formats</text>
+</g>
+</g>
+</svg>
