@@ -85,6 +85,7 @@
       panes.forEach(p => (p.style.minHeight = h + 'px'));
     };
     even();
+    d.addEventListener('ptc:layout', even);
     let vw = innerWidth;
     addEventListener('resize', () => vw != innerWidth && ((vw = innerWidth), even()));
     tabs.forEach((b, i) => {
@@ -617,6 +618,7 @@
     if (auto && !matchMedia('(prefers-reduced-motion: reduce)').matches && !(nc && nc.saveData)) {
       // the bar is laid out from the start (buttons invisible), so the autoplay moves nothing
       title(auto); bar.hidden = false; bar.classList.add('idle');
+      d.dispatchEvent(new Event('ptc:layout'));
       onView(app, v => v && !started && launch(auto), { threshold: .5 });
     }
     if (!d.fullscreenEnabled) $('[data-act=fs]', bar).hidden = true; // iPhone Safari has no element fullscreen
