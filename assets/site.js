@@ -448,7 +448,7 @@
 
   // OpenStrut live app: nothing loads from the app's origin until a click on the facade,
   // or, for a demo marked data-auto, until the panel is mostly in view (skipped under
-  // reduced motion or Save-Data). Each button's data-demo is the app's demo link
+  // Save-Data; under reduced motion the app cuts between stops instead of flying). Each button's data-demo is the app's demo link
   // (?exemplo=...&embed=1): the app opens the calculated example on that view.
   $$('[data-app]').forEach(app => {
     const base = app.dataset.src, fr = $('.app-frame', app), face = $('.app-face', app), bar = $('.app-bar', app), hint = $('.hint', bar), ext = $('.ext', bar);
@@ -480,7 +480,7 @@
     };
     $$('[data-demo]', face).forEach(b => (b.onclick = () => launch(b)));
     const auto = $('[data-auto]', face), nc = navigator.connection;
-    if (auto && !matchMedia('(prefers-reduced-motion: reduce)').matches && !(nc && nc.saveData)) {
+    if (auto && !(nc && nc.saveData)) {
       // the bar is laid out from the start (buttons invisible), so the autoplay moves nothing
       title(auto); bar.hidden = false; bar.classList.add('idle');
       d.dispatchEvent(new Event('ptc:layout'));
