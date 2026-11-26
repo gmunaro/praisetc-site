@@ -412,14 +412,14 @@ a.ext:not(.btn)::after{content:" \2197"}
 .sbx-c .note{grid-column:1/-1;margin:0}
 
 /* OpenStrut live app: click-to-launch facade, then a same-size iframe. */
-.app{border:1px solid var(--ln);background:var(--sf)}
+.app{border:1px solid var(--ln);background:var(--sf);container-type:inline-size}
 .app-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px;border-bottom:1px solid var(--ln);font:12px/1.4 var(--mono)}
 .app-bar .hint{flex:1 1 260px;color:var(--fg);min-width:0}
 .app-bar .hint b{color:var(--ac);font-weight:400}
 .app-bar.idle button,.app-bar.idle a{visibility:hidden}
 .app-bar button,.app-bar a{font:11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;border:1px solid var(--ln);background:var(--bg);color:var(--fg);cursor:pointer;text-decoration:none}
-/* Phone: one row, icon buttons. The text stays as the accessible name; the glyph is decorative (the plain content line is the fallback for browsers without alt text in content). */
-@media (max-width:759px){
+/* Narrow panel (phone, or the Overview column on desktop): one row, icon buttons. The text stays as the accessible name; the glyph is decorative (the plain content line is the fallback for browsers without alt text in content). */
+@container (max-width:759px){
   .app-bar{flex-wrap:nowrap}
   .app-bar .hint{flex:1 1 auto;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   /* the "Live //" prefix leaves the screen so the demo name fits; screen readers still hear it */
