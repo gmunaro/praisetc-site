@@ -188,6 +188,101 @@
     layout(); show(); go();
   }
 
+  // Art direction plates (Votive Gothic pillars). Each one hydrates its own markup on the Dawnbringer page.
+  // P1: "Wick only" greys the scene and keeps the #FFE9A8 layer, which flickers like the engine's ember glow
+  // (alpha +-0.06, a new target every 120-200 ms, ART_DIRECTION.md section 3).
+  $$('[data-wick]').forEach(p => {
+    const b = $('button', p), w = $('.w', p);
+    let t = 0;
+    const fl = () => { w.style.setProperty('--fl', (1 - Math.random() * .12).toFixed(3)); t = setTimeout(fl, 120 + Math.random() * 80); };
+    b.onclick = () => {
+      const on = b.getAttribute('aria-pressed') != 'true';
+      b.setAttribute('aria-pressed', on);
+      p.classList.toggle('on', on);
+      clearTimeout(t);
+      if (on && !RM.matches) fl(); else w.style.removeProperty('--fl');
+    };
+  });
+  // P2: each silhouette is a toggle that reveals the figure and its name.
+  $$('[data-sil] .st-p2 button').forEach(b => (b.onclick = () => b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') != 'true')));
+
+  // P4: plays the game's idle tracks (anims.json) on the flat Choirmaster rig, posed as SvgRig does it: a part's
+  // bone is parent bone x translate(pivot - parent pivot + p) x rotate(r) x scale(s); ground parts hang from the feet.
+  const rigP = $('[data-rig]');
+  if (rigP) {
+    const A = JSON.parse(rigP.dataset.rig), st = $('.st-p4', rigP), img = $('img', st), run = $('[data-run]', rigP), gh = $('[data-ghost]', rigP);
+    const BK = 1.70158, EASE = { linear: f => f, in: f => f ** 3, out: f => 1 - (1 - f) ** 3, inout: f => f * f * (3 - 2 * f), back: f => 1 + (BK + 1) * (f - 1) ** 3 + BK * (f - 1) ** 2, anticipate: f => (BK + 1) * f ** 3 - BK * f * f };
+    const key = k => [k.p || [0, 0], k.r || 0, k.s || [1, 1]];
+    const lerp = (a, b, f) => (Array.isArray(a) ? a.map((v, i) => v + (b[i] - v) * f) : a + (b - a) * f);
+    const sample = (ks, t) => {
+      if (!ks || !ks.length) return key({});
+      let a = ks[0];
+      if (t <= a.t) return key(a);
+      for (const b of ks.slice(1)) {
+        if (t <= b.t) { const f = EASE[b.e || 'inout']((t - a.t) / Math.max(b.t - a.t, 1e-4)), ka = key(a), kb = key(b); return ka.map((v, i) => lerp(v, kb[i], f)); }
+        a = b;
+      }
+      return key(a);
+    };
+    const mul = (m, n) => [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]];
+    const xf = ([p, r, s]) => { const c = Math.cos(r * Math.PI / 180), n = Math.sin(r * Math.PI / 180); return [c * s[0], n * s[0], -n * s[1], c * s[1], p[0], p[1]]; };
+    const T = (x, y) => [1, 0, 0, 1, x, y];
+    let svg, parts, feet, t = 0, last = 0, id = 0, vis = false, play = !RM.matches, glow, fx = 0;
+    const pose = () => {
+      const W = { '': mul(T(...feet), xf(sample(A.tracks.root, t))), '@': T(...feet) }, P = { '': feet, '@': feet };
+      const place = q => {
+        if (W[q.id]) return W[q.id];
+        const par = A.ground.includes(q.id) ? '@' : q.par, up = parts[par] ? place(parts[par]) : W[par], pp = P[par] || parts[par].pv, k = sample(A.tracks[q.id], t);
+        return (W[q.id] = mul(up, xf([[q.pv[0] - pp[0] + k[0][0], q.pv[1] - pp[1] + k[0][1]], k[1], k[2]])));
+      };
+      for (const q of Object.values(parts)) { const m = mul(place(q), T(-q.pv[0], -q.pv[1])); q.el.setAttribute('transform', `matrix(${m.map(v => +v.toFixed(3)).join(' ')})`); }
+    };
+    const flick = now => { if (glow && now > fx) { glow.style.opacity = (1 - Math.random() * .12).toFixed(3); fx = now + 120 + Math.random() * 80; } };
+    const tick = now => {
+      id = 0;
+      if (!play || !vis || !svg) return;
+      t = (t + Math.min(100, now - (last || now)) / 1000) % A.length; last = now;
+      pose(); flick(now);
+      id = raf(tick);
+    };
+    const go = () => { last = 0; run.textContent = play ? 'Pause' : 'Play'; if (play && vis && !id) id = raf(tick); };
+    fetch(img.currentSrc || img.src).then(r => r.text()).then(txt => {
+      const box = d.createElement('div');
+      box.innerHTML = txt;
+      svg = box.querySelector('svg');
+      if (!svg) return;
+      svg.removeAttribute('width'); svg.removeAttribute('height'); svg.setAttribute('aria-hidden', 'true');
+      feet = svg.dataset.feet.split(' ').map(Number);
+      parts = {};
+      $$('g[data-pivot]', svg).forEach(g => (parts[g.id] = { id: g.id, el: g, pv: g.dataset.pivot.split(' ').map(Number), par: g.dataset.parent || '' }));
+      glow = $('circle[fill="url(#glow)"]', svg);
+      st.append(svg); st.classList.add('live');
+      pose(); go();
+    }).catch(() => {});
+    run.onclick = () => { play = !play; go(); };
+    gh.onclick = () => { const on = gh.getAttribute('aria-pressed') != 'true'; gh.setAttribute('aria-pressed', on); st.classList.toggle('ghost', on); };
+    onView(st, v => { vis = v; go(); });
+  }
+
+  // P5: the combat loop plays on request; "Freeze and read" pauses it, runs a 2 s bar, then lights the HUD slots.
+  $$('[data-freeze]').forEach(p => {
+    const st = $('.st-p5', p), v = $('video', st), pb = $('[data-vplay]', p), fz = $('[data-fz]', p), out = $('.ad-o', p), msg = out.textContent;
+    let tm = 0;
+    const unfreeze = () => { clearTimeout(tm); st.classList.remove('fz', 'rd'); fz.setAttribute('aria-pressed', 'false'); out.textContent = msg; };
+    const sync = () => (pb.textContent = v.paused ? 'Play' : 'Pause');
+    v.addEventListener('play', sync); v.addEventListener('pause', sync);
+    pb.onclick = () => { if (v.paused) { unfreeze(); v.play().catch(() => {}); } else v.pause(); };
+    fz.onclick = () => {
+      if (fz.getAttribute('aria-pressed') == 'true') return unfreeze();
+      v.pause();
+      fz.setAttribute('aria-pressed', 'true');
+      st.classList.add('fz');
+      out.textContent = 'Reading the frame for 2 seconds.';
+      tm = setTimeout(() => { st.classList.add('rd'); out.textContent = 'Life and stats for each side, and the phase, sit in the same three slots in every frame.'; }, 2000);
+    };
+    onView(st, vis => vis || v.pause());
+  });
+
   // Generic pickers: a [data-k] button fills its [data-picker] box (used by the code comparator).
   // The box reserves the height of its tallest option, so switching never moves the page below it.
   $$('[data-picker]').forEach(box => {

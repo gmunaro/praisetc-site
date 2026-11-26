@@ -290,14 +290,88 @@ a.ext:not(.btn)::after{content:" \2197"}
 .pick i{width:56px;height:56px;background:var(--c,#0B0710);border:1px solid var(--ln)}
 .pick strong{font:600 1.15rem/1.2 var(--mono);display:block}
 .legend-row{display:flex;flex-wrap:wrap;gap:6px 16px;font:12px/1.4 var(--mono);color:var(--mu);margin:10px 0 0}
-.pill{display:grid;gap:0;margin-bottom:clamp(28px,4vw,44px)}
-.pill li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:2px 14px;padding:12px 0;border-top:1px solid var(--ln);align-items:baseline}
-.pill li>b{font:300 1.5rem/1 var(--mono);color:var(--ac);grid-row:span 2}
-.pill h3{font-size:1.05rem}
-.pill p{margin:0;font:12.5px/1.5 var(--mono);color:var(--mu)}
-@media (min-width:980px){.pill{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}}
-blockquote{margin:0 0 clamp(22px,3vw,34px);padding:2px 0 2px clamp(16px,2.4vw,26px);border-left:4px solid var(--bar);font:italic 600 clamp(1.3rem,2.6vw,1.9rem)/1.3 var(--disp);max-width:32ch}
-blockquote cite{display:block;font:normal 400 12px/1.4 var(--mono);color:var(--mu);letter-spacing:.08em;margin-top:10px}
+/* Art direction plates: each pillar runs on the game's own art. Stages stay ink-dark in both themes. */
+.ad{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+@media (min-width:980px){.ad{grid-template-columns:repeat(2,minmax(0,1fr))}.ad-wide{grid-column:1/-1}}
+.ad-p{display:flex;flex-direction:column;gap:12px;min-width:0;padding:clamp(14px,2vw,20px);border:1px solid var(--ln);background:var(--sf)}
+.ad-h{display:flex;align-items:baseline;gap:12px;margin:0;font-size:1.15rem}
+.ad-h b{font:300 1.35rem/1 var(--mono);color:var(--ac)}
+.ad-st{position:relative;overflow:hidden;aspect-ratio:2/1;background:radial-gradient(70% 60% at 50% 100%,#2C1C33,#140E1F 72%);border:1px solid #2D1E3A}
+.ad-c{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.ad-c button{font:12px/1 var(--mono);min-height:40px;padding:9px 12px;border:1px solid var(--ln);background:var(--bg);color:var(--fg);cursor:pointer;transition:transform .3s var(--spring),background-color .2s,border-color .2s}
+.ad-c button:hover{transform:translateY(-1px)}
+.ad-c button[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:var(--on)}
+.ad-o{margin:0;flex:1 1 260px;min-width:0;font:12.5px/1.55 var(--mono);color:var(--mu)}
+.ad-o b{color:var(--fg)}
+.ad-p>.ad-o,.ad .alab .ad-o{flex:none}
+/* P1: the Maw and the Choirmaster at in-fight scale; "Wick only" greys both and keeps the #FFE9A8 layer. */
+.st-p1 img{position:absolute;bottom:0;width:auto;max-width:none;transition:filter .7s ease,opacity .7s ease}
+.st-p1 .m{right:3%;height:94%}
+.st-p1 .h,.st-p1 .w{left:10%;height:64%}
+.st-p1 .w{opacity:0}
+.on .st-p1 .m,.on .st-p1 .h{filter:grayscale(1) brightness(.38)}
+.on .st-p1 .w{opacity:var(--fl,1)}
+@media (max-width:759px){.st-p1{aspect-ratio:4/3}.st-p1 .m{right:0;height:82%}.st-p1 .h,.st-p1 .w{left:0;height:56%}}
+.ad-pal{display:grid;gap:8px}
+.ad-row{display:grid;grid-template-columns:minmax(0,1fr);gap:4px}
+@media (min-width:760px){.ad-row{grid-template-columns:200px minmax(0,1fr);align-items:center;gap:14px}}
+.ad-row>span{font:12px/1.35 var(--mono);color:var(--fg)}
+.ad-row>span b{display:block;font-weight:400;color:var(--mu)}
+.ad-row>div{display:grid;grid-template-columns:repeat(32,minmax(0,1fr));gap:2px}
+.ad-row i{height:20px;background:var(--c,repeating-linear-gradient(135deg,#0000 0 3px,var(--ln) 3px 4px));transition:opacity .5s,box-shadow .5s}
+.ad-row i.e{box-shadow:0 3px 0 -1px var(--ac)}
+.on .ad-row i:not([data-wk]){opacity:.14}
+.on .ad-row i[data-wk]{box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--ac),0 0 14px 2px #F5C05C}
+/* P2: one sprite; the mask makes the flat #0B0710 shape, the same sprite on ::after is the reveal. */
+.st-p2{aspect-ratio:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#3A2A3C;border-color:#3A2A3C}
+.st-p2 button{display:grid;align-content:start;gap:6px;min-width:0;padding:10px 6px 12px;border:0;background:none;color:#F2E3C6;cursor:pointer;-webkit-tap-highlight-color:#0000}
+.st-p2 .s{position:relative;aspect-ratio:1;background:#0B0710;-webkit-mask:url(showcase/dawnbringer-sil.webp) calc(var(--i)*33.3333%) 0/400% 100% no-repeat;mask:url(showcase/dawnbringer-sil.webp) calc(var(--i)*33.3333%) 0/400% 100% no-repeat;transition:transform .5s var(--spring)}
+.st-p2 .s::after{content:"";position:absolute;inset:0;background:url(showcase/dawnbringer-sil.webp) calc(var(--i)*33.3333%) 0/400% 100% no-repeat;opacity:0;transition:opacity .5s ease}
+.st-p2 button:hover .s{transform:translateY(-3px)}
+.st-p2 [aria-pressed=true] .s::after{opacity:1}
+.st-p2 .n{visibility:hidden;opacity:0;min-height:2.7em;font:600 13px/1.3 var(--disp);text-align:center;transition:opacity .4s}
+.st-p2 .n small{display:block;font:11px/1.4 var(--mono);color:#B39FA8}
+.st-p2 [aria-pressed=true] .n{visibility:visible;opacity:1}
+.st-p2 button:focus-visible{outline:2px solid #F5C05C;outline-offset:-4px}
+@media (max-width:599px){.st-p2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* P3 hosts the speed lab; P4 plays the rig's idle tracks over a ghost of its rest pose. */
+.ad .alab{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+.ad .alab-c,.ad .alab-tl{margin:0}
+.ad .alab-out{min-height:4.7em}
+.st-p3,.st-p4{aspect-ratio:5/4}
+.st-p3{display:grid;place-items:center;background:#1E1428}
+.st-p3 .alab-vp{width:auto;height:88%;max-width:none;aspect-ratio:1;margin:0;border:0;background-color:#0000}
+.st-p4 img,.st-p4 svg{position:absolute;inset:0;margin:auto;width:auto;height:100%;max-width:none;transition:opacity .4s,filter .4s}
+.st-p4.live img{opacity:0;filter:brightness(0) invert(88%) sepia(40%)}
+.st-p4.live.ghost img{opacity:.32}
+/* P5: freeze the loop; after the 2 s bar the three fixed HUD slots light up over a dimmed frame. */
+.st-p5{aspect-ratio:16/9}
+.st-p5 video{display:block;width:100%;height:100%;object-fit:cover;transition:filter .5s}
+.fz-bar{position:absolute;left:0;bottom:0;width:100%;height:4px;background:#F5C05C;transform:scaleX(0);transform-origin:0 50%}
+.fz .fz-bar{animation:fzb 2s linear forwards}
+@keyframes fzb{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.rd video{filter:brightness(.4) saturate(.5)}
+.slot{position:absolute;top:2%;height:15.5%;border:2px solid #F5C05C;opacity:0;transform:scale(1.08);transition:opacity .35s,transform .5s var(--spring);pointer-events:none}
+.slot.a{left:1.2%;width:31.4%}.slot.b{left:42%;width:16%;height:10.5%}.slot.c{right:1.2%;width:31.4%}
+.slot em{position:absolute;top:calc(100% + 6px);left:0;width:max-content;max-width:150px;padding:4px 6px;background:#0B0710;color:#F5C05C;font:normal 11px/1.3 var(--mono)}
+.slot.b em{left:50%;transform:translateX(-50%)}.slot.c em{left:auto;right:0}
+.rd .slot{opacity:1;transform:none;backdrop-filter:brightness(2.5) saturate(2)}
+.rd .slot.b{transition-delay:.12s}.rd .slot.c{transition-delay:.24s}
+@media (max-width:759px){.slot em{max-width:none;font-size:10px;padding:3px 5px}.slot.a em,.slot.c em{width:100%}.slot.b em{width:150%;text-align:center}}
+/* Dark Fantasy 32 inspector, kept as the reference under the plates. */
+.ad-df{margin-top:clamp(28px,4vw,44px)}
+.ad-df h3{margin:0 0 12px;font-size:1.15rem}
+@media (min-width:980px){.ad-df .pal-b{grid-template-columns:minmax(0,480px) minmax(0,1fr)}}
+.ad-df .sw{max-height:36px}
+@media (max-width:599px){.ad-df .pal-r{grid-template-columns:minmax(0,1fr);gap:4px}}
+[data-freeze] .ad-o{min-height:3.1em}
+/* Touch: every control in the art section reaches 44 px, by pointer or, when that is not reported, by width. */
+@media (pointer:coarse),(max-width:759px){
+  [data-freeze] .ad-o{min-height:4.65em}
+  .ad-c button,.ad .alab-c button,.ad-df .pal-f button{min-height:44px;min-width:44px}
+  .ad-df .sw{max-height:none;min-width:44px;min-height:44px}
+  .ad-df .pal-r>div{grid-template-columns:repeat(6,minmax(44px,1fr))}
+}
 
 /* Animation speed lab: 6-frame strip stepped by background-position. */
 .alab{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
