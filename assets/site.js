@@ -447,8 +447,9 @@
   });
 
   // OpenStrut live app: nothing loads from the app's origin until a click on the facade,
-  // or, for a demo marked data-auto, until the panel is mostly in view (skipped under
-  // Save-Data; under reduced motion the app cuts between stops instead of flying). Each button's data-demo is the app's demo link
+  // or, for a demo marked data-auto, as soon as the panel reaches the middle half of the
+  // viewport (works for panels taller than the window, e.g. phones in landscape).
+  // Each button's data-demo is the app's demo link
   // (?exemplo=...&embed=1): the app opens the calculated example on that view.
   $$('[data-app]').forEach(app => {
     const base = app.dataset.src, fr = $('.app-frame', app), face = $('.app-face', app), bar = $('.app-bar', app), hint = $('.hint', bar), ext = $('.ext', bar);
@@ -479,12 +480,12 @@
       fr.style.minHeight = h; frame().style.minHeight = h;
     };
     $$('[data-demo]', face).forEach(b => (b.onclick = () => launch(b)));
-    const auto = $('[data-auto]', face), nc = navigator.connection;
-    if (auto && !(nc && nc.saveData)) {
+    const auto = $('[data-auto]', face);
+    if (auto) {
       // the bar is laid out from the start (buttons invisible), so the autoplay moves nothing
       title(auto); bar.hidden = false; bar.classList.add('idle');
       d.dispatchEvent(new Event('ptc:layout'));
-      onView(app, v => v && !started && launch(auto), { threshold: .5 });
+      onView(app, v => v && !started && launch(auto), { rootMargin: '-25% 0px -25% 0px' });
     }
     if (!d.fullscreenEnabled) $('[data-act=fs]', bar).hidden = true; // iPhone Safari has no element fullscreen
     $('[data-act=fs]', bar).onclick = () => (app.requestFullscreen ? app.requestFullscreen().catch(() => {}) : frame() && frame().requestFullscreen && frame().requestFullscreen());
