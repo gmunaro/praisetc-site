@@ -51,8 +51,7 @@
 
 <section class="sec" id="demo" aria-labelledby="h-demo">
   <div class="wrap">
-    <div class="sh"><p class="num">01 // Live demo deck</p><h2 id="h-demo">Run it here</h2><p class="lead">Launch the real app in place, or shape a frame in the sandbox, which needs no download at all.</p></div>
-    <p class="eye">Panel 1 <b>//</b> live OpenStrut V2</p>
+    <div class="sh"><p class="num">01 // Live demo deck</p><h2 id="h-demo">Run it here</h2><p class="lead">The real app, running in this page.</p></div>
     <div class="app" data-app data-src="https://gmunaro.github.io/openstrut/">
       <div class="app-bar" hidden>
         <p class="hint" aria-live="polite"></p>
@@ -71,23 +70,6 @@
             <button type="button" data-demo="?exemplo=edificio&amp;aba=3d&amp;moldura=0&amp;painel=0&amp;cor=concreto&amp;foco=pilar~1%C2%BA%20pavimento~P6&amp;camada=render,armadura&amp;embed=1">Rebar in 3D</button>
           </div>
         </div>
-      </div>
-    </div>
-    <p class="eye" style="margin-top:clamp(28px,4vw,44px)">Panel 2 <b>//</b> parametric 2D / 3D / IFC4 sandbox</p>
-    <div class="sbx full" data-sbx>
-      <div class="sbx-v">
-        <canvas width="640" height="480" role="img" aria-label="Parametric concrete frame preview. Drag sideways to orbit."></canvas>
-        <p class="sbx-hud"></p>
-        <span class="sbx-ramp" aria-hidden="true"><i></i>Nk</span>
-      </div>
-      <div class="sbx-c">
-        <div class="tabs" role="group" aria-label="View"><button type="button" data-view="3d" aria-pressed="true">3D exploded Nk</button><button type="button" data-view="2d" aria-pressed="false">2D plan</button></div>
-        <label><span>Span Lx <output>4.5 m</output></span><input type="range" name="lx" min="3" max="6" step="0.5" value="4.5"></label>
-        <label><span>Span Ly <output>4.0 m</output></span><input type="range" name="ly" min="3" max="6" step="0.5" value="4"></label>
-        <label><span>Storeys <output>3</output></span><input type="range" name="st" min="1" max="6" step="1" value="3"></label>
-        <label><span>Explode Nk <output>40%</output></span><input type="range" name="ex" min="0" max="100" step="5" value="40"></label>
-        <pre class="code step" tabindex="0" aria-label="IFC4 STEP text for the current frame"></pre>
-        <p class="note">Interactive parametric preview. Launch the live app for full NBR 6118:2023 &amp; NB-1/78 calculations.</p>
       </div>
     </div>
   </div>
