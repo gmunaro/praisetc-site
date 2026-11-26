@@ -421,6 +421,8 @@ a.ext:not(.btn)::after{content:" \2197"}
 @media (max-width:759px){
   .app-bar{flex-wrap:nowrap}
   .app-bar .hint{flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* the "Live //" prefix leaves the screen so the demo name fits; screen readers still hear it */
+  .app-bar .hint b{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
   .app-bar button,.app-bar a{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:0;font-size:0;letter-spacing:0}
   .app-bar button::before,.app-bar a::before{font:18px/1 var(--mono)}
   .app-bar [data-act=fs]::before{content:"\2922";content:"\2922" / ""}
