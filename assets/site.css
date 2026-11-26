@@ -391,27 +391,6 @@ a.ext:not(.btn)::after{content:" \2197"}
 .alab-out{font:12.5px/1.5 var(--mono);color:var(--mu);min-height:6em;margin:0}
 .alab-out b{color:var(--fg)}
 
-/* OpenStrut sandbox: Canvas 2D wireframe and live IFC4 text. */
-.sbx{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;border:1px solid var(--ln);background:var(--sf);padding:12px}
-@media (min-width:980px){.sbx.full{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}}
-.sbx-v{position:relative;min-width:0}
-.sbx canvas{display:block;width:100%;height:auto;aspect-ratio:4/3;background:var(--bg);border:0 solid;border-top-color:var(--ln);border-bottom-color:var(--mu);border-left-color:var(--ac);border-right-color:var(--ac2);color:var(--fg);touch-action:pan-y;cursor:grab}
-.sbx canvas:active{cursor:grabbing}
-.sbx-hud{position:absolute;left:8px;top:8px;font:11px/1.4 var(--mono);color:var(--mu);background:color-mix(in srgb,var(--bg) 85%,#0000);padding:5px 7px;border:1px solid var(--ln);pointer-events:none}
-.sbx-hud b{color:var(--fg)}
-.sbx-ramp{position:absolute;right:8px;bottom:8px;display:flex;align-items:center;gap:6px;font:10.5px/1 var(--mono);color:var(--mu);background:color-mix(in srgb,var(--bg) 85%,#0000);padding:5px 7px;border:1px solid var(--ln);pointer-events:none}
-.sbx-ramp i{width:56px;height:6px;background:linear-gradient(90deg,var(--r0,#38BDF8),var(--r1,#FBBF24),var(--r2,#FF5A1F))}
-.sbx-c{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;min-width:0;align-content:start}
-.sbx-c label{display:grid;gap:4px;font:11.5px/1.2 var(--mono);color:var(--mu);min-width:0}
-.sbx-c label span{display:flex;justify-content:space-between;gap:6px}
-.sbx-c output{color:var(--fg);font-variant-numeric:tabular-nums}
-.sbx-c input{width:100%;accent-color:var(--ac);margin:0}
-.sbx-c .tabs{grid-column:1/-1;margin:0}
-.sbx-c .step{grid-column:1/-1;height:15.5em;font-size:11px}
-.sbx.compact .sbx-c .step{height:9.5em}
-.sbx-c .note{grid-column:1/-1;margin:0}
-
-/* OpenStrut live app: click-to-launch facade, then a same-size iframe. */
 .app{border:1px solid var(--ln);background:var(--sf);container-type:inline-size}
 .app-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px;border-bottom:1px solid var(--ln);font:12px/1.4 var(--mono)}
 .app-bar .hint{flex:1 1 260px;color:var(--fg);min-width:0}
@@ -528,7 +507,7 @@ dialog.lb .x{position:fixed;top:12px;right:12px;font:12px/1 var(--mono);padding:
 @media (pointer:coarse){
   .tabs button,.vid-ctl button,.cur-bar button,.orb-tog,.pal-f button,.alab-c button,.app-bar button,.app-bar a,.tog,.links a,dialog.lb .x{min-height:44px}
   .orb-chips{grid-auto-rows:44px;min-height:calc(var(--rows,4)*50px - 6px)}
-  .cur-bar input,.sbx-c input{height:32px}
+  .cur-bar input{height:32px}
 }
 @media (max-width:759px){
   dialog.lb[open]{place-items:start}
@@ -539,13 +518,12 @@ dialog.lb .x{position:fixed;top:12px;right:12px;font:12px/1 var(--mono);padding:
 .crumbs a,.next .eye{display:inline-flex;align-items:center;min-height:40px}
 @media (pointer:coarse){.world-pill,[data-w],[data-md]{min-height:44px}.crumbs a,.next .eye{min-height:44px}}
 @media (max-width:759px){.const-out{min-height:8.6em}}
-/* Phones: a square sandbox gives the plan room under the HUD; remaining small targets reach 44 px. */
-@media (max-width:599px){.sbx canvas{aspect-ratio:1}}
+/* Remaining small targets reach 44 px on touch. */
 @media (pointer:coarse){
   .alab-c button{min-width:44px}
   .brand{min-height:44px}
   .recipes button,.btn,.next .big,.rows a{display:inline-flex;align-items:center;min-height:44px}
-  .cur-bar input,.sbx-c input{height:44px}
+  .cur-bar input{height:44px}
 }
 dialog.lb figcaption{position:sticky;left:0;max-width:min(90ch,calc(100vw - 24px))}
 @media (pointer:coarse){.foot .co a{display:inline-block;padding-block:15px;margin-block:-15px}}
