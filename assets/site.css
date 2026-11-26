@@ -343,17 +343,17 @@ blockquote cite{display:block;font:normal 400 12px/1.4 var(--mono);color:var(--m
 .app-bar .hint{flex:1 1 260px;color:var(--fg);min-width:0}
 .app-bar .hint b{color:var(--ac);font-weight:400}
 .app-bar button,.app-bar a{font:11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;border:1px solid var(--ln);background:var(--bg);color:var(--fg);cursor:pointer;text-decoration:none}
-/* Phone: one row, icon buttons. The text stays as the accessible name; the glyph is decorative. */
+/* Phone: one row, icon buttons. The text stays as the accessible name; the glyph is decorative (the plain content line is the fallback for browsers without alt text in content). */
 @media (max-width:759px){
   .app-bar{flex-wrap:nowrap}
   .app-bar .hint{flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .app-bar button,.app-bar a{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;min-height:44px;padding:0;font-size:0;letter-spacing:0}
+  .app-bar button,.app-bar a{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:0;font-size:0;letter-spacing:0}
   .app-bar button::before,.app-bar a::before{font:18px/1 var(--mono)}
-  .app-bar [data-act=fs]::before{content:"\2922" / ""}
-  .app-bar [data-act=reload]::before{content:"\21BB" / ""}
-  .app-bar a.ext::before{content:"\2197" / ""}
+  .app-bar [data-act=fs]::before{content:"\2922";content:"\2922" / ""}
+  .app-bar [data-act=reload]::before{content:"\21BB";content:"\21BB" / ""}
+  .app-bar a.ext::before{content:"\2197";content:"\2197" / ""}
   .app-bar a.ext::after{content:none}
-  .app-bar [data-act=close]::before{content:"\2715" / ""}
+  .app-bar [data-act=close]::before{content:"\2715";content:"\2715" / ""}
 }
 .app-frame{position:relative;min-height:640px;display:grid}
 .app-frame iframe{width:100%;height:100%;min-height:640px;border:0;display:block;background:var(--bg)}
