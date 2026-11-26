@@ -580,23 +580,28 @@
     colors(); update(); fit();
   });
 
-  // OpenStrut live app: nothing loads from the app's origin until a click on the facade.
-  // Each button's data-demo is the app's demo link (?exemplo=...&embed=1): the app opens
-  // the calculated example on that view, with no steps inside the frame.
+  // OpenStrut live app: nothing loads from the app's origin until a click on the facade,
+  // or, for a demo marked data-auto, until the panel is mostly in view (skipped under
+  // reduced motion or Save-Data). Each button's data-demo is the app's demo link
+  // (?exemplo=...&embed=1): the app opens the calculated example on that view.
   $$('[data-app]').forEach(app => {
     const base = app.dataset.src, fr = $('.app-frame', app), face = $('.app-face', app), bar = $('.app-bar', app), hint = $('.hint', bar), ext = $('.ext', bar);
     const frame = () => $('iframe', fr);
-    let src = base;
-    const launch = b => {
-      src = base + b.dataset.demo;
+    let src = base, started = false;
+    const title = b => {
       hint.textContent = '';
       const g = d.createElement('b');
       g.textContent = 'Live // ';
       hint.append(g, b.dataset.label || b.textContent);
+    };
+    const launch = b => {
+      started = true;
+      src = base + b.dataset.demo;
+      title(b);
       // the external tab is the full app, not the embedded mode
       ext.href = src.replace(/[?&]embed=1$/, '');
-      const H = fr.offsetHeight;
-      bar.hidden = false;
+      const H = fr.offsetHeight, shown = !bar.hidden;
+      bar.hidden = false; bar.classList.remove('idle');
       if (!frame()) {
         const f = d.createElement('iframe');
         f.title = 'OpenStrut V2 live app'; f.allow = 'fullscreen; clipboard-write; xr-spatial-tracking'; f.referrerPolicy = 'no-referrer';
@@ -604,10 +609,16 @@
       }
       frame().src = src;
       face.hidden = true;
-      const h = Math.max(0, H - bar.offsetHeight) + 'px';
+      const h = Math.max(0, H - (shown ? 0 : bar.offsetHeight)) + 'px';
       fr.style.minHeight = h; frame().style.minHeight = h;
     };
     $$('[data-demo]', face).forEach(b => (b.onclick = () => launch(b)));
+    const auto = $('[data-auto]', face), nc = navigator.connection;
+    if (auto && !matchMedia('(prefers-reduced-motion: reduce)').matches && !(nc && nc.saveData)) {
+      // the bar is laid out from the start (buttons invisible), so the autoplay moves nothing
+      title(auto); bar.hidden = false; bar.classList.add('idle');
+      onView(app, v => v && !started && launch(auto), { threshold: .5 });
+    }
     if (!d.fullscreenEnabled) $('[data-act=fs]', bar).hidden = true; // iPhone Safari has no element fullscreen
     $('[data-act=fs]', bar).onclick = () => (app.requestFullscreen ? app.requestFullscreen().catch(() => {}) : frame() && frame().requestFullscreen && frame().requestFullscreen());
     $('[data-act=reload]', bar).onclick = () => frame() && (frame().src = src);
